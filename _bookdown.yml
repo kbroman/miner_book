@@ -1,4 +1,4 @@
 book_filename: miner.book
 new_session: yes
-output_dir: "book"
+output_dir: "docs"
 rmd_files: ["index.Rmd", "installation.Rmd", "references.Rmd"]
