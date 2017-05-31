@@ -5,6 +5,7 @@ A [bookdown](https://bookdown.rstudio.com) book about
 and particularly about using R to interact with Minecraft, using the
 [miner](https://github.com/ROpenSciLabs/miner) package.
 
+View the book online at <https://ropenscilabs.github.io/miner.book/>.
 
 ### About this book
 
