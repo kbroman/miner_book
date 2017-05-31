@@ -24,7 +24,7 @@ California, in May, 2017. We are grateful to ROpenSci for bringing us
 together.
 
 Our work on R and Minecraft was inspired by example at
-<http://smarterpoland.pl/> using R to make a [3D scatterplot in
+<http://smarterpoland.pl> using R to make a [3D scatterplot in
 minecraft](http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/),
 and by [Craig Richardson](https://twitter.com/craigargh)'s book [Learn
 to Program with
