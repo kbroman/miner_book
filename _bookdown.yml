@@ -9,4 +9,5 @@ rmd_files:
  - plant_a_garden.Rmd
  - numguess.Rmd
  - mc_image.Rmd
+ - R_logo.Rmd
  - references.Rmd
