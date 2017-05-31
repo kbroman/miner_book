@@ -8,4 +8,5 @@ rmd_files:
  - stand_on_tower.Rmd
  - plant_a_garden.Rmd
  - numguess.Rmd
+ - mc_image.Rmd
  - references.Rmd
