@@ -7,4 +7,5 @@ rmd_files:
  - stairway-to-heaven.Rmd
  - stand_on_tower.Rmd
  - plant_a_garden.Rmd
+ - numguess.Rmd
  - references.Rmd
