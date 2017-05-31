@@ -12,21 +12,14 @@ with Minecraft from R, here I will render the R logo within Minecraft.
 
 ### Load and prepare an image file
 
-First, let's download the image file from the web
+First, let's download the image file from the web.
+We'll load it directly into R from the web using the
+[imager](https://cran.r-project.org/package=imager) package.
 
 ```{r download_file}
-url <- "https://www.r-project.org/logo/Rlogo.png"
-file <- basename(url)
-download.file(url, file)
-```
-
-Next, let's use the
-[imager](https://cran.r-project.org/package=imager) package to read it
-into R.
-
-```{r load_image}
 library(imager)
-logo <- load.image(file)
+url <- "https://www.r-project.org/logo/Rlogo.png"
+logo <- load.image(url)
 ```
 
 Print to see the size of the image.
