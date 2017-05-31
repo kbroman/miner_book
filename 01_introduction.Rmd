@@ -1,0 +1,26 @@
+# Introduction
+
+[Minecraft](https://minecraft.net) is awesome fun, especially in
+creative mode, where you can build all sorts of crazy stuff. But
+ambitious building projects can be really tedious to create by hand.
+With the [miner R package](https://github.com/ropenscilabs/miner), you
+can write [R](https://www.r-project.org) code to manipulate your
+Minecraft world and create even more awesome stuff.
+
+
+## Installation
+
+To use the [miner package](https://github.com/ropenscilabs/miner),
+you'll need a Minecraft server that is using the
+[RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice)
+plugin. You can [Spigot](https://www.spigotmc.org) to set up your own
+server, even locally on your machine. The installation process doesn't
+take too long, but it helps to have some _command line_ experience.
+
+### Mac OS X
+
+### Windows
+
+### Docker
+
+### Raspberry Pi
