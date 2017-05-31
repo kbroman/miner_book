@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 miner.rds
+_cache
+_bookdown_files
