@@ -6,7 +6,21 @@ and particularly about using R to interact with Minecraft, using the
 [miner](https://github.com/ROpenSciLabs/miner) package.
 
 
----
+### About this book
+
+This book was written to accompany the
+[miner R package](https://github.com/ROpenSciLabs/miner), which was
+created as part of the
+[ROpenSci unconference](http://unconf17.ropensci.org/) in May, 2017
+by:
+
+* [Brooke Anderson](https://github.com/geanders)
+* [Karl Broman](https://github.com/kbroman)
+* [Gergely Daróczi](https://github.com/daroczig)
+* [Mario Inchiosa](https://github.com/inchiosa)
+* [David Smith](https://github.com/revodavid)
+* [Ali Zaidi](https://github.com/akzaidi)
+
 
 ### License
 
