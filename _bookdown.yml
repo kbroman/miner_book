@@ -10,4 +10,5 @@ rmd_files:
  - numguess.Rmd
  - mc_image.Rmd
  - R_logo.Rmd
+ - maze.Rmd
  - references.Rmd
