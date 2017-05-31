@@ -1,4 +1,9 @@
 book_filename: miner.book
 new_session: yes
 output_dir: "docs"
-rmd_files: ["index.Rmd", "installation.Rmd", "stairway-to-heaven.Rmd", "references.Rmd"]
+rmd_files:
+ - index.Rmd
+ - installation.Rmd
+ - stairway-to-heaven.Rmd
+ - stand_on_tower.Rmd
+ - references.Rmd
