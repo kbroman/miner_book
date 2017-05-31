@@ -7,7 +7,6 @@ site: bookdown::bookdown_site
 cover-image: "cover_sm.png"
 documentclass: book
 bibliography: [book.bib, packages.bib]
-biblio-style: plain
 link-citations: yes
 github-repo: ROpenSciLabs/miner.book
 description: "The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it."
