@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="rendering-an-image-in-minecraft.html">
+<link rel="next" href="generate-a-maze-in-minecraft.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,64 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
+<div id="rendering-the-r-logo-in-minecraft" class="section level1">
+<h1><span class="header-section-number">8</span> Rendering the R logo in Minecraft</h1>
+<p>As a further illustration of use of the <a href="https://github.com/ropenscilabs/miner">miner</a> package to interact with Minecraft from R, here I will render the R logo within Minecraft.</p>
+<div id="load-and-prepare-an-image-file-1" class="section level3">
+<h3><span class="header-section-number">8.0.1</span> Load and prepare an image file</h3>
+<p>First, let’s download the image file from the web. We’ll load it directly into R from the web using the <a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(imager)
+url &lt;-<span class="st"> &quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>
+logo &lt;-<span class="st"> </span><span class="kw">load.image</span>(url)</code></pre></div>
+<p>Print to see the size of the image.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logo</code></pre></div>
+<pre><code>## Image. Width: 800 pix Height: 700 pix Depth: 1 Colour channels: 4</code></pre>
+<p>The image is stored as a 4-dimensional array: horizontal and vertical position, time, and color.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(logo)</code></pre></div>
+<pre><code>## [1] 800 700   1   4</code></pre>
+<p>Let’s reduce the size to 80x70.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logo &lt;-<span class="st"> </span><span class="kw">resize</span>(logo, <span class="dv">80</span>, <span class="dv">70</span>)</code></pre></div>
+<p>There is a bit of shading in the logo, but mostly there are three colors: transparent, gray, and blue. If we look at a histogram of the first color channel (red), we can see the three pieces:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">5.1</span>,<span class="fl">4.1</span>,<span class="fl">0.6</span>,<span class="fl">0.6</span>), <span class="dt">las=</span><span class="dv">1</span>)
+<span class="kw">hist</span>(logo[,,,<span class="dv">1</span>], <span class="dt">breaks=</span><span class="dv">100</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Red color intensity&quot;</span>)</code></pre></div>
+<p><img src="R_logo_files/figure-html/hist_red-1.png" width="672" /></p>
+<p>So let’s truncate at 0.05 and 0.4.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logo[] &lt;-<span class="st"> </span><span class="kw">cut</span>(logo, <span class="kw">c</span>(-<span class="ot">Inf</span>, <span class="fl">0.05</span>, <span class="fl">0.4</span>, <span class="ot">Inf</span>))
+logo &lt;-<span class="st"> </span>logo[,,<span class="dv">1</span>,<span class="dv">1</span>]</code></pre></div>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="render-in-minecraft" class="section level3">
+<h3><span class="header-section-number">8.0.2</span> Render in Minecraft</h3>
+<p>Now let’s load the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package, connect to the MineCraft server, and find a spot to place the logo.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<span class="kw">mc_connect</span>()
+host_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()
+host_pos[<span class="dv">2</span>] &lt;-<span class="st"> </span>host_pos[<span class="dv">2</span>] +<span class="st"> </span><span class="dv">10</span></code></pre></div>
+<p>Now let’s render the R logo using gray and blue wool, leaving parts transparent.</p>
+<p>First, we pick out the blue and gray wool blocks, to get the item and style IDs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">blue &lt;-<span class="st"> </span><span class="kw">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)
+gray &lt;-<span class="st"> </span><span class="kw">find_item</span>(<span class="st">&quot;Light Gray Wool&quot;</span>)</code></pre></div>
+<p>Now we try rendering the logo.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(logo)) {
+    for(j in <span class="dv">1</span>:<span class="kw">ncol</span>(logo)) {
+        if(logo[i,j] ==<span class="st"> </span><span class="dv">2</span>)
+            <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]+(<span class="kw">nrow</span>(logo)-i),
+                     host_pos[<span class="dv">2</span>]+(<span class="kw">ncol</span>(logo)-j),
+                     host_pos[<span class="dv">3</span>],
+                     blue[<span class="dv">2</span>], blue[<span class="dv">3</span>])
+        if(logo[i,j] ==<span class="st"> </span><span class="dv">3</span>)
+            <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]+(<span class="kw">nrow</span>(logo)-i),
+                     host_pos[<span class="dv">2</span>]+(<span class="kw">ncol</span>(logo)-j),
+                     host_pos[<span class="dv">3</span>],
+                     gray[<span class="dv">2</span>], gray[<span class="dv">3</span>])
+    }
+}</code></pre></div>
+<p>The result looks like this:</p>
+<div class="figure">
+<img src="figure/Rlogo_minecraft.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+
 </div>
 </div>
             </section>
@@ -188,8 +229,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rendering-an-image-in-minecraft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generate-a-maze-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

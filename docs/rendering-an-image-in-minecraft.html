@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="number-guess-chat-bot-in-minecraft.html">
+<link rel="next" href="rendering-the-r-logo-in-minecraft.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,70 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="rendering-an-image-in-minecraft" class="section level1">
+<h1><span class="header-section-number">7</span> Rendering an image in Minecraft</h1>
+<p>The <a href="https://github.com/ropenscilabs/miner">miner</a> package makes it possible to manipulate minecraft. Here I will illustrate one use of this: reading in an image file and rendering it within minecraft as blocks.</p>
+<div id="load-and-prepare-an-image-file" class="section level3">
+<h3><span class="header-section-number">7.0.1</span> Load and prepare an image file</h3>
+<p>First, let’s download an image file from the web. We’ll load it directly into R from the web, using the <a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(imager)
+url &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;https://bids.berkeley.edu/sites/default/files/styles&quot;</span>,
+              <span class="st">&quot;/300x300/public/karthik_ram.jpeg?itok=loiSP_tm&quot;</span>)
+img &lt;-<span class="st"> </span><span class="kw">load.image</span>(url)</code></pre></div>
+<p>Print to see the size of the image.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img</code></pre></div>
+<pre><code>## Image. Width: 300 pix Height: 300 pix Depth: 1 Colour channels: 3</code></pre>
+<p>The image is stored as a 4-dimensional array: horizontal and vertical position, time, and color.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(img)</code></pre></div>
+<pre><code>## [1] 300 300   1   3</code></pre>
+<p>Let’s convert it to grayscale, and make it 100x100.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img &lt;-<span class="st"> </span><span class="kw">grayscale</span>(img)
+img &lt;-<span class="st"> </span><span class="kw">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</code></pre></div>
+<p>The level of gray is a number between 0 and 1. I’d like to coarsen that to having 7 levels, which I can turn into different kinds of minecraft blocks. I can use the R function <code>cut</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img[] &lt;-<span class="st"> </span><span class="kw">cut</span>(img, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">8</span>))</code></pre></div>
+<p>Now let’s load the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and create a vector of different block types, from black to white. We can use <code>find_item</code> to find the item IDs for these block times. “Clay” has two possible item IDs; we’ll take the first one.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+grayscale_blocks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,
+                     <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)
+grayscale_blocks &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="kw">lapply</span>(grayscale_blocks,
+                         function(a) <span class="kw">find_item</span>(a)[<span class="dv">1</span>,,<span class="dt">drop=</span><span class="ot">FALSE</span>]))</code></pre></div>
+<p>Here’s the result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grayscale_blocks</code></pre></div>
+<pre><code>##           name id style
+## 81  Black Wool 35    15
+## 73   Gray Wool 35     7
+## 26     Bedrock  7     0
+## 36    Coal Ore 16     0
+## 149       Clay 82     0
+## 66  White Wool 35     0
+## 95  Iron Block 42     0</code></pre>
+<p>Now, let’s render that in Minecraft. We use <code>mc_connect()</code> to connect to a minecraft server.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>()</code></pre></div>
+<p>Let’s find the “host” player position, and put the image 20 blocks above his/her head. Actually, I’ll hard-code it in here, so if I re-run this it ends up in the same place.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">host_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()
+host_pos[<span class="dv">2</span>] &lt;-<span class="st"> </span>host_pos[<span class="dv">2</span>] +<span class="st"> </span><span class="dv">20</span></code></pre></div>
+<p>Now, we render the image, with a nested <code>for</code> loop.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
+    for(j in <span class="dv">1</span>:<span class="dv">100</span>) {
+        <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]+i, host_pos[<span class="dv">2</span>]+j, host_pos[<span class="dv">3</span>],
+                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],
+                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])
+    }
+}</code></pre></div>
+<p>Oops. that gives the image upside down and backwards. Let’s fix that.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
+    for(j in <span class="dv">1</span>:<span class="dv">100</span>) {
+        <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]+(<span class="dv">101</span>-i), host_pos[<span class="dv">2</span>]+(<span class="dv">101</span>-j), host_pos[<span class="dv">3</span>],
+                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],
+                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])
+    }
+}</code></pre></div>
+<p>The result looks like this:</p>
+<div class="figure">
+<img src="figure/karthik_minecraft.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+
 </div>
 </div>
             </section>
@@ -188,8 +235,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="number-guess-chat-bot-in-minecraft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rendering-the-r-logo-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

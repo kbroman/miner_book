@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="building-a-tower-and-jumping-on-type.html">
+<link rel="next" href="number-guess-chat-bot-in-minecraft.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,101 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
+<div id="planting-a-garden" class="section level1">
+<h1><span class="header-section-number">5</span> Planting a garden</h1>
+<p>From within R, you can get a record of recent events, like block hits. You can take advantage of this to place blocks at the places you hit. This tutorial shows how to plant random flowers at every spot you hit. It then expands on these ideas to show how to make ice towers.</p>
+<div id="connect-with-a-minecraft-server" class="section level2">
+<h2><span class="header-section-number">5.1</span> Connect with a Minecraft server</h2>
+<p>First, you need to connect to a Minecraft server, which you can do with the <code>mc_connect</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>()</code></pre></div>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="create-a-dataframe-with-recent-hits" class="section level2">
+<h2><span class="header-section-number">5.2</span> Create a dataframe with recent hits</h2>
+<p>The <code>getBlockHits</code> function will pull a dataframe with recent hits made by players in the Minecraft world. This dataframe will only include hits that were made by an iron sword and with a right click. Go into the game, make sure you have an iron sword, and use the right click to hit some blocks around you. Go back into R and create a dataframe with those hits using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">recent_hits &lt;-<span class="st"> </span><span class="kw">getBlockHits</span>()
+<span class="kw">head</span>(recent_hits, <span class="dv">3</span>)</code></pre></div>
+<pre><code>    x  y  z block  player
+1  10  0  8     2 5799549
+2  10  0  8     2 5799549
+3  10  0  8     2 5799549</code></pre>
+<p>The <code>getBlockHits</code> function will return hits from all players. You just want hits that you made. You can use functions in the <code>dplyr</code> library to filter the returned dataset just to those you made. You will need to know what your player ID is, but once you do, you can use <code>filter</code> to get down to just the rows of the hits dataframe where the player id equals your ID using the logical statement <code>player == [your player ID]</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+hit_locs &lt;-<span class="st"> </span>recent_hits %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(player ==<span class="st"> </span><span class="dv">5799549</span>)</code></pre></div>
+<p>Now you know where your character made hits. The next step is to place flowers there. To start, let’s make a dataframe with several of the different flowers available in Minecraft. To do this, we can filter the <code>mc_items</code> dataframe that comes with the <code>miner</code> dataset to just the rows with certain types of flowers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mc_items)
+flowers &lt;-<span class="st"> </span>mc_items %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sunflower&quot;</span>, <span class="st">&quot;Lilac&quot;</span>, <span class="st">&quot;Rose Bush&quot;</span>, <span class="st">&quot;Peony&quot;</span>,
+                     <span class="st">&quot;Blue Orchid&quot;</span>, <span class="st">&quot;Red Tulip&quot;</span>, <span class="st">&quot;Pink Tulip&quot;</span>,
+                     <span class="st">&quot;Oxeye Daisy&quot;</span>))
+flowers</code></pre></div>
+<pre><code>         name  id style
+1 Blue Orchid  38     1
+2   Red Tulip  38     4
+3  Pink Tulip  38     7
+4 Oxeye Daisy  38     8
+5   Sunflower 175     0
+6       Lilac 175     1
+7   Rose Bush 175     4
+8       Peony 175     5</code></pre>
+<p>Now, you can use a loop. This will loop through every row of the hits dataframe. For each hit, it will randomly pick one of the flower types and place it at that block:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(hit_locs)){
+  this_flower &lt;-<span class="st"> </span><span class="kw">sample_n</span>(flowers, <span class="dv">1</span>)
+  <span class="kw">setBlock</span>(hit_locs$x[i], hit_locs$y[i], hit_locs$z[i],
+           <span class="dt">id =</span> this_flower$id, <span class="dt">style =</span> this_flower$style)
+}</code></pre></div>
+<p>If you go back into your Minecraft world, you should see flowers where you made your hits, like this:</p>
+<div class="figure">
+<img src="figure/flowers.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+</div>
+<div id="build-ice-towers" class="section level2">
+<h2><span class="header-section-number">5.3</span> Build ice towers</h2>
+<p>Expanding on this, instead of just adding in flowers, you could make full towers. The <code>setBlocks</code> function lets you fill a cuboid space with a single type of blocks. If you have a dataframe of hit locations named <code>hit_locs</code>, as in the previous example, you can add ice towers with random heights between 1 and 4 units at each location using the following loop:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(hit_locs)){
+  tower_height &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">1</span>)
+  <span class="kw">setBlocks</span>(hit_locs$x[i], hit_locs$y[i], hit_locs$z[i],
+            hit_locs$x[i], hit_locs$y[i] +<span class="st"> </span>tower_height, hit_locs$z[i],
+            <span class="dt">id =</span> <span class="dv">212</span>)
+}</code></pre></div>
+<div class="figure">
+<img src="figure/ice_towers.png" />
+
+</div>
+</div>
+<div id="write-a-function-to-do-this-interactively" class="section level2">
+<h2><span class="header-section-number">5.4</span> Write a function to do this interactively</h2>
+<p>You can expand on this idea and write a function that will “listen” to your Minecraft world from R and build ice towers as you make block hits.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ice_towers &lt;-<span class="st"> </span>function(player_id, <span class="dt">delay =</span> <span class="fl">0.2</span>){
+  while(<span class="ot">TRUE</span>){
+    latest_events &lt;-<span class="st"> </span>miner::<span class="kw">getBlockHits</span>()
+    if(<span class="kw">nrow</span>(latest_events) ==<span class="st"> </span><span class="dv">0</span>) next
+
+    latest_events &lt;-<span class="st"> </span>latest_events %&gt;%
+<span class="st">      </span>dplyr::<span class="kw">filter</span>(player ==<span class="st"> </span>player_id) %&gt;%
+<span class="st">      </span>dplyr::<span class="kw">distinct</span>()
+
+    if(<span class="kw">nrow</span>(latest_events) ==<span class="st"> </span><span class="dv">0</span>) next
+
+    for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(latest_events)){
+      tower_height &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">1</span>)
+      miner::<span class="kw">setBlocks</span>(latest_events$x[i], latest_events$y[i], latest_events$z[i],
+                       latest_events$x[i], latest_events$y[i] +<span class="st"> </span>tower_height, latest_events$z[i],
+                       <span class="dt">id =</span> <span class="dv">212</span>)
+    }
+    <span class="kw">Sys.sleep</span>(delay)
+  }
+}</code></pre></div>
+<p>You can set this function to run from within your R session with a call like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ice_towers</span>(<span class="dt">player_id =</span> <span class="dv">7433954</span>)</code></pre></div>
+<p>Then you can go inside your Minecraft world, and you should be able to make ice towers anywhere you hit with a right click with an iron sword.</p>
+</div>
+<div id="close-the-connection-1" class="section level2">
+<h2><span class="header-section-number">5.5</span> Close the connection</h2>
+<p>When you’re done working with the Minecraft world, you can close the connection using <code>mc_close</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_close</span>()</code></pre></div>
+
 </div>
 </div>
             </section>
@@ -188,8 +266,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="building-a-tower-and-jumping-on-type.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="number-guess-chat-bot-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

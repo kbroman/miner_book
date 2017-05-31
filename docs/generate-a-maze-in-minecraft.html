@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="rendering-the-r-logo-in-minecraft.html">
+<link rel="next" href="random-walks-in-the-minecraft-world.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,114 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
+<div id="generate-a-maze-in-minecraft" class="section level1">
+<h1><span class="header-section-number">9</span> Generate a maze in Minecraft</h1>
+<p>This example illustrates how to generate a perfect maze from R and the render in Minecraft.</p>
+<div id="generate-a-random-maze" class="section level2">
+<h2><span class="header-section-number">9.1</span> Generate a random maze</h2>
+<p>First, we need to generate a maze, for which we will use the <a href="https://github.com/Vessy/Rmaze"><code>Rmaze</code></a> R package’s depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&#39;Vessy/Rmaze&#39;</span>)</code></pre></div>
+<p>Then load the package and generate a maze with, for example, 10 x 10 tiles:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Rmaze)
+
+n &lt;-<span class="st"> </span><span class="dv">10</span>
+maze &lt;-<span class="st"> </span><span class="kw">makeGraph</span>(n, n)
+<span class="kw">set.seed</span>(<span class="dv">42</span>)
+maze &lt;-<span class="st"> </span><span class="kw">makeMaze_dfs</span>(maze)</code></pre></div>
+<p>This is a graph representation of the maze, which can be rendered with <code>ggplot2</code> very easily:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMaze</span>(maze, n, n)</code></pre></div>
+<p><img src="maze_files/figure-html/maze-plot-1.png" width="672" /></p>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="transform-maze-graph-into-matrix" class="section level2">
+<h2><span class="header-section-number">9.2</span> Transform maze graph into matrix</h2>
+<p>Now we have to transform this graph representation into a binary matrix, where we see in 2D which blocks need to be air or wall. Let’s start with a large empty <code>matrix</code> allowing 4 block for every single cell, as in the matrix we will use blocks for the wall as well (unlike in the above plot):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> n*<span class="dv">4</span>, <span class="dt">ncol =</span> n*<span class="dv">4</span>)</code></pre></div>
+<p>Then let’s mark the surrounding border with ones:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df)), ] &lt;-<span class="st"> </span><span class="dv">1</span>
+df[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df))] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<p>Here is the top corner of the matrix now:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">1</span>:<span class="dv">4</span>]</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    1    1    1
+## [2,]    1   NA   NA   NA
+## [3,]    1   NA   NA   NA
+## [4,]    1   NA   NA   NA</code></pre>
+<p>But we should leave the entrance and exit open in the bottom left and top right corner:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>, <span class="kw">ncol</span>(df) -<span class="st"> </span><span class="dv">1</span>:<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+df[<span class="kw">nrow</span>(df), <span class="dv">2</span>:<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<p>Here is the top right corner showing the maze exit we just made:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>:<span class="dv">4</span>, <span class="kw">ncol</span>(df) -<span class="st"> </span><span class="dv">3</span>:<span class="dv">0</span>]</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1   NA   NA    1
+## [2,]   NA   NA   NA    1
+## [3,]   NA   NA   NA    1
+## [4,]   NA   NA   NA    1</code></pre>
+<p>Now we need to convert the graph object into a <code>data.frame</code> on which we can iterate later to render the actual wall blocks:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(igraph)
+mazedf &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(maze)
+<span class="kw">library</span>(data.table)
+<span class="kw">setDT</span>(mazedf)</code></pre></div>
+<p>Then let’s extract the <code>x</code> and <code>y</code> positions from the <code>A_x_y</code> names:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (v in <span class="kw">c</span>(<span class="st">&#39;from&#39;</span>, <span class="st">&#39;to&#39;</span>)) {
+    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;x&#39;</span>)) :<span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_([0-9]*)_[0-9]*&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]
+    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;y&#39;</span>)) :<span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_[0-9]*_([0-9]*)&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]
+}</code></pre></div>
+<p>And let’s also record in which direction the edge points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mazedf[fromx &lt;<span class="st"> </span>tox, direction :<span class="er">=</span><span class="st"> &#39;top&#39;</span>]
+mazedf[fromy &lt;<span class="st"> </span>toy, direction :<span class="er">=</span><span class="st"> &#39;right&#39;</span>]</code></pre></div>
+<p>Now let’s map the <code>x</code> and <code>y</code> coordinates to the 2D matrix:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mazedf[, x :<span class="er">=</span><span class="st"> </span><span class="kw">nrow</span>(df) -<span class="st"> </span>fromx *<span class="st"> </span><span class="dv">4</span> +<span class="st"> </span><span class="dv">3</span> -<span class="st"> </span><span class="kw">as.numeric</span>(direction ==<span class="st"> &#39;top&#39;</span>) *<span class="st"> </span><span class="dv">2</span>]
+mazedf[, y :<span class="er">=</span><span class="st"> </span>fromy *<span class="st"> </span><span class="dv">4</span> -<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span><span class="kw">as.numeric</span>(direction ==<span class="st"> &#39;right&#39;</span>) *<span class="st"> </span><span class="dv">2</span>]</code></pre></div>
+<p>And then let’s update the blank matrix <code>NA</code> cells with 1, 2 or 3 to represent the actual walls:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(mazedf))) {
+    cell &lt;-<span class="st"> </span>mazedf[i]
+    if (cell$wall ==<span class="st"> &#39;ON&#39;</span>) {
+        df[cell$x +<span class="st"> </span>-<span class="dv">1</span>:<span class="dv">0</span>, cell$y +<span class="st"> </span>-<span class="dv">1</span>:<span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+    }
+    if (cell$direction ==<span class="st"> &#39;top&#39;</span> &amp;<span class="st"> </span>cell$wall ==<span class="st"> &#39;ON&#39;</span>) {
+        df[cell$x -<span class="st"> </span><span class="dv">0</span>:<span class="dv">1</span>, cell$y -<span class="st"> </span><span class="dv">1</span>:<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">2</span>
+    }
+    if (cell$direction ==<span class="st"> &#39;right&#39;</span> &amp;<span class="st"> </span>cell$wall ==<span class="st"> &#39;ON&#39;</span>) {
+        df[cell$x -<span class="st"> </span><span class="dv">2</span>:<span class="dv">3</span>, cell$y -<span class="st"> </span><span class="dv">0</span>:<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">3</span>
+    }
+}</code></pre></div>
+<p>I know it was a bit tricky, and probably there’s a nicer and lot more elegant way to do all this :) But at least this works and results in something like:</p>
+<div class="figure">
+<img src="figure/maze-matrix.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+</div>
+<div id="render-the-maze-in-minecraft" class="section level2">
+<h2><span class="header-section-number">9.3</span> Render the maze in Minecraft</h2>
+<p>Now that we have a binary matrix representation of the maze, it’s very easy to render the related blocks in Minecraft. First, we need to load the <code>miner</code> package and establish a connection to a Minecraft server:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<span class="kw">mc_connect</span>()</code></pre></div>
+<p>Next, we will clean up some space, then generate the floor (diamond) and ceiling (glass), then the wall blocks(gold):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## clean up some space
+<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">0</span>)
+## add floor
+<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">50</span>, nc, <span class="dv">57</span>)
+## add torch
+<span class="kw">setBlocks</span>(nr -<span class="st"> </span><span class="dv">4</span>, <span class="dv">51</span>, <span class="dv">2</span>, nr, <span class="dv">52</span>, <span class="dv">4</span>, <span class="dv">50</span>)
+## maze ceiling
+<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">54</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">95</span>)
+## 3 blocks tall maze walls
+for (i in <span class="dv">1</span>:<span class="kw">nrow</span>(df)) {
+    for (j in <span class="dv">1</span>:<span class="kw">ncol</span>(df)) {
+        if (!<span class="kw">is.na</span>(df[i, j])) {
+            <span class="kw">setBlock</span>(i, <span class="dv">51</span>, j, <span class="dv">41</span>)
+            <span class="kw">setBlock</span>(i, <span class="dv">52</span>, j, <span class="dv">41</span>)
+            <span class="kw">setBlock</span>(i, <span class="dv">53</span>, j, <span class="dv">41</span>)
+        }
+    }
+}</code></pre></div>
+<p>The result looks like this:</p>
+<div class="figure">
+<img src="figure/maze-minecraft.png" />
+
+</div>
+<p>For a more complete solution, see the <code>mc_maze</code> and <code>mc_mazer</code> functions. The prior generates a maze with given dimensions right in front of a specified player id, while the latter does the same but triggered from the chat window by any player.</p>
+
 </div>
 </div>
             </section>
@@ -188,8 +279,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rendering-the-r-logo-in-minecraft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="random-walks-in-the-minecraft-world.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

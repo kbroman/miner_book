@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="a-stairway-to-heaven.html">
+<link rel="next" href="planting-a-garden.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
+<div id="building-a-tower-and-jumping-on-type" class="section level1">
+<h1><span class="header-section-number">4</span> Building a tower and jumping on type</h1>
+<p>This is a very simple example of interacting with a Minecraft world using the functions in <code>miner</code>. In this example, you’ll build a tower near your player and then move to stand on top of it.</p>
+<div id="connect-to-a-minecraft-server" class="section level2">
+<h2><span class="header-section-number">4.1</span> Connect to a Minecraft server</h2>
+<p>First, you’ll need to connect to a Minecraft server, which you can do using <code>mc_connect</code> (use the server’s IP address if you aren’t connecting to a local Minecraft server).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>()</code></pre></div>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="figure-out-your-player-id" class="section level2">
+<h2><span class="header-section-number">4.2</span> Figure out your player ID</h2>
+<p>Next, you’ll need to get the ID for your player, so you can make sure that you build the tower near the right person. The <code>getPlayerIds</code> function will print the IDs of all players currently in the Minecraft world:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getPlayerIds</span>()</code></pre></div>
+<pre><code>[1] 4787622 4998164 5004347 5212137 5299528</code></pre>
+<p>If you’re not sure which player is yours, there are ways you can try to figure it out. For example, you can leave the game and then come back and see which player ID is added when you come back.</p>
+</div>
+<div id="figure-out-your-current-position" class="section level2">
+<h2><span class="header-section-number">4.3</span> Figure out your current position</h2>
+<p>Once you know your player’s ID, you can use the <code>getPlayerPos</code> function to find your location. Save it to an object so you can reference it to build the column and then move yourself on top:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>(<span class="dv">5004347</span>)</code></pre></div>
+</div>
+<div id="build-a-tower" class="section level2">
+<h2><span class="header-section-number">4.4</span> Build a tower</h2>
+<p>Now you can build a column near yourself. Use the <code>find_item</code> function to find an item you’d like to use to build the column. For example, if you’d like to use stone, you can query:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_item</span>(<span class="st">&quot;Stone&quot;</span>)</code></pre></div>
+<pre><code>   name id style
+2 Stone  1     0</code></pre>
+<p>You can use the <code>id</code> value returned by this call as the <code>id</code> argument when you set the blocks for your tower.</p>
+<p>Now you can build the tower. You can use the <code>setBlocks</code> function to fill a cuboid with blocks of a single type. You’ll need to specify two opposite corners of the cuboid for the tower. To build it three units north of your current position and three units east, you can add 3 to the x and z coordinates of your current position. For the y coordinate, you’ll want to go from the ground to 5 units above the ground. To find the position of the ground where you want to build the tower, try using the <code>getHeight</code> function. This function gets the highest non-air point for a certain (x, z) position. As long as there’s not a building or something in the air, this should give you the height of the ground at that location. Finally, you can use the <code>id</code> argument in <code>setBlocks</code> to specify that the tower should be made of stone:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ground_height &lt;-<span class="st"> </span><span class="kw">getHeight</span>(my_pos[<span class="dv">1</span>] +<span class="st"> </span>-<span class="dv">1</span>, my_pos[<span class="dv">3</span>] +<span class="st"> </span>-<span class="dv">1</span>)
+<span class="kw">setBlocks</span>(my_pos[<span class="dv">1</span>] +<span class="st"> </span><span class="dv">3</span>, ground_height, my_pos[<span class="dv">3</span>] +<span class="st"> </span><span class="dv">3</span>,
+          my_pos[<span class="dv">1</span>] +<span class="st"> </span><span class="dv">3</span>, ground_height +<span class="st"> </span><span class="dv">5</span>, my_pos[<span class="dv">3</span>] +<span class="st"> </span><span class="dv">3</span>,
+          <span class="dt">id =</span> <span class="dv">1</span>)</code></pre></div>
+<p>Once you run this, you should see a tower near you in the Minecraft world:</p>
+<div class="figure">
+<img src="figure/simple_tower.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+</div>
+<div id="jump-on-top-of-the-tower" class="section level2">
+<h2><span class="header-section-number">4.5</span> Jump on top of the tower</h2>
+<p>Now you can use the <code>setPlayerPos</code> function to move yourself on top of it. You need to go just a bit further than where you started building the tower, or you’ll end up right beside it but not on top of it. Instead of adding 3 to the x and z coordinates of your current position, then you can add 3.5.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPlayerPos</span>(my_pos[<span class="dv">1</span>] +<span class="st"> </span><span class="fl">3.5</span>, ground_height +<span class="st"> </span><span class="dv">5</span>, my_pos[<span class="dv">3</span>] +<span class="st"> </span><span class="fl">3.5</span>,
+             <span class="dt">player_id =</span> <span class="dv">5004347</span>)</code></pre></div>
+</div>
+<div id="close-the-connection" class="section level2">
+<h2><span class="header-section-number">4.6</span> Close the connection</h2>
+<p>Once you’re done, you can close the connection to the Minecraft server with the <code>mc_close()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_close</span>()</code></pre></div>
+
 </div>
 </div>
             </section>
@@ -188,8 +220,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-stairway-to-heaven.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="planting-a-garden.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

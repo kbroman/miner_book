@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="planting-a-garden.html">
+<link rel="next" href="rendering-an-image-in-minecraft.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,69 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
+<div id="number-guess-chat-bot-in-minecraft" class="section level1">
+<h1><span class="header-section-number">6</span> Number-guess chat bot in Minecraft</h1>
+<p>This example illustrates how to build a chat bot, interacting with players in the chat window.</p>
+<div id="background" class="section level3">
+<h3><span class="header-section-number">6.0.1</span> Background</h3>
+<p>This is a simple number guessing game:</p>
+<ul>
+<li>the server picks a random number between 1 and 100</li>
+<li>the player tries to guess that number</li>
+<li><p>the server provides feedback after every single guess:</p>
+<ul>
+<li>the game ends if the player’s guess matches the number</li>
+<li>let the player know if the number is greater or smaller</li>
+</ul></li>
+</ul>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="init" class="section level2">
+<h2><span class="header-section-number">6.1</span> Init</h2>
+<p>First, let’s pick a random number between 1 and 100:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">runif</span>(<span class="dv">1</span>) *<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
+<p>Then we connect to the Minecraft server and write a message in the chat window so that players get notified:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</code></pre></div>
+</div>
+<div id="loop" class="section level2">
+<h2><span class="header-section-number">6.2</span> Loop</h2>
+<p>Then we can run an infinite loop to provide feedback to the user:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">while (<span class="ot">TRUE</span>) {
+
+    ## poll for most recent chat messages
+    msg &lt;-<span class="st"> </span><span class="kw">getChatPosts</span>()
+
+    ## do nothing if there are no messages since last poll
+    if (<span class="kw">nrow</span>(msg) &gt;<span class="st"> </span><span class="dv">0</span>) {
+
+        ## iterate through all messages
+        for (msgi in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(msg))) {
+
+            ## check if the message is a number
+            numi &lt;-<span class="st"> </span><span class="kw">suppressWarnings</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))
+            if (!<span class="kw">is.na</span>(numi)) {
+
+                ## compare numbers
+                if (num ==<span class="st"> </span>numi) {
+                    <span class="kw">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)
+                } else {
+                    <span class="kw">chatPost</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,
+                                     <span class="kw">ifelse</span>(numi &gt;<span class="st"> </span>num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),
+                                     numi))
+                }
+
+            }
+        }
+    }
+}</code></pre></div>
+</div>
+<div id="lets-play" class="section level2">
+<h2><span class="header-section-number">6.3</span> Let’s Play!</h2>
+<p>The result looks like this:</p>
+<div class="figure">
+<img src="figure/guessnum.png" />
 
 </div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+
 </div>
 </div>
             </section>
@@ -188,8 +234,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="planting-a-garden.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rendering-an-image-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

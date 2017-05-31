@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="generate-a-maze-in-minecraft.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,23 +164,115 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Programming with Minecraft</h1>
-<h4 class="author"><em>Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi</em></h4>
-<h4 class="date"><em>2017-05-31</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="cover_sm.png"/></p>
-<p><a href="https://minecraft.net">Minecraft</a> is awesome fun, especially in creative mode, where you can build all sorts of crazy stuff. But ambitious building projects can be really tedious to create by hand. With the <a href="https://github.com/ropenscilabs/miner">miner R package</a>, you can write <a href="https://www.r-project.org">R</a> code to manipulate your Minecraft world and create even more awesome stuff.</p>
-<p>We developed the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and most of the examples in this book at the <a href="https://ropensci.org">ROpenSci</a> Unconference in Los Angeles, California, in May, 2017. We are grateful to ROpenSci for bringing us together.</p>
-<p>Our work on R and Minecraft was inspired by an example at <a href="http://smarterpoland.pl" class="uri">http://smarterpoland.pl</a> using R to make a <a href="http://smarterpoland.pl/index.php/2016/09/minecharts-1-minecraft-r-edgar-andersons-iris-data/">3D scatterplot in minecraft</a>, and by <a href="https://twitter.com/craigargh">Craig Richardson</a>’s book <a href="https://www.nostarch.com/programwithminecraft">Learn to Program with Minecraft</a> <span class="citation">(Richardson <a href="#ref-richardson2016">2016</a>)</span>.</p>
+<div id="random-walks-in-the-minecraft-world" class="section level1">
+<h1><span class="header-section-number">10</span> Random Walks in the Minecraft World</h1>
+<p>Let’s first find out which player you are. We will connect to our minecraft server, retrieve the IDs of all currently playing players, as well as their current positions. We’ll then go into a quick <code>Sys.sleep</code> at which time you should try and move your player around in the minecraft world. Assuming no one else has been moving or dying you should catch your player ID’s in a variable called <code>me</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>(<span class="st">&#39;52.168.137.73&#39;</span>)
+whoami &lt;-<span class="st"> </span>function() {
 
-</div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-richardson2016">
-<p>Richardson, Craig. 2016. “Learn to Program with Minecraft.” No Starch Press. <a href="https://www.nostarch.com/programwithminecraft" class="uri">https://www.nostarch.com/programwithminecraft</a>.</p>
+  ids &lt;-<span class="st"> </span><span class="kw">getPlayerIds</span>()
+  prev_pos &lt;-<span class="st"> </span><span class="kw">sapply</span>(ids, getPlayerPos)
+  <span class="kw">Sys.sleep</span>(<span class="dv">10</span>)
+  <span class="co"># move around in game</span>
+  new_pos &lt;-<span class="st"> </span><span class="kw">sapply</span>(ids, getPlayerPos)
+  ids[(<span class="kw">which.max</span>(<span class="kw">colSums</span>(<span class="kw">abs</span>(new_pos -<span class="st"> </span>prev_pos))))]
+
+}
+me &lt;-<span class="st"> </span><span class="kw">whoami</span>()</code></pre></div>
+<div id="recurrent-random-walks" class="section level3">
+<h3><span class="header-section-number">10.0.1</span> Recurrent Random Walks</h3>
+<p>Let’s try a random walk in one and two dimensions. These should be recurrent, so you shouldn’t find your character drifting too far out of the Minecraft world.</p>
+<p>We will first retrieve our position again in the Minecraft world. We will then randomly step in the minecraft lattice, provided by the awesome Maze in <a href="https://github.com/ropenscilabs/miner/blob/master/extra_vignettes/maze.md">the Maze vignette</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>(me)
+n_moves &lt;-<span class="st"> </span><span class="dv">1000</span>
+moves &lt;-<span class="st"> </span><span class="kw">replicate</span>(n_moves, <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+
+move_right &lt;-<span class="st"> </span>function(me) {
+
+  <span class="co"># move right</span>
+  <span class="kw">turnLeft</span>(me, <span class="dt">angle =</span> -<span class="dv">90</span>)
+  <span class="co"># look for wall</span>
+  wall &lt;-<span class="st"> </span><span class="kw">lookForward</span>(me, <span class="fl">0.5</span>)[<span class="dv">1</span>] !=<span class="st"> </span><span class="dv">0</span>
+
+  if (wall ==<span class="st"> </span><span class="ot">FALSE</span>) {
+
+    <span class="kw">moveForward</span>(me, <span class="fl">0.5</span>)
+    <span class="kw">make_move</span>(me, <span class="dt">phase =</span> <span class="dv">1</span>)
+  } else {
+    <span class="co">#</span>
+    <span class="kw">turnLeft</span>(me, <span class="dt">angle =</span> -<span class="dv">90</span>)
+    <span class="co"># turnLeft(me, angle = -90)</span>
+    <span class="kw">move_right</span>(me)
+  }
+
+}
+
+
+make_move &lt;-<span class="st"> </span>function(<span class="dt">id =</span> me, <span class="dt">phase =</span> <span class="dv">1</span>) {
+
+  if (phase ==<span class="st"> </span><span class="dv">2</span>) {
+
+    <span class="co"># look for wall to the right</span>
+    <span class="kw">turnLeft</span>(me, -<span class="dv">90</span>)
+    check_pos &lt;-<span class="st"> </span><span class="kw">lookForward</span>(me, <span class="fl">0.5</span>)
+    <span class="kw">turnLeft</span>(me, <span class="dv">90</span>)
+
+    if (check_pos[<span class="dv">1</span>] !=<span class="st"> </span><span class="dv">0</span>) {
+      <span class="co"># situation 3</span>
+      <span class="co"># wall to the right</span>
+      <span class="co"># follow wall to the right</span>
+      <span class="kw">turnLeft</span>(me, -<span class="dv">180</span>)
+      <span class="kw">moveForward</span>(me, <span class="fl">0.5</span>)
+      <span class="kw">turnLeft</span>(me, <span class="dv">90</span>)
+    } else { <span class="co"># situation 1 or 2</span>
+      <span class="kw">turnLeft</span>(me, -<span class="dv">90</span>)
+      <span class="kw">moveForward</span>(me, <span class="fl">0.5</span>)
+      <span class="kw">turnLeft</span>(me, <span class="dv">90</span>)
+      wall_in_front &lt;-<span class="st"> </span><span class="kw">lookForward</span>(me, <span class="fl">0.5</span>)
+      if (wall_in_front[<span class="dv">1</span>] ==<span class="st"> </span><span class="dv">0</span>) {
+        <span class="co"># situation 1</span>
+        <span class="kw">moveForward</span>(me, <span class="fl">0.5</span>)
+        <span class="kw">turnLeft</span>(me, <span class="dv">90</span>)
+
+      } else {
+      <span class="co"># situation 2</span>
+        <span class="kw">turnLeft</span>(me, -<span class="dv">90</span>)
+        <span class="kw">moveForward</span>(me, <span class="fl">0.5</span>)
+        <span class="kw">turnLeft</span>(me, <span class="dv">90</span>)
+      }
+    }
+  }
+
+  if (phase ==<span class="st"> </span><span class="dv">1</span>) { <span class="co"># while no wall</span>
+
+    <span class="co"># is there any wall in front</span>
+    next_pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="dt">size =</span> <span class="dv">1</span>)
+    check_pos &lt;-<span class="st"> </span><span class="kw">lookForward</span>(me, <span class="dt">distance =</span> next_pos)
+
+    if (check_pos[<span class="dv">1</span>] ==<span class="st"> </span><span class="dv">0</span>) {
+      ## no wall move forward
+      <span class="kw">moveForward</span>(<span class="dt">player_id =</span> id, next_pos)
+    } else {
+      <span class="co"># start phase 2, move against wall</span>
+      phase &lt;-<span class="st"> </span><span class="dv">2</span>
+    }
+  }
+
+  new_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>(id)
+  moves[, i] &lt;&lt;-<span class="st"> </span>new_pos
+
+
+  <span class="kw">return</span>(phase)
+
+}
+
+<span class="kw">initHeading</span>(me)
+
+phase &lt;-<span class="st"> </span><span class="dv">1</span>
+for (i in <span class="dv">1</span>:n_moves) {
+  phase &lt;-<span class="st"> </span><span class="kw">make_move</span>(me, phase)
+}</code></pre></div>
+
 </div>
 </div>
             </section>
@@ -188,8 +280,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="generate-a-maze-in-minecraft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
