@@ -11,4 +11,5 @@ rmd_files:
  - mc_image.Rmd
  - R_logo.Rmd
  - maze.Rmd
+ - random_walks.Rmd
  - references.Rmd
