@@ -1,11 +1,11 @@
-## miner.book
+## miner_book
 
 A [bookdown](https://bookdown.rstudio.com) book about
 [R](https://www.r-project.org) and [Minecraft](https://minecraft.net),
 and particularly about using R to interact with Minecraft, using the
 [miner](https://github.com/ROpenSciLabs/miner) package.
 
-View the book online at <https://ropenscilabs.github.io/miner.book/>.
+View the book online at <https://ropenscilabs.github.io/miner_book/>.
 
 ### About this book
 
