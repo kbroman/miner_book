@@ -1,7 +1,7 @@
 ---
 title: "R Programming with Minecraft"
 author: "Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi"
-date: "2017-05-31"
+date: "2017-06-01"
 output: bookdown::gitbook
 site: bookdown::bookdown_site
 cover-image: "cover_sm.png"
@@ -14,7 +14,7 @@ description: "The miner R package allows you to interact with Minecraft using th
 
 # Introduction
 
-<img src="cover_sm.png"/>
+<img src="cover_med.png"/>
 
 [Minecraft](https://minecraft.net) is awesome fun, especially in
 creative mode, where you can build all sorts of crazy stuff. But

@@ -14,7 +14,7 @@ description: "The miner R package allows you to interact with Minecraft using th
 
 # Introduction
 
-<img src="cover_sm.png"/>
+<img src="cover_med.png"/>
 
 [Minecraft](https://minecraft.net) is awesome fun, especially in
 creative mode, where you can build all sorts of crazy stuff. But
