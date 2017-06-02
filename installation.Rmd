@@ -7,18 +7,18 @@ plugin. You can [Spigot](https://www.spigotmc.org) to set up your own
 server, even locally on your machine. The installation process doesn't
 take too long, but it helps to have some _command line_ experience.
 
-### Mac OS X
+## Mac OS X
 
 Installing stuff on a Mac.
 
-### Windows
+## Windows
 
 Installing stuff in Windows.
 
-### Docker
+## Docker
 
 Installing stuff via Docker.
 
-### Raspberry Pi
+## Raspberry Pi
 
 Installing stuff on a Raspberry Pi.

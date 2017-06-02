@@ -17,7 +17,7 @@ whoami <- function() {
 me <- whoami()
 ```
 
-### Recurrent Random Walks
+## Recurrent Random Walks
 
 Let's try a random walk in one and two dimensions. These should be recurrent, so you shouldn't find your character drifting too far out of the Minecraft world.
 
