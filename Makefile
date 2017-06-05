@@ -4,6 +4,7 @@ docs/index.html: cover_sm.png \
 				 index.Rmd \
 				 installation.Rmd \
 				 stairway-to-heaven.Rmd \
+				 rainbow.Rmd \
 				 stand_on_tower.Rmd \
 				 plant_a_garden.Rmd \
 				 numguess.Rmd \
