@@ -5,7 +5,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE,
                       fig.width=7, eval = FALSE)
 ```
 
-This is a very simple example of builidng a rainbow inspired by the RaspberryJuice. [^minecraft-rainbow]
+This is a very simple example of building a rainbow inspired by the RaspberryJuice. [^minecraft-rainbow]
 In this example, we'll build a rainbow near current player and immediately watch the rainbow.
 
 [^minecraft-rainbow]: [RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice)
