@@ -7,18 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it.">
-  <meta name="generator" content="bookdown 0.3.18 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R Programming with Minecraft" />
   <meta property="og:type" content="book" />
-
+  
   <meta property="og:image" content="cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="github-repo" content="ROpenSciLabs/miner_book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="R Programming with Minecraft" />
-
+  
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="twitter:image" content="cover_sm.png" />
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-
+  
+  
 <link rel="prev" href="index.html">
 <link rel="next" href="a-stairway-to-heaven.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -49,6 +49,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 </head>
 
@@ -66,56 +103,24 @@
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a></li>
 <li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
-<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#docker"><i class="fa fa-check"></i><b>2.3</b> Docker</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#docker"><i class="fa fa-check"></i><b>2.3</b> Docker</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="installation.html"><a href="installation.html#what-is-docker"><i class="fa fa-check"></i><b>2.3.1</b> What is Docker?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="installation.html"><a href="installation.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.3.2</b> The <code>miner</code> Dockerfile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="installation.html"><a href="installation.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.3.3</b> Building a Docker image</a></li>
+<li class="chapter" data-level="2.3.4" data-path="installation.html"><a href="installation.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.3.4</b> Running a Docker container from the image</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#raspberry-pi"><i class="fa fa-check"></i><b>2.4</b> Raspberry Pi</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
-<li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
-<li class="chapter" data-level="3.2" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#stairway-to-heaven"><i class="fa fa-check"></i><b>3.2</b> Stairway to heaven</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a><ul>
-<li class="chapter" data-level="4.1" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#build-rainbow-with-r-graphics"><i class="fa fa-check"></i><b>4.1</b> Build rainbow with R graphics</a></li>
-<li class="chapter" data-level="4.2" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#minecraft-rainbow"><i class="fa fa-check"></i><b>4.2</b> Minecraft Rainbow</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on type</a><ul>
-<li class="chapter" data-level="5.1" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#connect-to-a-minecraft-server"><i class="fa fa-check"></i><b>5.1</b> Connect to a Minecraft server</a></li>
-<li class="chapter" data-level="5.2" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#figure-out-your-player-id"><i class="fa fa-check"></i><b>5.2</b> Figure out your player ID</a></li>
-<li class="chapter" data-level="5.3" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#figure-out-your-current-position"><i class="fa fa-check"></i><b>5.3</b> Figure out your current position</a></li>
-<li class="chapter" data-level="5.4" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#build-a-tower"><i class="fa fa-check"></i><b>5.4</b> Build a tower</a></li>
-<li class="chapter" data-level="5.5" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#jump-on-top-of-the-tower"><i class="fa fa-check"></i><b>5.5</b> Jump on top of the tower</a></li>
-<li class="chapter" data-level="5.6" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html#close-the-connection"><i class="fa fa-check"></i><b>5.6</b> Close the connection</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a><ul>
-<li class="chapter" data-level="6.1" data-path="planting-a-garden.html"><a href="planting-a-garden.html#connect-with-a-minecraft-server"><i class="fa fa-check"></i><b>6.1</b> Connect with a Minecraft server</a></li>
-<li class="chapter" data-level="6.2" data-path="planting-a-garden.html"><a href="planting-a-garden.html#create-a-dataframe-with-recent-hits"><i class="fa fa-check"></i><b>6.2</b> Create a dataframe with recent hits</a></li>
-<li class="chapter" data-level="6.3" data-path="planting-a-garden.html"><a href="planting-a-garden.html#build-ice-towers"><i class="fa fa-check"></i><b>6.3</b> Build ice towers</a></li>
-<li class="chapter" data-level="6.4" data-path="planting-a-garden.html"><a href="planting-a-garden.html#write-a-function-to-do-this-interactively"><i class="fa fa-check"></i><b>6.4</b> Write a function to do this interactively</a></li>
-<li class="chapter" data-level="6.5" data-path="planting-a-garden.html"><a href="planting-a-garden.html#close-the-connection-1"><i class="fa fa-check"></i><b>6.5</b> Close the connection</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a><ul>
-<li class="chapter" data-level="7.1" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
-<li class="chapter" data-level="7.2" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#init"><i class="fa fa-check"></i><b>7.2</b> Init</a></li>
-<li class="chapter" data-level="7.3" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#loop"><i class="fa fa-check"></i><b>7.3</b> Loop</a></li>
-<li class="chapter" data-level="7.4" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#lets-play"><i class="fa fa-check"></i><b>7.4</b> Let’s Play!</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a><ul>
-<li class="chapter" data-level="8.1" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#load-and-prepare-an-image-file"><i class="fa fa-check"></i><b>8.1</b> Load and prepare an image file</a></li>
-<li class="chapter" data-level="8.2" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft"><i class="fa fa-check"></i><b>8.2</b> Render the image in Minecraft</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a><ul>
-<li class="chapter" data-level="9.1" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#load-and-prepare-an-image-file-1"><i class="fa fa-check"></i><b>9.1</b> Load and prepare an image file</a></li>
-<li class="chapter" data-level="9.2" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#render-in-minecraft"><i class="fa fa-check"></i><b>9.2</b> Render in Minecraft</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a><ul>
-<li class="chapter" data-level="10.1" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#generate-a-random-maze"><i class="fa fa-check"></i><b>10.1</b> Generate a random maze</a></li>
-<li class="chapter" data-level="10.2" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#transform-maze-graph-into-matrix"><i class="fa fa-check"></i><b>10.2</b> Transform maze graph into matrix</a></li>
-<li class="chapter" data-level="10.3" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#render-the-maze-in-minecraft"><i class="fa fa-check"></i><b>10.3</b> Render the maze in Minecraft</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a><ul>
-<li class="chapter" data-level="11.1" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html#recurrent-random-walks"><i class="fa fa-check"></i><b>11.1</b> Recurrent Random Walks</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a></li>
+<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a></li>
+<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-type.html"><a href="building-a-tower-and-jumping-on-type.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on type</a></li>
+<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a></li>
+<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a></li>
+<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a></li>
+<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a></li>
+<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a></li>
+<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
-
 </ul>
 
       </nav>
@@ -146,7 +151,52 @@
 </div>
 <div id="docker" class="section level2">
 <h2><span class="header-section-number">2.3</span> Docker</h2>
-<p>Installing stuff via Docker.</p>
+<div id="what-is-docker" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> What is Docker?</h3>
+<p>[Something about Docker and why it’s helpful here.]</p>
+</div>
+<div id="the-miner-dockerfile" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> The <code>miner</code> Dockerfile</h3>
+<p>The <code>miner</code> package includes a Dockerfile, which is a plain text file that gives Docker the recipe for setting up an appropriate container.</p>
+<p>This file specifies the following steps that are needed to set up the required environment and run a Spigot Minecraft Server with the RaspberryJuice plug-in:</p>
+<ul>
+<li>Creates a directory called “minecraft” for the Minecraft server</li>
+<li>Downloads all required files to build a Spigot server (<a href="https://www.spigotmc.org" class="uri">https://www.spigotmc.org</a>) and saves them in the “minecraft” direction</li>
+<li>Builds the Spigot server</li>
+<li>Symlink for the built Spigot server?</li>
+<li>Accepts the End User License Agreement for Minecraft (“eula”) (see <a href="https://account.mojang.com/documents/minecraft_eula">here</a> to see what you are agreeing to with this step)</li>
+<li>Downloads the RaspberryJuice plugin (which we’re using for API access) to a subdirectory of the “minecraft” directory called “plugins”</li>
+<li>Install the RaspberryJuice plugin</li>
+<li>Open up the ports required to access the game (port 25565) and the API (4711)</li>
+<li>Start the Minecraft server, [explain options we’re using for that]</li>
+</ul>
+<p>This Dockerfile is included in the <code>miner</code> package. To find it on your computer once you’ve installed the <code>miner</code> package, you can run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>)</code></pre></div>
+<p>This call will return the file pathname on your computer for any the file named “Dockerfile” that come with the <code>miner</code> package.</p>
+<p>If you’d like to take a look at the Dockerfile, from R you can run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">edit</span>(<span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>))</code></pre></div>
+<p>This will open the “Dockerfile” file in the <code>miner</code> package in a text editor.</p>
+</div>
+<div id="building-a-docker-image" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Building a Docker image</h3>
+<p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
+<pre><code>docker build -t minecraft .</code></pre>
+<p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
+<p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
+<pre><code>docker images</code></pre>
+<p>You should see something like this:</p>
+<pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
+java                latest              d23bdf5b1b1b        4 months ago        643 MB</code></pre>
+<p>This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you’d ever like to remove a Docker image from your system, you can do that with the command line call <code>docker rmi</code> and the image ID. For example, if you ever wanted to remove the “minecraft” image listed above that you built with the call to <code>docker build</code>, you could run:</p>
+<pre><code>docker rmi 2c9e2f2c16d3</code></pre>
+</div>
+<div id="running-a-docker-container-from-the-image" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Running a Docker container from the image</h3>
+<p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
+<pre><code>docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft </code></pre>
+<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711).</p>
+</div>
 </div>
 <div id="raspberry-pi" class="section level2">
 <h2><span class="header-section-number">2.4</span> Raspberry Pi</h2>
