@@ -2,7 +2,7 @@
 
 This example illustrates how to build a chat bot, interacting with players in the chat window.
 
-### Background
+## Background
 
 This is a simple number guessing game:
 

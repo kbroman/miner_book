@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="planting-a-garden.html">
-<link rel="next" href="rendering-an-image-in-minecraft.html">
+<link rel="prev" href="a-stairway-to-heaven.html">
+<link rel="next" href="building-a-tower-and-jumping-on-type.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -169,78 +169,86 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="number-guess-chat-bot-in-minecraft" class="section level1">
-<h1><span class="header-section-number">7</span> Number-guess chat bot in Minecraft</h1>
-<p>This example illustrates how to build a chat bot, interacting with players in the chat window.</p>
-<div id="background" class="section level2">
-<h2><span class="header-section-number">7.1</span> Background</h2>
-<p>This is a simple number guessing game:</p>
+<div id="building-a-rainbow" class="section level1">
+<h1><span class="header-section-number">4</span> Building a rainbow</h1>
+<p>This is a very simple example of building a rainbow inspired by the RaspberryJuice.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> In this example, we’ll build a rainbow near current player and immediately watch the rainbow.</p>
+<div id="build-rainbow-with-r-graphics" class="section level2">
+<h2><span class="header-section-number">4.1</span> Build rainbow with R graphics</h2>
+<p>First, you’ll need to draw a rainbow with R Base plot system.</p>
 <ul>
-<li>the server picks a random number between 1 and 100</li>
-<li>the player tries to guess that number</li>
-<li><p>the server provides feedback after every single guess:</p>
-<ul>
-<li>the game ends if the player’s guess matches the number</li>
-<li>let the player know if the number is greater or smaller</li>
-</ul></li>
+<li>Generate a rainbow data</li>
+<li>Prepare rainbow colors</li>
+<li>Draw a rainbow with R Base plot</li>
 </ul>
-</div>
-<div id="init" class="section level2">
-<h2><span class="header-section-number">7.2</span> Init</h2>
-<p>First, let’s pick a random number between 1 and 100:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">runif</span>(<span class="dv">1</span>) *<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
-<p>Then we connect to the Minecraft server and write a message in the chat window so that players get notified:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</code></pre></div>
-</div>
-<div id="loop" class="section level2">
-<h2><span class="header-section-number">7.3</span> Loop</h2>
-<p>Then we can run an infinite loop to provide feedback to the user:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">while (<span class="ot">TRUE</span>) {
+<p>It is possible to draw a rainbow with other R plot system like ggplot2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. Rainbow plot --------------------------------------------</span>
+## 1.1. Rainbow Data
+x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)
+y &lt;-<span class="st"> </span><span class="kw">sin</span>((x /<span class="st"> </span><span class="fl">128.0</span>) *<span class="st"> </span>pi)
 
-    ## poll for most recent chat messages
-    msg &lt;-<span class="st"> </span><span class="kw">getChatPosts</span>()
+## 1.2. Rainbow Color
+n &lt;-<span class="st"> </span><span class="dv">7</span>
+color &lt;-<span class="st"> </span><span class="kw">rainbow</span>(n, <span class="dt">s =</span> <span class="dv">1</span>, <span class="dt">v =</span> <span class="dv">1</span>, <span class="dt">start =</span> <span class="dv">0</span>, <span class="dt">end =</span> <span class="kw">max</span>(<span class="dv">1</span>, n -<span class="st"> </span><span class="dv">1</span>)/n, <span class="dt">alpha =</span> <span class="dv">1</span>)
 
-    ## do nothing if there are no messages since last poll
-    if (<span class="kw">nrow</span>(msg) &gt;<span class="st"> </span><span class="dv">0</span>) {
+## 1.3. Draw Rainbow with Base Plot System
 
-        ## iterate through all messages
-        for (msgi in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(msg))) {
-
-            ## check if the message is a number
-            numi &lt;-<span class="st"> </span><span class="kw">suppressWarnings</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))
-            if (!<span class="kw">is.na</span>(numi)) {
-
-                ## compare numbers
-                if (num ==<span class="st"> </span>numi) {
-                    <span class="kw">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)
-                } else {
-                    <span class="kw">chatPost</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,
-                                     <span class="kw">ifelse</span>(numi &gt;<span class="st"> </span>num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),
-                                     numi))
-                }
-
-            }
-        }
-    }
+<span class="kw">plot</span>(x, y, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))
+for(i in <span class="dv">1</span>:<span class="dv">7</span>) {
+  <span class="kw">lines</span>(x, y+i, <span class="dt">col=</span>color[i])
 }</code></pre></div>
 </div>
-<div id="lets-play" class="section level2">
-<h2><span class="header-section-number">7.4</span> Let’s Play!</h2>
+<div id="minecraft-rainbow" class="section level2">
+<h2><span class="header-section-number">4.2</span> Minecraft Rainbow</h2>
+<p>To build a rainbow on the Minecraft world, we will take the following steps;</p>
+<ol style="list-style-type: decimal">
+<li>Get the current player position with <code>getPlayerPos()</code> function.</li>
+<li>Configure rainbow height, colors, and item.</li>
+<li>Build a rainbow referring to current player location and configured items.</li>
+<li>Finally, watch the rainbow a little far from the current player position.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 2.1. Current Player Position
+cur_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()
+
+## 2.2. Rainbow Configuration
+
+height &lt;-<span class="st"> </span><span class="dv">50</span>
+colors  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">10</span>)
+
+blue_block &lt;-<span class="st"> </span><span class="kw">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)
+
+## 2.3. Build a Rainbow
+
+for (x in <span class="dv">1</span>:<span class="dv">128</span>){
+  for (color in <span class="kw">seq_along</span>(colors)) {
+    y  &lt;-<span class="st"> </span><span class="kw">sin</span>((x /<span class="st"> </span><span class="fl">128.0</span>) *<span class="st"> </span>pi) *<span class="st"> </span>height +<span class="st"> </span>color
+    <span class="kw">setBlock</span>(cur_pos[<span class="dv">1</span>] +<span class="st"> </span>x -<span class="st"> </span><span class="dv">64</span>, cur_pos[<span class="dv">2</span>] +<span class="st"> </span>y, cur_pos[<span class="dv">3</span>], blue_block[<span class="dv">2</span>], colors[color])
+  }
+}
+
+## 2.4. Watch a Rainbow
+
+<span class="kw">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]-<span class="dv">50</span>, <span class="dt">tile=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The result looks like this:</p>
 <div class="figure">
-<img src="figure/guessnum.png" />
+<img src="figure/rainbow.png" />
 
 </div>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://dev.bukkit.org/projects/raspberryjuice">RaspberryJuice</a><a href="building-a-rainbow.html#fnref1">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="planting-a-garden.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rendering-an-image-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-stairway-to-heaven.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="building-a-tower-and-jumping-on-type.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

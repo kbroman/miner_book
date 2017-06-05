@@ -8,7 +8,7 @@ possible to manipulate minecraft. Here I will illustrate one use of
 this: reading in an image file and rendering it within minecraft as
 blocks.
 
-### Load and prepare an image file
+## Load and prepare an image file
 
 First, let's download an image file from the web. We'll load it
 directly into R from the web, using the
@@ -62,6 +62,8 @@ minecraft blocks. I can use the R function `cut`.
 img[] <- cut(img, seq(0, 1, length.out=8))
 ```
 
+
+## Render the image in Minecraft
 
 Now let's load the [miner](https://github.com/ROpenSciLabs/miner)
 package and create a vector of different block types, from black to
