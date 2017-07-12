@@ -15,6 +15,67 @@ Installing stuff on a Mac.
 
 Installing stuff in Windows.
 
+## Linux
+
+- Make a directory for minecraft and change into it.
+
+  ```
+  mkdir ~/minecraft
+  cd ~/minecraft
+  ```
+
+- Download `Buildtools.jar`
+
+  ```
+  wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+  ```
+
+- Compille it
+
+  ```
+  java -jar BuildTools.jar
+  ```
+
+- Run it for the first time
+
+  ```
+  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+  ```
+
+- Edit the file `eula.txt` so that the line `eula=false` is instead
+  `eula=true`
+
+- Start up the server again. This will take a while (because it's
+  building the world), but not as long as the initial compiling of
+  `BuildTools.jar`.
+
+  ```
+  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+  ```
+
+  If you need to use a different port, use the `-p` option. ([See other
+  options](https://www.spigotmc.org/wiki/start-up-parameters/).)
+
+  ```
+  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui
+  ```
+
+- Type `stop` to stop the server.
+
+- Download the
+  [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/)
+  by visiting
+  [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/)
+  and clicking the "Download Now" button in the upper-right. Move this
+  `.jar` file to the `~/minecraft/plugins/`
+
+- Edit `~/minecraft/server.properties`.
+
+- Start the server again using the `java -jar .... spigot-1.12.jar`
+  command above.
+
+
+
 ## Docker
 
 ### What is Docker?

@@ -159,6 +159,10 @@ Next, we will clean up some space, then generate the floor (diamond) and ceiling
 
 
 ```r
+## create objects with number of columns and rows in the dataframe
+nr <- nrow(df)
+nc <- ncol(df)
+
 ## clean up some space
 setBlocks(1, 50, 1, nr, 54, nc, 0)
 ## add floor

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it.">
-  <meta name="generator" content="bookdown 0.3.18 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R Programming with Minecraft" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2017-06-05">
+<meta name="date" content="2017-07-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -103,8 +103,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a></li>
 <li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
-<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#docker"><i class="fa fa-check"></i><b>2.3</b> Docker</a></li>
-<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#raspberry-pi"><i class="fa fa-check"></i><b>2.4</b> Raspberry Pi</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a></li>
+<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="installation.html"><a href="installation.html#what-is-docker"><i class="fa fa-check"></i><b>2.4.1</b> What is Docker?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="installation.html"><a href="installation.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
+<li class="chapter" data-level="2.4.3" data-path="installation.html"><a href="installation.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
+<li class="chapter" data-level="2.4.4" data-path="installation.html"><a href="installation.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="installation.html"><a href="installation.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
 <li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
@@ -223,7 +229,7 @@ d_stairs %&gt;%<span class="st"> </span><span class="kw">map</span>(function(x) 
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
