@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="installation-and-configuration.html">
-<link rel="next" href="building-a-rainbow.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="a-stairway-to-heaven.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -179,40 +179,115 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="a-stairway-to-heaven" class="section level1">
-<h1><span class="header-section-number">3</span> A Stairway to Heaven</h1>
-<div id="building-objects" class="section level2">
-<h2><span class="header-section-number">3.1</span> Building Objects</h2>
-<p>The function to create objects in <code>miner</code> is the <code>setBlock</code> function. It expects four arguments, the first three being the coordinates of your item’s location, and the fourth being the <code>block_id</code> you want to set. An optional argument is <code>block_style</code>.</p>
-<p>First, you need to find out where you are. You can use <code>getPlayerIds</code> to get the ids of all players currently in the Minecraft world. You can use the <code>getPlayerPos</code> function to find the position of each player. If you are the first player, you can pull your ID as the first element of the object returned by <code>getPlayerIds</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ids &lt;-<span class="st"> </span><span class="kw">getPlayerIds</span>()
-<span class="kw">lapply</span>(ids, getPlayerPos)
-ali &lt;-<span class="st"> </span>ids[<span class="dv">1</span>]</code></pre></div>
+<div id="installation-and-configuration" class="section level1">
+<h1><span class="header-section-number">2</span> Installation and configuration</h1>
+<p>To use the <a href="https://github.com/ropenscilabs/miner">miner</a> package, you’ll need a Minecraft server that is using the <a href="https://dev.bukkit.org/projects/raspberryjuice">RaspberryJuice</a> plugin. You can use <a href="https://www.spigotmc.org">Spigot</a> to set up your own server, even locally on your machine. The installation process doesn’t take too long, but it helps to have some <em>command line</em> experience.</p>
+<div id="mac-os-x" class="section level2">
+<h2><span class="header-section-number">2.1</span> Mac OS X</h2>
+<p>Installing stuff on a Mac.</p>
 </div>
-<div id="stairway-to-heaven" class="section level2">
-<h2><span class="header-section-number">3.2</span> Stairway to heaven</h2>
-<p>We will create a matrix that contains our increments. First we create a matrix with as many columns as we want stairs, and three rows specifying our coordinates. The coordinates are obtained by incrementing the first and second element of each column. We then use <code>purrr:map</code> to input that matrix to the <code>setBlocks</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>(<span class="dt">player_id =</span> ali, <span class="dt">tile =</span> <span class="ot">TRUE</span>)
-stair_blocks &lt;-<span class="st"> </span><span class="dv">10</span>
-
-stepsize &lt;-<span class="st"> </span><span class="dv">1</span>
-
-stairs &lt;-<span class="st"> </span><span class="kw">replicate</span>(stair_blocks, pos)
-upset &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="kw">replicate</span>(stair_blocks <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)))
-t_upset &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(upset, <span class="dv">1</span>, cumsum))
-
-t_stairs &lt;-<span class="st"> </span>stairs <span class="op">+</span><span class="st"> </span>t_upset
-
-<span class="kw">library</span>(tidyverse)
-
-d_stairs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(t_stairs) <span class="op">%&gt;%</span><span class="st"> </span>tbl_df
-
-d_stairs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="kw">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>], <span class="dt">id =</span> <span class="dv">53</span>))</code></pre></div>
-<p>Here is an example of the resulting stairway:</p>
-<div class="figure">
-<img src="figure/stairs.png" />
-
+<div id="windows" class="section level2">
+<h2><span class="header-section-number">2.2</span> Windows</h2>
+<p>Installing stuff in Windows.</p>
 </div>
+<div id="linux" class="section level2">
+<h2><span class="header-section-number">2.3</span> Linux</h2>
+<p>These instructions describe how to set up a Minecraft Server on Linux with the Raspberry Juice plugin. Once installed, you can connect to the server with the Microsoft game and with R via the <a href="https://github.com/ropenscilabs/miner">miner</a> package. If you are new to Minecraft, you will first have to make a one time purchase of a Minecraft license.</p>
+<div id="install" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Install</h3>
+<p>First, make sure you have installed <a href="https://www.java.com/en/download/help/linux_x64_install.xml">Java</a>. Then make a directory for Minecraft and change into it.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> ~/minecraft
+<span class="bu">cd</span> ~/minecraft</code></pre></div>
+<p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+<span class="fu">sudo</span> java -jar BuildTools.jar --rev 1.12
+<span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui</code></pre></div>
+<p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
+<p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui</code></pre></div>
+<p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
+</div>
+<div id="connect-with-miner" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Connect with miner</h3>
+<p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/ropenscilabs/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.9.1.jar
+<span class="fu">mv</span> raspberryjuice-1.9.1.jar ~/minecraft/plugins</code></pre></div>
+<p>Connect to your server from R using <code>mc_connect(&quot;&lt;server-ip&gt;&quot;)</code>. Test your connection by retrieving your player’s location.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<span class="kw">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)
+<span class="kw">getPlayerIds</span>()</code></pre></div>
+</div>
+<div id="configure" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Configure</h3>
+<p>The <code>~/minecraft/server.properties</code> file contains a list of configuration parameters for your Minecraft server. You will probably want to set <code>gamemode=1</code> and <code>force-gamemode=true</code>. If you want to create a superflat world also set <code>level-type=FLAT</code>.</p>
+<pre><code>gamemode=1
+force-gamemode=true
+level-type=FLAT</code></pre>
+<p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
+<span class="ex">java</span> -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.12.jar</code></pre></div>
+<p>Then make it an executable, and run it with <code>nohup</code>:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">chmod</span> +x start.sh
+<span class="fu">nohup</span> ./start.sh</code></pre></div>
+<p>If you need to use a different port, use the <code>-p</code> option. (<a href="https://www.spigotmc.org/wiki/start-up-parameters/">See other options</a>.)</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui</code></pre></div>
+<p>If you’re having a hard time connecting, verify that your ports are open. The standard port for Minecraft is <code>25565</code>. The standard port for the <a href="https://github.com/ropenscilabs/miner">miner</a> package is <code>4711</code>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565
+<span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</code></pre></div>
+</div>
+</div>
+<div id="docker" class="section level2">
+<h2><span class="header-section-number">2.4</span> Docker</h2>
+<div id="what-is-docker" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> What is Docker?</h3>
+<p>[Something about Docker and why it’s helpful here.]</p>
+</div>
+<div id="the-miner-dockerfile" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> The <code>miner</code> Dockerfile</h3>
+<p>The <code>miner</code> package includes a Dockerfile, which is a plain text file that gives Docker the recipe for setting up an appropriate container.</p>
+<p>This file specifies the following steps that are needed to set up the required environment and run a Spigot Minecraft Server with the RaspberryJuice plug-in:</p>
+<ul>
+<li>Creates a directory called “minecraft” for the Minecraft server</li>
+<li>Downloads all required files to build a Spigot server (<a href="https://www.spigotmc.org" class="uri">https://www.spigotmc.org</a>) and saves them in the “minecraft” direction</li>
+<li>Builds the Spigot server</li>
+<li>Symlink for the built Spigot server?</li>
+<li>Accepts the End User License Agreement for Minecraft (“eula”) (see <a href="https://account.mojang.com/documents/minecraft_eula">here</a> to see what you are agreeing to with this step)</li>
+<li>Downloads the RaspberryJuice plugin (which we’re using for API access) to a subdirectory of the “minecraft” directory called “plugins”</li>
+<li>Install the RaspberryJuice plugin</li>
+<li>Open up the ports required to access the game (port 25565) and the API (4711)</li>
+<li>Start the Minecraft server, [explain options we’re using for that]</li>
+</ul>
+<p>This Dockerfile is included in the <code>miner</code> package. To find it on your computer once you’ve installed the <code>miner</code> package, you can run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>)</code></pre></div>
+<p>This call will return the file pathname on your computer for any the file named “Dockerfile” that come with the <code>miner</code> package.</p>
+<p>If you’d like to take a look at the Dockerfile, from R you can run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">edit</span>(<span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>))</code></pre></div>
+<p>This will open the “Dockerfile” file in the <code>miner</code> package in a text editor.</p>
+</div>
+<div id="building-a-docker-image" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Building a Docker image</h3>
+<p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> build -t minecraft .</code></pre></div>
+<p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
+<p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> images</code></pre></div>
+<p>You should see something like this:</p>
+<pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
+java                latest              d23bdf5b1b1b        4 months ago        643 MB</code></pre>
+<p>This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you’d ever like to remove a Docker image from your system, you can do that with the command line call <code>docker rmi</code> and the image ID. For example, if you ever wanted to remove the “minecraft” image listed above that you built with the call to <code>docker build</code>, you could run:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> rmi 2c9e2f2c16d3</code></pre></div>
+</div>
+<div id="running-a-docker-container-from-the-image" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image</h3>
+<p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> run -ti --rm -p 4711:4711 -p 25565:25565 minecraft </code></pre></div>
+<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711).</p>
+</div>
+</div>
+<div id="raspberry-pi" class="section level2">
+<h2><span class="header-section-number">2.5</span> Raspberry Pi</h2>
+<p>Installing stuff on a Raspberry Pi.</p>
 
 </div>
 </div>
@@ -221,8 +296,8 @@ d_stairs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
           </div>
         </div>
       </div>
-<a href="installation-and-configuration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="building-a-rainbow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-stairway-to-heaven.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

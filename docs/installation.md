@@ -1,11 +1,8 @@
-# Installation
+# Installation and configuration
 
-To use the [miner package](https://github.com/ropenscilabs/miner),
-you'll need a Minecraft server that is using the
-[RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice)
-plugin. You can [Spigot](https://www.spigotmc.org) to set up your own
-server, even locally on your machine. The installation process doesn't
-take too long, but it helps to have some _command line_ experience.
+
+
+To use the [miner](https://github.com/ropenscilabs/miner) package, you'll need a Minecraft server that is using the [RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice) plugin. You can use [Spigot](https://www.spigotmc.org) to set up your own server, even locally on your machine. The installation process doesn't take too long, but it helps to have some _command line_ experience.
 
 ## Mac OS X
 
@@ -17,63 +14,97 @@ Installing stuff in Windows.
 
 ## Linux
 
-- Make a directory for minecraft and change into it.
+These instructions describe how to set up a Minecraft Server on Linux with the Raspberry Juice plugin. Once installed, you can connect to the server with the Microsoft game and with R via the [miner](https://github.com/ropenscilabs/miner) package. If you are new to Minecraft, you will first have to make a one time purchase of a Minecraft license.
 
-  ```
-  mkdir ~/minecraft
-  cd ~/minecraft
-  ```
+### Install
 
-- Download `Buildtools.jar`
+First, make sure you have installed [Java](https://www.java.com/en/download/help/linux_x64_install.xml). Then make a directory for Minecraft and change into it.
 
-  ```
-  wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-  ```
 
-- Compille it
+```bash
+mkdir ~/minecraft
+cd ~/minecraft
+```
 
-  ```
-  java -jar BuildTools.jar
-  ```
+Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-installation/), a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the `jar` file. This step will fail to start the server but will successfully create the plugin directory and the EULA. 
 
-- Run it for the first time
 
-  ```
-  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
-  ```
+```bash
+wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+sudo java -jar BuildTools.jar --rev 1.12
+java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+```
 
-- Edit the file `eula.txt` so that the line `eula=false` is instead
-  `eula=true`
+Edit the file `eula.txt` so that the line `eula=false` is instead `eula=true`
 
-- Start up the server again. This will take a while (because it's
-  building the world), but not as long as the initial compiling of
-  `BuildTools.jar`.
+Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
-  ```
-  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
-  ```
 
-  If you need to use a different port, use the `-p` option. ([See other
-  options](https://www.spigotmc.org/wiki/start-up-parameters/).)
+```bash
+java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+```
 
-  ```
-  java -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui
-  ```
+Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing `op <playername>` into the server prompt. When you are finished playing type `stop` in the server prompt to stop the server.
 
-- Type `stop` to stop the server.
+### Connect with miner
 
-- Download the
-  [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/)
-  by visiting
-  [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/)
-  and clicking the "Download Now" button in the upper-right. Move this
-  `.jar` file to the `~/minecraft/plugins/`
+You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/ropenscilabs/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
-- Edit `~/minecraft/server.properties`.
 
-- Start the server again using the `java -jar .... spigot-1.12.jar`
-  command above.
+```bash
+sudo wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.9.1.jar
+mv raspberryjuice-1.9.1.jar ~/minecraft/plugins
+```
 
+Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
+
+
+```r
+library(miner)
+mc_connect("<server-ip>")
+getPlayerIds()
+```
+
+### Configure
+
+The `~/minecraft/server.properties` file contains a list of configuration parameters for your Minecraft server. You will probably want to set `gamemode=1` and `force-gamemode=true`. If you want to create a superflat world also set `level-type=FLAT`.
+
+```
+gamemode=1
+force-gamemode=true
+level-type=FLAT
+```
+
+If you want to run Minecraft in the background, then you can create a simple `start.sh` script:
+
+
+```bash
+#!/bin/sh
+java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.12.jar
+```
+
+Then make it an executable, and run it with `nohup`: 
+
+
+```bash
+chmod +x start.sh
+nohup ./start.sh
+```
+
+If you need to use a different port, use the `-p` option. ([See other options](https://www.spigotmc.org/wiki/start-up-parameters/).)
+
+
+```bash
+java -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui
+```
+
+If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/ropenscilabs/miner) package is `4711`.
+
+
+```bash
+telnet <server-ip> 25565
+telnet <server-ip> 4711
+```
 
 
 ## Docker
@@ -120,7 +151,8 @@ This will open the "Dockerfile" file in the `miner` package in a text editor.
 
 The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from [the Docker website](https://www.docker.com)), you open a command line (e.g., the Terminal application on MacOS), move into the directory with the Dockerfile (using `cd` to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:
 
-```
+
+```bash
 docker build -t minecraft .
 ```
 
@@ -128,7 +160,8 @@ The `docker build` call is the basic call to build a Docker image from a Dockerf
 
 Once you've built the image, you can check to see that it's in the Docker images on your system by running the following call from a command line: 
 
-```
+
+```bash
 docker images
 ```
 
@@ -142,7 +175,8 @@ java                latest              d23bdf5b1b1b        4 months ago        
 
 This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you'd ever like to remove a Docker image from your system, you can do that with the command line call `docker rmi` and the image ID. For example, if you ever wanted to remove the "minecraft" image listed above that you built with the call to `docker build`, you could run: 
 
-```
+
+```bash
 docker rmi 2c9e2f2c16d3
 ```
 
@@ -150,7 +184,8 @@ docker rmi 2c9e2f2c16d3
 
 Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:
 
-```
+
+```bash
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft 
 ```
 
