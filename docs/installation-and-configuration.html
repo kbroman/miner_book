@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2018-03-03">
+<meta name="date" content="2018-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -240,7 +240,7 @@ level-type=FLAT</code></pre>
 <h2><span class="header-section-number">2.4</span> Docker</h2>
 <div id="what-is-docker" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> What is Docker?</h3>
-<p>[Something about Docker and why it’s helpful here.]</p>
+<p>Docker is a program that runs on runs on Linux, OSX or Windows to set up a tiny operating system on your compute, like having a computer in your computer. The advantage of this is that it can save a lot of bother troubleshooting problem relating to the unique configuration details of your computer. With Docker we can set up an isolated operating system on your computer that is already equipped up with a Minecraft server and the various dependencies described above, so we don’t have to worry to about installing and configuring each item. Using a Docker container can take a lot of the bother out of a complicated setup like this.</p>
 </div>
 <div id="the-miner-dockerfile" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> The <code>miner</code> Dockerfile</h3>
@@ -266,7 +266,7 @@ level-type=FLAT</code></pre>
 </div>
 <div id="building-a-docker-image" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> Building a Docker image</h3>
-<p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
+<p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> build -t minecraft .</code></pre></div>
 <p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
 <p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
@@ -282,7 +282,7 @@ java                latest              d23bdf5b1b1b        4 months ago        
 <h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image</h3>
 <p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> run -ti --rm -p 4711:4711 -p 25565:25565 minecraft </code></pre></div>
-<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711).</p>
+<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you’ll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select ‘Multiplayer’, then ‘Direct Connect’, then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running <code>docker-machine IP</code>. After the Minecraft server has started, the Docker terminal will have a prompt like this <code>&gt;</code> where you can enter commands to Minecraft. If you enter <code>op &lt;player&gt;</code> and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don’t run <code>op &lt;player&gt;</code> in the Docker terminal, you will get messages that you don’t have permission if you try to run commands in the desktop app.</p>
 </div>
 </div>
 <div id="raspberry-pi" class="section level2">

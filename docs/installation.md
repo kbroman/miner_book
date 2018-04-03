@@ -111,7 +111,7 @@ telnet <server-ip> 4711
 
 ### What is Docker?
 
-[Something about Docker and why it's helpful here.]
+Docker is a program that runs on runs on Linux, OSX or Windows to set up a tiny operating system on your compute, like having a computer in your computer. The advantage of this is that it can save a lot of bother troubleshooting problem relating to the unique configuration details of your computer. With Docker we can set up an isolated operating system on your computer that is already equipped up with a Minecraft server and the various dependencies described above, so we don't have to worry to about installing and configuring each item. Using a Docker container can take a lot of the bother out of a complicated setup like this.  
 
 ### The `miner` Dockerfile 
 
@@ -149,7 +149,7 @@ This will open the "Dockerfile" file in the `miner` package in a text editor.
 
 ### Building a Docker image
 
-The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from [the Docker website](https://www.docker.com)), you open a command line (e.g., the Terminal application on MacOS), move into the directory with the Dockerfile (using `cd` to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:
+The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from [the Docker website](https://www.docker.com)), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using `cd` to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:
 
 
 ```bash
@@ -189,7 +189,7 @@ Once you have built a Docker image, you can run a container from it. To do that 
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft 
 ```
 
-The `docker run` call is the basic call to run a Docker container from a Docker image. The `minecraft` at the end tells Docker which image to run. The `--rm` option cleans up everything from this container after you're done running it. The `-ti` argument runs the call in the interactive terminal mode. The arguments `-p 4711:4711 -p 25565:25565` allow the needed access to the ports for the game itself (port 25565) and the API (4711).
+The `docker run` call is the basic call to run a Docker container from a Docker image. The `minecraft` at the end tells Docker which image to run. The `--rm` option cleans up everything from this container after you're done running it. The `-ti` argument runs the call in the interactive terminal mode. The arguments `-p 4711:4711 -p 25565:25565` allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you'll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select 'Multiplayer', then 'Direct Connect', then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running `docker-machine IP`. After the Minecraft server has started, the Docker terminal will have a prompt like this `>` where you can enter commands to Minecraft. If you enter `op <player>` and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don't run `op <player>` in the Docker terminal, you will get messages that you don't have permission if you try to run commands in the desktop app. 
 
 ## Raspberry Pi
 
