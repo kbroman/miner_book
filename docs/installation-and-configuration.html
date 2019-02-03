@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R Programming with Minecraft</title>
+  <title>2 Installation and configuration | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R Programming with Minecraft" />
+  <meta property="og:title" content="2 Installation and configuration | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="cover_sm.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="ROpenSciLabs/miner_book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Programming with Minecraft" />
+  <meta name="twitter:title" content="2 Installation and configuration | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="twitter:image" content="cover_sm.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2018-04-03">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="a-stairway-to-heaven.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -196,26 +223,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="install" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Install</h3>
 <p>First, make sure you have installed <a href="https://www.java.com/en/download/help/linux_x64_install.xml">Java</a>. Then make a directory for Minecraft and change into it.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> ~/minecraft
-<span class="bu">cd</span> ~/minecraft</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> ~/minecraft
+<span class="bu">cd</span> ~/minecraft</code></pre>
 <p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-<span class="fu">sudo</span> java -jar BuildTools.jar --rev 1.12
-<span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+<span class="fu">sudo</span> java -jar BuildTools.jar --rev 1.13.2
+<span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</code></pre>
 <p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</code></pre>
 <p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
 </div>
 <div id="connect-with-miner" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Connect with miner</h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/ropenscilabs/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.9.1.jar
-<span class="fu">mv</span> raspberryjuice-1.9.1.jar ~/minecraft/plugins</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+<span class="fu">mv</span> raspberryjuice-1.10.1.jar ~/minecraft/plugins</code></pre>
 <p>Connect to your server from R using <code>mc_connect(&quot;&lt;server-ip&gt;&quot;)</code>. Test your connection by retrieving your player’s location.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
 <span class="kw">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)
-<span class="kw">getPlayerIds</span>()</code></pre></div>
+<span class="kw">getPlayerIds</span>()</code></pre>
 </div>
 <div id="configure" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Configure</h3>
@@ -224,16 +251,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 force-gamemode=true
 level-type=FLAT</code></pre>
 <p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
-<span class="ex">java</span> -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.12.jar</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
+<span class="ex">java</span> -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar</code></pre>
 <p>Then make it an executable, and run it with <code>nohup</code>:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">chmod</span> +x start.sh
-<span class="fu">nohup</span> ./start.sh</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">chmod</span> +x start.sh
+<span class="fu">nohup</span> ./start.sh</code></pre>
 <p>If you need to use a different port, use the <code>-p</code> option. (<a href="https://www.spigotmc.org/wiki/start-up-parameters/">See other options</a>.)</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui</code></pre>
 <p>If you’re having a hard time connecting, verify that your ports are open. The standard port for Minecraft is <code>25565</code>. The standard port for the <a href="https://github.com/ropenscilabs/miner">miner</a> package is <code>4711</code>.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565
-<span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565
+<span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</code></pre>
 </div>
 </div>
 <div id="docker" class="section level2">
@@ -258,30 +285,30 @@ level-type=FLAT</code></pre>
 <li>Start the Minecraft server, [explain options we’re using for that]</li>
 </ul>
 <p>This Dockerfile is included in the <code>miner</code> package. To find it on your computer once you’ve installed the <code>miner</code> package, you can run:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>)</code></pre>
 <p>This call will return the file pathname on your computer for any the file named “Dockerfile” that come with the <code>miner</code> package.</p>
 <p>If you’d like to take a look at the Dockerfile, from R you can run:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">edit</span>(<span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">edit</span>(<span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>))</code></pre>
 <p>This will open the “Dockerfile” file in the <code>miner</code> package in a text editor.</p>
 </div>
 <div id="building-a-docker-image" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> Building a Docker image</h3>
 <p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> build -t minecraft .</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> build -t minecraft .</code></pre>
 <p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
 <p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> images</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> images</code></pre>
 <p>You should see something like this:</p>
 <pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
 java                latest              d23bdf5b1b1b        4 months ago        643 MB</code></pre>
 <p>This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you’d ever like to remove a Docker image from your system, you can do that with the command line call <code>docker rmi</code> and the image ID. For example, if you ever wanted to remove the “minecraft” image listed above that you built with the call to <code>docker build</code>, you could run:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> rmi 2c9e2f2c16d3</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> rmi 2c9e2f2c16d3</code></pre>
 </div>
 <div id="running-a-docker-container-from-the-image" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image</h3>
 <p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> run -ti --rm -p 4711:4711 -p 25565:25565 minecraft </code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
 <p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you’ll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select ‘Multiplayer’, then ‘Direct Connect’, then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running <code>docker-machine IP</code>. After the Minecraft server has started, the Docker terminal will have a prompt like this <code>&gt;</code> where you can enter commands to Minecraft. If you enter <code>op &lt;player&gt;</code> and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don’t run <code>op &lt;player&gt;</code> in the Docker terminal, you will get messages that you don’t have permission if you try to run commands in the desktop app.</p>
 </div>
 </div>
@@ -317,7 +344,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -327,6 +354,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
