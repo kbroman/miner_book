@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R Programming with Minecraft</title>
+  <title>8 Rendering an image in Minecraft | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R Programming with Minecraft" />
+  <meta property="og:title" content="8 Rendering an image in Minecraft | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="cover_sm.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="ROpenSciLabs/miner_book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Programming with Minecraft" />
+  <meta name="twitter:title" content="8 Rendering an image in Minecraft | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="twitter:image" content="cover_sm.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2018-04-03">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="rendering-the-r-logo-in-minecraft.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -181,36 +208,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="rendering-an-image-in-minecraft" class="section level1">
 <h1><span class="header-section-number">8</span> Rendering an image in Minecraft</h1>
-<p>The <a href="https://github.com/ropenscilabs/miner">miner</a> package makes it possible to manipulate minecraft. Here I will illustrate one use of this: reading in an image file and rendering it within minecraft as blocks.</p>
+<p>The <a href="https://github.com/ropenscilabs/miner">miner</a> package makes it
+possible to manipulate minecraft. Here I will illustrate one use of
+this: reading in an image file and rendering it within minecraft as
+blocks.</p>
 <div id="load-and-prepare-an-image-file" class="section level2">
 <h2><span class="header-section-number">8.1</span> Load and prepare an image file</h2>
-<p>First, let’s download an image file from the web. We’ll load it directly into R from the web, using the <a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(imager)
+<p>First, let’s download an image file from the web. We’ll load it
+directly into R from the web, using the
+<a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(imager)
 url &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;https://bids.berkeley.edu/sites/default/files/styles&quot;</span>,
               <span class="st">&quot;/300x300/public/karthik_ram.jpeg?itok=loiSP_tm&quot;</span>)
-img &lt;-<span class="st"> </span><span class="kw">load.image</span>(url)</code></pre></div>
+img &lt;-<span class="st"> </span><span class="kw">load.image</span>(url)</code></pre>
 <p>Print to see the size of the image.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">img</code></pre>
 <pre><code>## Image. Width: 300 pix Height: 300 pix Depth: 1 Colour channels: 3</code></pre>
-<p>The image is stored as a 4-dimensional array: horizontal and vertical position, time, and color.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(img)</code></pre></div>
+<p>The image is stored as a 4-dimensional array: horizontal and vertical
+position, time, and color.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(img)</code></pre>
 <pre><code>## [1] 300 300   1   3</code></pre>
 <p>Let’s convert it to grayscale, and make it 100x100.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img &lt;-<span class="st"> </span><span class="kw">grayscale</span>(img)
-img &lt;-<span class="st"> </span><span class="kw">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</code></pre></div>
-<p>The level of gray is a number between 0 and 1. I’d like to coarsen that to having 7 levels, which I can turn into different kinds of minecraft blocks. I can use the R function <code>cut</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img[] &lt;-<span class="st"> </span><span class="kw">cut</span>(img, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">8</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">img &lt;-<span class="st"> </span><span class="kw">grayscale</span>(img)
+img &lt;-<span class="st"> </span><span class="kw">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</code></pre>
+<p>The level of gray is a number between 0 and 1. I’d like to coarsen
+that to having 7 levels, which I can turn into different kinds of
+minecraft blocks. I can use the R function <code>cut</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">img[] &lt;-<span class="st"> </span><span class="kw">cut</span>(img, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">8</span>))</code></pre>
 </div>
 <div id="render-the-image-in-minecraft" class="section level2">
 <h2><span class="header-section-number">8.2</span> Render the image in Minecraft</h2>
-<p>Now let’s load the <a href="https://github.com/ROpenSciLabs/miner">miner</a> package and create a vector of different block types, from black to white. We can use <code>find_item</code> to find the item IDs for these block times. “Clay” has two possible item IDs; we’ll take the first one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<p>Now let’s load the <a href="https://github.com/ROpenSciLabs/miner">miner</a>
+package and create a vector of different block types, from black to
+white. We can use <code>find_item</code> to find the item IDs for these block
+times. “Clay” has two possible item IDs; we’ll take the first one.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
 grayscale_blocks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,
                      <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)
 grayscale_blocks &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="kw">lapply</span>(grayscale_blocks,
-                         <span class="cf">function</span>(a) <span class="kw">find_item</span>(a)[<span class="dv">1</span>,,<span class="dt">drop=</span><span class="ot">FALSE</span>]))</code></pre></div>
+                         <span class="cf">function</span>(a) <span class="kw">find_item</span>(a)[<span class="dv">1</span>,,<span class="dt">drop=</span><span class="ot">FALSE</span>]))</code></pre>
 <p>Here’s the result:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grayscale_blocks</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">grayscale_blocks</code></pre>
 <pre><code>##           name id style
 ## 81  Black Wool 35    15
 ## 73   Gray Wool 35     7
@@ -219,32 +257,32 @@ grayscale_blocks &lt;-<span class="st"> </span><span class="kw">do.call</span>(<
 ## 149       Clay 82     0
 ## 66  White Wool 35     0
 ## 95  Iron Block 42     0</code></pre>
-<p>Now, let’s render that in Minecraft. We use <code>mc_connect()</code> to connect to a minecraft server.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>()</code></pre></div>
-<p>Let’s find the “host” player position, and put the image 20 blocks above his/her head. Actually, I’ll hard-code it in here, so if I re-run this it ends up in the same place.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">host_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()
-host_pos[<span class="dv">2</span>] &lt;-<span class="st"> </span>host_pos[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="dv">20</span></code></pre></div>
+<p>Now, let’s render that in Minecraft. We use <code>mc_connect()</code> to connect
+to a minecraft server.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mc_connect</span>()</code></pre>
+<p>Let’s find the “host” player position, and put the image 20 blocks
+above his/her head. Actually, I’ll hard-code it in here, so if I
+re-run this it ends up in the same place.</p>
+<pre class="sourceCode r"><code class="sourceCode r">host_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()
+host_pos[<span class="dv">2</span>] &lt;-<span class="st"> </span>host_pos[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="dv">20</span></code></pre>
 <p>Now, we render the image, with a nested <code>for</code> loop.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
     <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
         <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="op">+</span>i, host_pos[<span class="dv">2</span>]<span class="op">+</span>j, host_pos[<span class="dv">3</span>],
                  grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],
                  grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])
     }
-}</code></pre></div>
+}</code></pre>
 <p>Oops. that gives the image upside down and backwards. Let’s fix that.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
     <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
         <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="op">+</span>(<span class="dv">101</span><span class="op">-</span>i), host_pos[<span class="dv">2</span>]<span class="op">+</span>(<span class="dv">101</span><span class="op">-</span>j), host_pos[<span class="dv">3</span>],
                  grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],
                  grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])
     }
-}</code></pre></div>
+}</code></pre>
 <p>The result looks like this:</p>
-<div class="figure">
-<img src="figure/karthik_minecraft.png" />
-
-</div>
+<p><img src="figure/karthik_minecraft.png" /></p>
 
 </div>
 </div>
@@ -274,7 +312,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -284,6 +322,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },

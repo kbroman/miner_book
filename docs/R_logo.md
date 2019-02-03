@@ -28,7 +28,7 @@ logo
 ```
 
 ```
-## Image. Width: 724 pix Height: 561 pix Depth: 1 Colour channels: 4
+## Image. Width: 724 pix Height: 561 pix Depth: 1 Colour channels: 3
 ```
 
 The image is stored as a 4-dimensional array: horizontal and vertical
@@ -40,7 +40,7 @@ dim(logo)
 ```
 
 ```
-## [1] 724 561   1   4
+## [1] 724 561   1   3
 ```
 
 Let's reduce the size to 80x70.
