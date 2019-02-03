@@ -27,12 +27,12 @@ mkdir ~/minecraft
 cd ~/minecraft
 ```
 
-Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-installation/), a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the `jar` file. This step will fail to start the server but will successfully create the plugin directory and the EULA. 
+Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-installation/), a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the `jar` file. This step will fail to start the server but will successfully create the plugin directory and the EULA.
 
 ```{bash}
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-sudo java -jar BuildTools.jar --rev 1.12
-java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+sudo java -jar BuildTools.jar --rev 1.13.2
+java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
 
 Edit the file `eula.txt` so that the line `eula=false` is instead `eula=true`
@@ -40,7 +40,7 @@ Edit the file `eula.txt` so that the line `eula=false` is instead `eula=true`
 Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
 ```{bash}
-java -jar -Xms1024M -Xmx2048M spigot-1.12.jar nogui
+java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
 
 Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing `op <playername>` into the server prompt. When you are finished playing type `stop` in the server prompt to stop the server.
@@ -50,8 +50,8 @@ Your Minecraft server should now be running. Open your Minecraft game on your de
 You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/ropenscilabs/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
 ```{bash}
-sudo wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.9.1.jar
-mv raspberryjuice-1.9.1.jar ~/minecraft/plugins
+sudo wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
 ```
 
 Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
@@ -76,10 +76,10 @@ If you want to run Minecraft in the background, then you can create a simple `st
 
 ```{bash}
 #!/bin/sh
-java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.12.jar
+java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar
 ```
 
-Then make it an executable, and run it with `nohup`: 
+Then make it an executable, and run it with `nohup`:
 
 ```{bash}
 chmod +x start.sh
@@ -89,7 +89,7 @@ nohup ./start.sh
 If you need to use a different port, use the `-p` option. ([See other options](https://www.spigotmc.org/wiki/start-up-parameters/).)
 
 ```{bash}
-java -jar -Xms1024M -Xmx2048M spigot-1.12.jar -p25566 nogui
+java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui
 ```
 
 If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/ropenscilabs/miner) package is `4711`.
