@@ -8,7 +8,91 @@ To use the [miner](https://github.com/ropenscilabs/miner) package, you'll need a
 
 ## Mac OS X
 
-Installing stuff on a Mac.
+The first installation step on a Mac is of the Java SE (standard
+edition) development kid (JSK). The latest version should probably
+work. We got [JDK version
+11](https://www.oracle.com/technetwork/java/javase/overview/index.html).
+You'll get a `.dmg` installer file named something like
+`jdk-11.0.2_osx-x64_bin.dmg`. Double-click to run and go through the
+installation screens.
+
+Second, open a terminal (in Applications/Utilities). Verify that java
+was installed correctly by typing
+
+```shell
+java -version
+javac -version
+```
+
+They both should show 11.0.2 (or whatever version number you
+installed.
+
+The rest of the installation is just like for Linux (below). Though
+maybe you won't have `wget` available and will need to download the
+files from a web browser and move them into place.
+
+The `~/minecraft` directory that you create will take up about 600 MB.
+
+### Docker on Mac OS X
+
+You can also install Docker and create a Minecraft server within a
+Docker container on a Mac.
+
+Install [Docker CE (community edition) for
+Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac).
+You will need to sign up for a free account in order to download
+Docker.
+
+The download will give a `Docker.dmg` file which you double-click and
+then drag `Docker.app` to your Applications folder.
+
+Run the Docker application. It will ask for you Mac administrator
+password and will then ask you to log in with your docker account and
+password.
+
+We found that we needed to change the preferences to give the docker
+container more memory. (See [this stackoverflow
+question](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container).)
+Click on the whale in the menu bar, select "preferences" and
+"advanced" and then drag the memory slider to 4.0 GB.
+
+The rest follows the Docker instructions (below):
+
+Open a terminal and change to the miner package directory, with
+the `Dockerfile`.
+
+```shell
+R -e "system.file('Dockerfile', package = 'miner')"
+cd ~/Rlibs/miner
+```
+
+Then build the docker container:
+
+```shell
+docker build -t minecraft .
+```
+
+Run the docker container:
+
+```
+docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
+```
+
+To connect to the minecraft server from your minecraft game client, or
+with `miner::mc_connect()` within R, you need to have an IP address
+for the docker instance. [But I wasn't able to get `docker-machine` to
+work. And I tried `docker ps` to get a list of containers, and `docker
+inspect <containerID> | grep IPAddress` but the IP address I found
+didn't work either.] What ultimately worked for me was just to use
+`"localhost"` in place of an IP address. Within R, you can just leave
+off the IP, typing `miner::mc_connect()`, and `"localhost"` will be
+the default.
+
+One problem I had: docker seemed to re-create the world each time,
+so anything I created in one instance would be lost in the next.
+
+
+
 
 ## Windows
 
