@@ -201,14 +201,14 @@ javac -version</code></pre>
 <p>The download will give a <code>Docker.dmg</code> file which you double-click and then drag <code>Docker.app</code> to your Applications folder.</p>
 <p>Run the Docker application. It will ask for you Mac administrator password and will then ask you to log in with your docker account and password.</p>
 <p>We found that we needed to change the preferences to give the docker container more memory. (See <a href="https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container">this stackoverflow question</a>.) Click on the whale in the menu bar, select “preferences” and “advanced” and then drag the memory slider to 4.0 GB.</p>
-<p>The rest follows the Docker instructions (below):</p>
-<p>Open a terminal and change to the miner package directory, with the <code>Dockerfile</code>.</p>
+<p>The rest follows the Docker instructions (below), the I needed to use <code>sudo</code> with the docker commands.</p>
+<p>Open a terminal and change to the miner package directory, which contains the <code>Dockerfile</code>. For me, this is in <code>~/Rlibs</code>.</p>
 <pre class="shell"><code>R -e &quot;system.file(&#39;Dockerfile&#39;, package = &#39;miner&#39;)&quot;
 cd ~/Rlibs/miner</code></pre>
 <p>Then build the docker container:</p>
-<pre class="shell"><code>docker build -t minecraft .</code></pre>
+<pre class="shell"><code>sudo docker build -t minecraft .</code></pre>
 <p>Run the docker container:</p>
-<pre><code>docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
+<pre><code>sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
 <p>To connect to the minecraft server from your minecraft game client, or with <code>miner::mc_connect()</code> within R, you need to have an IP address for the docker instance. [But I wasn’t able to get <code>docker-machine</code> to work. And I tried <code>docker ps</code> to get a list of containers, and <code>docker inspect &lt;containerID&gt; | grep IPAddress</code> but the IP address I found didn’t work either.] What ultimately worked for me was just to use <code>&quot;localhost&quot;</code> in place of an IP address. Within R, you can just leave off the IP, typing <code>miner::mc_connect()</code>, and <code>&quot;localhost&quot;</code> will be the default.</p>
 <p>One problem I had: docker seemed to re-create the world each time, so anything I created in one instance would be lost in the next.</p>
 </div>

@@ -54,10 +54,11 @@ question](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory
 Click on the whale in the menu bar, select "preferences" and
 "advanced" and then drag the memory slider to 4.0 GB.
 
-The rest follows the Docker instructions (below):
+The rest follows the Docker instructions (below), the I needed to use
+`sudo` with the docker commands.
 
-Open a terminal and change to the miner package directory, with
-the `Dockerfile`.
+Open a terminal and change to the miner package directory, which contains
+the `Dockerfile`. For me, this is in `~/Rlibs`.
 
 ```shell
 R -e "system.file('Dockerfile', package = 'miner')"
@@ -67,13 +68,13 @@ cd ~/Rlibs/miner
 Then build the docker container:
 
 ```shell
-docker build -t minecraft .
+sudo docker build -t minecraft .
 ```
 
 Run the docker container:
 
 ```
-docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
+sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
 To connect to the minecraft server from your minecraft game client, or
