@@ -120,7 +120,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
-<li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Minecraft Server on a Raspberry Pi</a></li>
+<li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
+<li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
@@ -340,24 +341,18 @@ java                latest              d23bdf5b1b1b        4 months ago        
 <p>If you run Minecraft Pi on your Raspberry Pi, and if you either know the IP address for your Pi, or you have set a hostname, you should be able to connect to Minecraft from another computer on the same network and on which you are running R:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
 <span class="kw">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)
-<span class="kw">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)
-
-
-
-### Installing R on a Raspberry Pi
-
-Install some libraries</code></pre></div>
-<p>sudo apt update sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev</p>
-<pre><code>
-Install R
-</code></pre>
-<p>sudo apt install r-base r-base-core r-base-dev</p>
-<pre><code>
-Run R; I got version 3.3.3 which is old but good enough.
-
-Create an `~/.Rprofile` file (use the editor `nano`), with one line:
-</code></pre>
-<p>options(repos=“<a href="https://cran.rstudio.com" class="uri">https://cran.rstudio.com</a>”) ```</p>
+<span class="kw">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)</code></pre></div>
+</div>
+<div id="installing-r-on-a-raspberry-pi" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Installing R on a Raspberry Pi</h3>
+<p>Install some libraries</p>
+<pre><code>sudo apt update
+sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev</code></pre>
+<p>Install R</p>
+<pre><code>sudo apt install r-base r-base-core r-base-dev</code></pre>
+<p>Run R; I got version 3.3.3 which is old but good enough.</p>
+<p>Create an <code>~/.Rprofile</code> file (use the editor <code>nano</code>), with one line:</p>
+<pre><code>options(repos=“https://cran.rstudio.com”)</code></pre>
 <p>Want to install the <a href="https://cran.rstudio.com/package=devtools">devtools</a> package, but it has a bunch of dependencies and I hit snags on <a href="https://cran.rstudio.com/package=fs">fs</a> and <a href="https://cran.rstudio.com/package=later">later</a>.</p>
 <p>To get fs installed, I followed <a href="https://github.com/r-lib/fs/issues/128#issuecomment-435552967">this discussion</a>.</p>
 <ul>
@@ -394,7 +389,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <span class="kw">chatPost</span>(“Hello, Minecraft<span class="op">!</span>”)</code></pre></div>
 </div>
 <div id="minecraft-server-on-a-raspberry-pi" class="section level3">
-<h3><span class="header-section-number">2.5.3</span> Minecraft Server on a Raspberry Pi</h3>
+<h3><span class="header-section-number">2.5.4</span> Minecraft Server on a Raspberry Pi</h3>
 <p>Follow the instructions above, which come from <a href="http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/" class="uri">http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/</a>.</p>
 <pre><code>mkdir ~/minecraft
 cd ~/minecraft

@@ -328,7 +328,7 @@ running R:
 library(miner)
 mc_connect("raspi.local")
 chatPost("Hello, Minecraft!")
-
+```
 
 
 ### Installing R on a Raspberry Pi
