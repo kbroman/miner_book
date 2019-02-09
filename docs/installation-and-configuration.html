@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2019-02-07">
+<meta name="date" content="2019-02-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -117,7 +117,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a></li>
+<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
+<li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
+<li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Minecraft Server on a Raspberry Pi</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
 <li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
@@ -227,9 +231,10 @@ cd ~/Rlibs/miner</code></pre>
 <span class="bu">cd</span> ~/minecraft</code></pre></div>
 <p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-<span class="fu">sudo</span> java -jar BuildTools.jar --rev 1.13.2
+<span class="ex">java</span> -jar BuildTools.jar --rev 1.13.2
 <span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</code></pre></div>
 <p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
+<p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the maximum available memory.</p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</code></pre></div>
 <p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
@@ -237,7 +242,7 @@ cd ~/Rlibs/miner</code></pre>
 <div id="connect-with-miner" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Connect with miner</h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/ropenscilabs/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
 <span class="fu">mv</span> raspberryjuice-1.10.1.jar ~/minecraft/plugins</code></pre></div>
 <p>Connect to your server from R using <code>mc_connect(&quot;&lt;server-ip&gt;&quot;)</code>. Test your connection by retrieving your player’s location.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
@@ -253,6 +258,7 @@ level-type=FLAT</code></pre>
 <p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
 <span class="ex">java</span> -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar</code></pre></div>
+<p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the maximum available memory.</p>
 <p>Then make it an executable, and run it with <code>nohup</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">chmod</span> +x start.sh
 <span class="fu">nohup</span> ./start.sh</code></pre></div>
@@ -314,8 +320,91 @@ java                latest              d23bdf5b1b1b        4 months ago        
 </div>
 <div id="raspberry-pi" class="section level2">
 <h2><span class="header-section-number">2.5</span> Raspberry Pi</h2>
-<p>Installing stuff on a Raspberry Pi.</p>
+<p>A <a href="">Raspberry Pi</a> is an small (credit card sized), inexpensive computer that runs a scaled-back version of Linux. There are a few different ways to interact with Minecraft and R using a Raspberry Pi. First, you can use the built-in Minecraft Pi application, which is a free, scaled-back version of Minecraft that includes the API that the <a href="https://github.com/ropenscilabs/miner">miner package</a> package interacts with. It is perhaps simplest to run Minecraft Pi on the Raspberry Pi but to connect from R that is running on a separate computer (whether it be linux, Mac, or Windows). But a second option is to install R on the Raspberry Pi itself; there are a couple of small headaches. Third, you can install a Minecraft spigot server, with the raspberryjuice plugin, on the Raspberry Pi, as we have done above. The Raspberry Pi can then act as a stand-alone Minecraft server. We will discuss each of these options, as well as how to set up a Raspberry Pi, below.</p>
+<div id="setting-up-a-raspberry-pi" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Setting up a Raspberry Pi</h3>
+<p>We’re working with a Raspberry Pi 3, with built-in Wifi. And we used a 32 GB micro-SD card.</p>
+<ul>
+<li>Download the Full <a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian</a>; installed onto micro-SD card with <a href="https://etcher.io/">Etcher</a>.</li>
+<li>Used an attached display, keyboard, and mouse for the initial set up</li>
+<li>In the initial set-up screen, configure time zone, locale, and keyboard. Also, change the password and connect to wifi.</li>
+<li>Run <code>sudo raspi-config</code> and</li>
+<li>Change the host name</li>
+<li>Enable ssh (under “Interfaces”)</li>
+<li>If you’re going to use it as a stand-alone Minecraft server not attached to a screen, you might want to change the boot configuration, to boot to a shell rather than the desktop.</li>
+<li>Expand the file system to use the full SD card (under “Advanced”)</li>
+</ul>
+</div>
+<div id="minecraft-pi" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Minecraft Pi</h3>
+<p>If you run Minecraft Pi on your Raspberry Pi, and if you either know the IP address for your Pi, or you have set a hostname, you should be able to connect to Minecraft from another computer on the same network and on which you are running R:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<span class="kw">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)
+<span class="kw">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)
 
+
+
+### Installing R on a Raspberry Pi
+
+Install some libraries</code></pre></div>
+<p>sudo apt update sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev</p>
+<pre><code>
+Install R
+</code></pre>
+<p>sudo apt install r-base r-base-core r-base-dev</p>
+<pre><code>
+Run R; I got version 3.3.3 which is old but good enough.
+
+Create an `~/.Rprofile` file (use the editor `nano`), with one line:
+</code></pre>
+<p>options(repos=“<a href="https://cran.rstudio.com" class="uri">https://cran.rstudio.com</a>”) ```</p>
+<p>Want to install the <a href="https://cran.rstudio.com/package=devtools">devtools</a> package, but it has a bunch of dependencies and I hit snags on <a href="https://cran.rstudio.com/package=fs">fs</a> and <a href="https://cran.rstudio.com/package=later">later</a>.</p>
+<p>To get fs installed, I followed <a href="https://github.com/r-lib/fs/issues/128#issuecomment-435552967">this discussion</a>.</p>
+<ul>
+<li>grab the github repository for the package</li>
+</ul>
+<p><code>git clone git://github.com/r-lib/fs</code></p>
+<ul>
+<li>Use <code>nano</code> to edit the file <code>fs/src/Makevars</code>. Right after the line <code>ifeq ($UNAME), Linux)</code>, added the following line:</li>
+</ul>
+<p><code>PKG_LIBS += -pthread</code></p>
+<ul>
+<li>The install that package by typing</li>
+</ul>
+<p><code>R CMD INSTALL fs</code></p>
+<p>To install the <code>later</code> app, I followed <a href="https://github.com/r-lib/later/issues/73#issuecomment-433438182">this discussion</a>.</p>
+<ul>
+<li>Download the package</li>
+</ul>
+<p><code>git clone git://github.com/r-lab/later</code></p>
+<ul>
+<li>Edit the <code>later/src/Makevars</code> file using the <code>nano</code> editor. Add <code>-lboost_atomic</code> to the end of the line with <code>PKG_LIBS</code>.</li>
+</ul>
+<p>Now you should be able to install devtools. And then use that to install the miner and craft packages. Within R, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+<span class="kw">library</span>(devtools)
+<span class="kw">install_github</span>(<span class="st">&quot;ropenscilabs/miner&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;ropenscilabs/craft&quot;</span>)</code></pre></div>
+<p>It’s possible that you’ll need to install some additional packages first, but hopefully this will happen automatically:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;igraph&quot;</span>))
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;Vessy/RMaze&quot;</span>)</code></pre></div>
+<p>Now fire up Minecraft Pi, load the miner package within R, and connect to minecraft. Test that it’s working by posting to the minecraft chat.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
+<span class="kw">mc_connect</span>()
+<span class="kw">chatPost</span>(“Hello, Minecraft<span class="op">!</span>”)</code></pre></div>
+</div>
+<div id="minecraft-server-on-a-raspberry-pi" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Minecraft Server on a Raspberry Pi</h3>
+<p>Follow the instructions above, which come from <a href="http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/" class="uri">http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/</a>.</p>
+<pre><code>mkdir ~/minecraft
+cd ~/minecraft
+wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+java -Xms1024M -jar BuildTools.jar -rev 1.13.2
+
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+mv raspberryjuice-1.10.1.jar ~/minecraft/plugins</code></pre>
+
+</div>
 </div>
 </div>
             </section>
