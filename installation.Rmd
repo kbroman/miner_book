@@ -119,8 +119,10 @@ wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifac
 java -jar BuildTools.jar --rev 1.13.2
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
-
 Edit the file `eula.txt` so that the line `eula=false` is instead `eula=true`
+
+Note that `-Xms` sets the initial memory usage and `-Xmx` sets the
+maximum available memory.
 
 Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
@@ -163,6 +165,9 @@ If you want to run Minecraft in the background, then you can create a simple `st
 #!/bin/sh
 java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar
 ```
+
+Note that `-Xms` sets the initial memory usage and `-Xmx` sets the
+maximum available memory.
 
 Then make it an executable, and run it with `nohup`:
 
