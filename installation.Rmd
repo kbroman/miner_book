@@ -270,4 +270,158 @@ The `docker run` call is the basic call to run a Docker container from a Docker 
 
 ## Raspberry Pi
 
-Installing stuff on a Raspberry Pi.
+A [Raspberry Pi]() is an small (credit card sized), inexpensive
+computer that runs a scaled-back version of Linux. There are a few
+different ways to interact with Minecraft and R using a Raspberry Pi.
+First, you can use the built-in Minecraft Pi application, which is a
+free, scaled-back version of Minecraft that includes the API that the
+[miner package](https://github.com/ropenscilabs/miner) package
+interacts with. It is perhaps simplest to run Minecraft Pi on the
+Raspberry Pi but to connect from R that is running on a separate computer
+(whether it be linux, Mac, or Windows). But a second option is to
+install R on the Raspberry Pi itself; there are a couple of small
+headaches. Third, you can install a Minecraft spigot server, with the
+raspberryjuice plugin, on the Raspberry Pi, as we have done above. The
+Raspberry Pi can then act as a stand-alone Minecraft server.
+We will discuss each of these options, as well as how to set up a
+Raspberry Pi, below.
+
+### Setting up a Raspberry Pi
+
+We're working with a Raspberry Pi 3, with built-in Wifi. And we used a
+32 GB micro-SD card.
+
+- Download the Full [Raspbian](https://www.raspberrypi.org/downloads/raspbian/); installed onto micro-SD card with [Etcher](https://etcher.io/).
+- Used an attached display, keyboard, and mouse for the initial set up
+- In the initial set-up screen, configure time zone, locale, and
+  keyboard. Also, change the password and connect to wifi.
+- Run `sudo raspi-config` and
+  - Change the host name
+  - Enable ssh (under "Interfaces")
+  - If you're going to use it as a stand-alone Minecraft server not attached to
+    a screen, you might want to change the boot configuration, to boot
+    to a shell rather than the desktop.
+  - Expand the file system to use the full SD card (under "Advanced")
+
+### Minecraft Pi
+
+If you run Minecraft Pi on your Raspberry Pi, and if you either know
+the IP address for your Pi, or you have set a hostname, you should be
+able to connect to Minecraft from another computer on the same network
+and on which you are
+running R:
+
+```r
+library(miner)
+mc_connect("raspi.local")
+chatPost("Hello, Minecraft!")
+
+
+
+### Installing R on a Raspberry Pi
+
+Install some libraries
+
+```
+sudo apt update
+sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev
+```
+
+Install R
+
+```
+sudo apt install r-base r-base-core r-base-dev
+```
+
+Run R; I got version 3.3.3 which is old but good enough.
+
+Create an `~/.Rprofile` file (use the editor `nano`), with one line:
+
+```
+options(repos=“https://cran.rstudio.com”)
+```
+
+Want to install the
+[devtools](https://cran.rstudio.com/package=devtools) package, but it
+has a bunch of dependencies and I hit snags on
+[fs](https://cran.rstudio.com/package=fs) and
+[later](https://cran.rstudio.com/package=later).
+
+To get fs installed, I followed [this
+discussion](https://github.com/r-lib/fs/issues/128#issuecomment-435552967).
+
+- grab the github repository for the package
+
+  ```
+  git clone git://github.com/r-lib/fs
+  ```
+
+- Use `nano` to edit the file `fs/src/Makevars`. Right after the line
+  `ifeq ($UNAME), Linux)`, added the following line:
+
+  ```
+  PKG_LIBS += -pthread
+  ```
+
+- The install that package by typing
+
+  ```
+  R CMD INSTALL fs
+  ```
+
+To install the `later` app, I followed [this
+discussion](https://github.com/r-lib/later/issues/73#issuecomment-433438182).
+
+- Download the package
+
+  ```
+  git clone git://github.com/r-lab/later
+  ```
+
+- Edit the `later/src/Makevars` file using the `nano` editor. Add
+  `-lboost_atomic` to the end of the line with `PKG_LIBS`.
+
+Now you should be able to install devtools. And then use that to
+install the miner and craft packages. Within R, type:
+
+```r
+install.packages("devtools")
+library(devtools)
+install_github("ropenscilabs/miner")
+install_github("ropenscilabs/craft")
+```
+
+It's possible that you'll need to install some additional packages
+first, but hopefully this will happen automatically:
+
+```r
+install.packages(c("stringr", "ggplot2", "shiny", "igraph"))
+devtools::install_github("Vessy/RMaze")
+```
+
+
+Now fire up Minecraft Pi, load the miner package within R, and connect
+to minecraft. Test that it's working by posting to the minecraft chat.
+
+```r
+library(miner)
+mc_connect()
+chatPost(“Hello, Minecraft!”)
+```
+
+
+
+### Minecraft Server on a Raspberry Pi
+
+Follow the instructions above, which come from
+<http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/>.
+
+```
+mkdir ~/minecraft
+cd ~/minecraft
+wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+java -Xms1024M -jar BuildTools.jar -rev 1.13.2
+
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
+```
