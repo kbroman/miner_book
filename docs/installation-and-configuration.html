@@ -25,7 +25,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
 
 
-<meta name="date" content="2019-02-07">
+<meta name="date" content="2019-02-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -227,7 +227,7 @@ cd ~/Rlibs/miner</code></pre>
 <span class="bu">cd</span> ~/minecraft</code></pre></div>
 <p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-<span class="fu">sudo</span> java -jar BuildTools.jar --rev 1.13.2
+<span class="ex">java</span> -jar BuildTools.jar --rev 1.13.2
 <span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</code></pre></div>
 <p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
@@ -237,7 +237,7 @@ cd ~/Rlibs/miner</code></pre>
 <div id="connect-with-miner" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Connect with miner</h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/ropenscilabs/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
 <span class="fu">mv</span> raspberryjuice-1.10.1.jar ~/minecraft/plugins</code></pre></div>
 <p>Connect to your server from R using <code>mc_connect(&quot;&lt;server-ip&gt;&quot;)</code>. Test your connection by retrieving your player’s location.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)

@@ -116,7 +116,7 @@ Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-ins
 
 ```bash
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-sudo java -jar BuildTools.jar --rev 1.13.2
+java -jar BuildTools.jar --rev 1.13.2
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
 
@@ -137,7 +137,7 @@ You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspb
 
 
 ```bash
-sudo wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
 mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
 ```
 

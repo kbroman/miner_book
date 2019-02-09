@@ -116,7 +116,7 @@ Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-ins
 
 ```{bash}
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-sudo java -jar BuildTools.jar --rev 1.13.2
+java -jar BuildTools.jar --rev 1.13.2
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
 
@@ -135,7 +135,7 @@ Your Minecraft server should now be running. Open your Minecraft game on your de
 You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/ropenscilabs/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
 ```{bash}
-sudo wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
 mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
 ```
 
