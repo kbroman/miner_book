@@ -139,8 +139,8 @@ You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspb
 
 
 ```bash
-wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
-mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
+mv raspberryjuice-1.11.jar ~/minecraft/plugins
 ```
 
 Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
@@ -435,6 +435,6 @@ cd ~/minecraft
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 java -Xms1024M -jar BuildTools.jar -rev 1.13.2
 
-wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.10.1.jar
-mv raspberryjuice-1.10.1.jar ~/minecraft/plugins
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
+mv raspberryjuice-1.11.jar ~/minecraft/plugins
 ```
