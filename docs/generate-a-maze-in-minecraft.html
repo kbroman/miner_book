@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Generate a maze in Minecraft | R Programming with Minecraft</title>
-  <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Generate a maze in Minecraft | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="github-repo" content="ROpenSciLabs/miner_book" />
+  <meta name="github-repo" content="kbroman/miner_book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="10 Generate a maze in Minecraft | R Programming with Minecraft" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="twitter:image" content="cover_sm.png" />
 
-<meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi">
+<meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2019-02-11">
+<meta name="date" content="2020-12-14" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rendering-the-r-logo-in-minecraft.html">
-<link rel="next" href="random-walks-in-the-minecraft-world.html">
+<link rel="prev" href="rendering-the-r-logo-in-minecraft.html"/>
+<link rel="next" href="random-walks-in-the-minecraft-world.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,44 +48,76 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -193,110 +225,104 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="generate-a-random-maze" class="section level2">
 <h2><span class="header-section-number">10.1</span> Generate a random maze</h2>
 <p>First, we need to generate a maze, for which we will use the <a href="https://github.com/Vessy/Rmaze"><code>Rmaze</code></a> R package’s depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;Vessy/Rmaze&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="generate-a-maze-in-minecraft.html#cb86-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;Vessy/Rmaze&#39;</span>)</span></code></pre></div>
 <p>Then load the package and generate a maze with, for example, 10 x 10 tiles:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Rmaze)
-
-n &lt;-<span class="st"> </span><span class="dv">10</span>
-maze &lt;-<span class="st"> </span><span class="kw">makeGraph</span>(n, n)
-<span class="kw">set.seed</span>(<span class="dv">42</span>)
-maze &lt;-<span class="st"> </span><span class="kw">makeMaze_dfs</span>(maze)</code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="generate-a-maze-in-minecraft.html#cb87-1"></a><span class="kw">library</span>(Rmaze)</span>
+<span id="cb87-2"><a href="generate-a-maze-in-minecraft.html#cb87-2"></a></span>
+<span id="cb87-3"><a href="generate-a-maze-in-minecraft.html#cb87-3"></a>n &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb87-4"><a href="generate-a-maze-in-minecraft.html#cb87-4"></a>maze &lt;-<span class="st"> </span><span class="kw">makeGraph</span>(n, n)</span>
+<span id="cb87-5"><a href="generate-a-maze-in-minecraft.html#cb87-5"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb87-6"><a href="generate-a-maze-in-minecraft.html#cb87-6"></a>maze &lt;-<span class="st"> </span><span class="kw">makeMaze_dfs</span>(maze)</span></code></pre></div>
 <p>This is a graph representation of the maze, which can be rendered with <code>ggplot2</code> very easily:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMaze</span>(maze, n, n)</code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="generate-a-maze-in-minecraft.html#cb88-1"></a><span class="kw">plotMaze</span>(maze, n, n)</span></code></pre></div>
 <p><img src="maze_files/figure-html/maze-plot-1.png" width="672" /></p>
 </div>
 <div id="transform-maze-graph-into-matrix" class="section level2">
 <h2><span class="header-section-number">10.2</span> Transform maze graph into matrix</h2>
 <p>Now we have to transform this graph representation into a binary matrix, where we see in 2D which blocks need to be air or wall. Let’s start with a large empty <code>matrix</code> allowing 4 block for every single cell, as in the matrix we will use blocks for the wall as well (unlike in the above plot):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> n<span class="op">*</span><span class="dv">4</span>, <span class="dt">ncol =</span> n<span class="op">*</span><span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="generate-a-maze-in-minecraft.html#cb89-1"></a>df &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> n<span class="op">*</span><span class="dv">4</span>, <span class="dt">ncol =</span> n<span class="op">*</span><span class="dv">4</span>)</span></code></pre></div>
 <p>Then let’s mark the surrounding border with ones:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df)), ] &lt;-<span class="st"> </span><span class="dv">1</span>
-df[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df))] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="generate-a-maze-in-minecraft.html#cb90-1"></a>df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df)), ] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb90-2"><a href="generate-a-maze-in-minecraft.html#cb90-2"></a>df[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(df))] &lt;-<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
 <p>Here is the top corner of the matrix now:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="generate-a-maze-in-minecraft.html#cb91-1"></a>df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    1    1    1
 ## [2,]    1   NA   NA   NA
 ## [3,]    1   NA   NA   NA
 ## [4,]    1   NA   NA   NA</code></pre>
 <p>But we should leave the entrance and exit open in the bottom left and top right corner:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>, <span class="kw">ncol</span>(df) <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-df[<span class="kw">nrow</span>(df), <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="generate-a-maze-in-minecraft.html#cb93-1"></a>df[<span class="dv">1</span>, <span class="kw">ncol</span>(df) <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb93-2"><a href="generate-a-maze-in-minecraft.html#cb93-2"></a>df[<span class="kw">nrow</span>(df), <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
 <p>Here is the top right corner showing the maze exit we just made:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">ncol</span>(df) <span class="op">-</span><span class="st"> </span><span class="dv">3</span><span class="op">:</span><span class="dv">0</span>]</code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="generate-a-maze-in-minecraft.html#cb94-1"></a>df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">ncol</span>(df) <span class="op">-</span><span class="st"> </span><span class="dv">3</span><span class="op">:</span><span class="dv">0</span>]</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1   NA   NA    1
 ## [2,]   NA   NA   NA    1
 ## [3,]   NA   NA   NA    1
 ## [4,]   NA   NA   NA    1</code></pre>
 <p>Now we need to convert the graph object into a <code>data.frame</code> on which we can iterate later to render the actual wall blocks:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(igraph)
-mazedf &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(maze)
-<span class="kw">library</span>(data.table)
-<span class="kw">setDT</span>(mazedf)</code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="generate-a-maze-in-minecraft.html#cb96-1"></a><span class="kw">library</span>(igraph)</span>
+<span id="cb96-2"><a href="generate-a-maze-in-minecraft.html#cb96-2"></a>mazedf &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(maze)</span>
+<span id="cb96-3"><a href="generate-a-maze-in-minecraft.html#cb96-3"></a><span class="kw">library</span>(data.table)</span>
+<span id="cb96-4"><a href="generate-a-maze-in-minecraft.html#cb96-4"></a><span class="kw">setDT</span>(mazedf)</span></code></pre></div>
 <p>Then let’s extract the <code>x</code> and <code>y</code> positions from the <code>A_x_y</code> names:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (v <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&#39;from&#39;</span>, <span class="st">&#39;to&#39;</span>)) {
-    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;x&#39;</span>)) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_([0-9]*)_[0-9]*&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]
-    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;y&#39;</span>)) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_[0-9]*_([0-9]*)&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]
-}</code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="generate-a-maze-in-minecraft.html#cb97-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&#39;from&#39;</span>, <span class="st">&#39;to&#39;</span>)) {</span>
+<span id="cb97-2"><a href="generate-a-maze-in-minecraft.html#cb97-2"></a>    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;x&#39;</span>)) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_([0-9]*)_[0-9]*&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]</span>
+<span id="cb97-3"><a href="generate-a-maze-in-minecraft.html#cb97-3"></a>    mazedf[, (<span class="kw">paste0</span>(v, <span class="st">&#39;y&#39;</span>)) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&#39;A_[0-9]*_([0-9]*)&#39;</span>, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, <span class="kw">get</span>(v)))]</span>
+<span id="cb97-4"><a href="generate-a-maze-in-minecraft.html#cb97-4"></a>}</span></code></pre></div>
 <p>And let’s also record in which direction the edge points:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mazedf[fromx <span class="op">&lt;</span><span class="st"> </span>tox, direction <span class="op">:</span><span class="er">=</span><span class="st"> &#39;top&#39;</span>]
-mazedf[fromy <span class="op">&lt;</span><span class="st"> </span>toy, direction <span class="op">:</span><span class="er">=</span><span class="st"> &#39;right&#39;</span>]</code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="generate-a-maze-in-minecraft.html#cb98-1"></a>mazedf[fromx <span class="op">&lt;</span><span class="st"> </span>tox, direction <span class="op">:</span><span class="er">=</span><span class="st"> &#39;top&#39;</span>]</span>
+<span id="cb98-2"><a href="generate-a-maze-in-minecraft.html#cb98-2"></a>mazedf[fromy <span class="op">&lt;</span><span class="st"> </span>toy, direction <span class="op">:</span><span class="er">=</span><span class="st"> &#39;right&#39;</span>]</span></code></pre></div>
 <p>Now let’s map the <code>x</code> and <code>y</code> coordinates to the 2D matrix:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mazedf[, x <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">nrow</span>(df) <span class="op">-</span><span class="st"> </span>fromx <span class="op">*</span><span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="kw">as.numeric</span>(direction <span class="op">==</span><span class="st"> &#39;top&#39;</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>]
-mazedf[, y <span class="op">:</span><span class="er">=</span><span class="st"> </span>fromy <span class="op">*</span><span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(direction <span class="op">==</span><span class="st"> &#39;right&#39;</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="generate-a-maze-in-minecraft.html#cb99-1"></a>mazedf[, x <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">nrow</span>(df) <span class="op">-</span><span class="st"> </span>fromx <span class="op">*</span><span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="kw">as.numeric</span>(direction <span class="op">==</span><span class="st"> &#39;top&#39;</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>]</span>
+<span id="cb99-2"><a href="generate-a-maze-in-minecraft.html#cb99-2"></a>mazedf[, y <span class="op">:</span><span class="er">=</span><span class="st"> </span>fromy <span class="op">*</span><span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(direction <span class="op">==</span><span class="st"> &#39;right&#39;</span>) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>]</span></code></pre></div>
 <p>And then let’s update the blank matrix <code>NA</code> cells with 1, 2 or 3 to represent the actual walls:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(mazedf))) {
-    cell &lt;-<span class="st"> </span>mazedf[i]
-    <span class="cf">if</span> (cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {
-        df[cell<span class="op">$</span>x <span class="op">+</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">0</span>, cell<span class="op">$</span>y <span class="op">+</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
-    }
-    <span class="cf">if</span> (cell<span class="op">$</span>direction <span class="op">==</span><span class="st"> &#39;top&#39;</span> <span class="op">&amp;</span><span class="st"> </span>cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {
-        df[cell<span class="op">$</span>x <span class="op">-</span><span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, cell<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">2</span>
-    }
-    <span class="cf">if</span> (cell<span class="op">$</span>direction <span class="op">==</span><span class="st"> &#39;right&#39;</span> <span class="op">&amp;</span><span class="st"> </span>cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {
-        df[cell<span class="op">$</span>x <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, cell<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">3</span>
-    }
-}</code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="generate-a-maze-in-minecraft.html#cb100-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(mazedf))) {</span>
+<span id="cb100-2"><a href="generate-a-maze-in-minecraft.html#cb100-2"></a>    cell &lt;-<span class="st"> </span>mazedf[i]</span>
+<span id="cb100-3"><a href="generate-a-maze-in-minecraft.html#cb100-3"></a>    <span class="cf">if</span> (cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {</span>
+<span id="cb100-4"><a href="generate-a-maze-in-minecraft.html#cb100-4"></a>        df[cell<span class="op">$</span>x <span class="op">+</span><span class="st"> </span><span class="dv">-1</span><span class="op">:</span><span class="dv">0</span>, cell<span class="op">$</span>y <span class="op">+</span><span class="st"> </span><span class="dv">-1</span><span class="op">:</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb100-5"><a href="generate-a-maze-in-minecraft.html#cb100-5"></a>    }</span>
+<span id="cb100-6"><a href="generate-a-maze-in-minecraft.html#cb100-6"></a>    <span class="cf">if</span> (cell<span class="op">$</span>direction <span class="op">==</span><span class="st"> &#39;top&#39;</span> <span class="op">&amp;</span><span class="st"> </span>cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {</span>
+<span id="cb100-7"><a href="generate-a-maze-in-minecraft.html#cb100-7"></a>        df[cell<span class="op">$</span>x <span class="op">-</span><span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, cell<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb100-8"><a href="generate-a-maze-in-minecraft.html#cb100-8"></a>    }</span>
+<span id="cb100-9"><a href="generate-a-maze-in-minecraft.html#cb100-9"></a>    <span class="cf">if</span> (cell<span class="op">$</span>direction <span class="op">==</span><span class="st"> &#39;right&#39;</span> <span class="op">&amp;</span><span class="st"> </span>cell<span class="op">$</span>wall <span class="op">==</span><span class="st"> &#39;ON&#39;</span>) {</span>
+<span id="cb100-10"><a href="generate-a-maze-in-minecraft.html#cb100-10"></a>        df[cell<span class="op">$</span>x <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, cell<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb100-11"><a href="generate-a-maze-in-minecraft.html#cb100-11"></a>    }</span>
+<span id="cb100-12"><a href="generate-a-maze-in-minecraft.html#cb100-12"></a>}</span></code></pre></div>
 <p>I know it was a bit tricky, and probably there’s a nicer and lot more elegant way to do all this :) But at least this works and results in something like:</p>
-<div class="figure">
-<img src="figure/maze-matrix.png" />
-
-</div>
+<p><img src="figure/maze-matrix.png" /></p>
 </div>
 <div id="render-the-maze-in-minecraft" class="section level2">
 <h2><span class="header-section-number">10.3</span> Render the maze in Minecraft</h2>
 <p>Now that we have a binary matrix representation of the maze, it’s very easy to render the related blocks in Minecraft. First, we need to load the <code>miner</code> package and establish a connection to a Minecraft server:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(miner)
-<span class="kw">mc_connect</span>()</code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="generate-a-maze-in-minecraft.html#cb101-1"></a><span class="kw">library</span>(miner)</span>
+<span id="cb101-2"><a href="generate-a-maze-in-minecraft.html#cb101-2"></a><span class="kw">mc_connect</span>()</span></code></pre></div>
 <p>Next, we will clean up some space, then generate the floor (diamond) and ceiling (glass), then the wall blocks(gold):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## create objects with number of columns and rows in the dataframe
-nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(df)
-nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(df)
-
-## clean up some space
-<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">0</span>)
-## add floor
-<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">50</span>, nc, <span class="dv">57</span>)
-## add torch
-<span class="kw">setBlocks</span>(nr <span class="op">-</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">51</span>, <span class="dv">2</span>, nr, <span class="dv">52</span>, <span class="dv">4</span>, <span class="dv">50</span>)
-## maze ceiling
-<span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">54</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">95</span>)
-## 3 blocks tall maze walls
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)) {
-    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df)) {
-        <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.na</span>(df[i, j])) {
-            <span class="kw">setBlock</span>(i, <span class="dv">51</span>, j, <span class="dv">41</span>)
-            <span class="kw">setBlock</span>(i, <span class="dv">52</span>, j, <span class="dv">41</span>)
-            <span class="kw">setBlock</span>(i, <span class="dv">53</span>, j, <span class="dv">41</span>)
-        }
-    }
-}</code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="generate-a-maze-in-minecraft.html#cb102-1"></a><span class="co">## create objects with number of columns and rows in the dataframe</span></span>
+<span id="cb102-2"><a href="generate-a-maze-in-minecraft.html#cb102-2"></a>nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(df)</span>
+<span id="cb102-3"><a href="generate-a-maze-in-minecraft.html#cb102-3"></a>nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(df)</span>
+<span id="cb102-4"><a href="generate-a-maze-in-minecraft.html#cb102-4"></a></span>
+<span id="cb102-5"><a href="generate-a-maze-in-minecraft.html#cb102-5"></a><span class="co">## clean up some space</span></span>
+<span id="cb102-6"><a href="generate-a-maze-in-minecraft.html#cb102-6"></a><span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">0</span>)</span>
+<span id="cb102-7"><a href="generate-a-maze-in-minecraft.html#cb102-7"></a><span class="co">## add floor</span></span>
+<span id="cb102-8"><a href="generate-a-maze-in-minecraft.html#cb102-8"></a><span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">50</span>, nc, <span class="dv">57</span>)</span>
+<span id="cb102-9"><a href="generate-a-maze-in-minecraft.html#cb102-9"></a><span class="co">## add torch</span></span>
+<span id="cb102-10"><a href="generate-a-maze-in-minecraft.html#cb102-10"></a><span class="kw">setBlocks</span>(nr <span class="op">-</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">51</span>, <span class="dv">2</span>, nr, <span class="dv">52</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb102-11"><a href="generate-a-maze-in-minecraft.html#cb102-11"></a><span class="co">## maze ceiling</span></span>
+<span id="cb102-12"><a href="generate-a-maze-in-minecraft.html#cb102-12"></a><span class="kw">setBlocks</span>(<span class="dv">1</span>, <span class="dv">54</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">95</span>)</span>
+<span id="cb102-13"><a href="generate-a-maze-in-minecraft.html#cb102-13"></a><span class="co">## 3 blocks tall maze walls</span></span>
+<span id="cb102-14"><a href="generate-a-maze-in-minecraft.html#cb102-14"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)) {</span>
+<span id="cb102-15"><a href="generate-a-maze-in-minecraft.html#cb102-15"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df)) {</span>
+<span id="cb102-16"><a href="generate-a-maze-in-minecraft.html#cb102-16"></a>        <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.na</span>(df[i, j])) {</span>
+<span id="cb102-17"><a href="generate-a-maze-in-minecraft.html#cb102-17"></a>            <span class="kw">setBlock</span>(i, <span class="dv">51</span>, j, <span class="dv">41</span>)</span>
+<span id="cb102-18"><a href="generate-a-maze-in-minecraft.html#cb102-18"></a>            <span class="kw">setBlock</span>(i, <span class="dv">52</span>, j, <span class="dv">41</span>)</span>
+<span id="cb102-19"><a href="generate-a-maze-in-minecraft.html#cb102-19"></a>            <span class="kw">setBlock</span>(i, <span class="dv">53</span>, j, <span class="dv">41</span>)</span>
+<span id="cb102-20"><a href="generate-a-maze-in-minecraft.html#cb102-20"></a>        }</span>
+<span id="cb102-21"><a href="generate-a-maze-in-minecraft.html#cb102-21"></a>    }</span>
+<span id="cb102-22"><a href="generate-a-maze-in-minecraft.html#cb102-22"></a>}</span></code></pre></div>
 <p>The result looks like this:</p>
-<div class="figure">
-<img src="figure/maze-minecraft.png" />
-
-</div>
+<p><img src="figure/maze-minecraft.png" /></p>
 <p>For a more complete solution, see the <code>mc_maze</code> and <code>mc_mazer</code> functions. The prior generates a maze with given dimensions right in front of a specified player id, while the latter does the same but triggered from the chat window by any player.</p>
 
 </div>
@@ -312,11 +338,13 @@ nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(df)
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -324,12 +352,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -341,6 +368,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
