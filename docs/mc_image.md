@@ -3,7 +3,7 @@
 
 
 
-The [miner](https://github.com/ropenscilabs/miner) package makes it
+The [miner](https://github.com/kbroman/miner) package makes it
 possible to manipulate minecraft. Here I will illustrate one use of
 this: reading in an image file and rendering it within minecraft as
 blocks.
@@ -65,7 +65,7 @@ img[] <- cut(img, seq(0, 1, length.out=8))
 
 ## Render the image in Minecraft
 
-Now let's load the [miner](https://github.com/ROpenSciLabs/miner)
+Now let's load the [miner](https://github.com/kbroman/miner)
 package and create a vector of different block types, from black to
 white. We can use `find_item` to find the item IDs for these block
 times. "Clay" has two possible item IDs; we'll take the first one.

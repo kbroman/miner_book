@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-To use the [miner](https://github.com/ropenscilabs/miner) package, you'll need a Minecraft server that is using the [RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice) plugin. You can use [Spigot](https://www.spigotmc.org) to set up your own server, even locally on your machine. The installation process doesn't take too long, but it helps to have some _command line_ experience.
+To use the [miner](https://github.com/kbroman/miner) package, you'll need a Minecraft server that is using the [RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice) plugin. You can use [Spigot](https://www.spigotmc.org) to set up your own server, even locally on your machine. The installation process doesn't take too long, but it helps to have some _command line_ experience.
 
 ## Mac OS X
 
@@ -101,7 +101,7 @@ Installing stuff in Windows.
 
 ## Linux
 
-These instructions describe how to set up a Minecraft Server on Linux with the Raspberry Juice plugin. Once installed, you can connect to the server with the Microsoft game and with R via the [miner](https://github.com/ropenscilabs/miner) package. If you are new to Minecraft, you will first have to make a one time purchase of a Minecraft license.
+These instructions describe how to set up a Minecraft Server on Linux with the Raspberry Juice plugin. Once installed, you can connect to the server with the Microsoft game and with R via the [miner](https://github.com/kbroman/miner) package. If you are new to Minecraft, you will first have to make a one time purchase of a Minecraft license.
 
 ### Install
 
@@ -134,7 +134,7 @@ Your Minecraft server should now be running. Open your Minecraft game on your de
 
 ### Connect with miner
 
-You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/ropenscilabs/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
+You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/kbroman/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
 ```{bash}
 wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
@@ -182,7 +182,7 @@ If you need to use a different port, use the `-p` option. ([See other options](h
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui
 ```
 
-If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/ropenscilabs/miner) package is `4711`.
+If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/kbroman/miner) package is `4711`.
 
 ```{bash}
 telnet <server-ip> 25565
@@ -275,7 +275,7 @@ computer that runs a scaled-back version of Linux. There are a few
 different ways to interact with Minecraft and R using a Raspberry Pi.
 First, you can use the built-in Minecraft Pi application, which is a
 free, scaled-back version of Minecraft that includes the API that the
-[miner package](https://github.com/ropenscilabs/miner) package
+[miner package](https://github.com/kbroman/miner) package
 interacts with. It is perhaps simplest to run Minecraft Pi on the
 Raspberry Pi but to connect from R that is running on a separate computer
 (whether it be linux, Mac, or Windows). But a second option is to
@@ -385,10 +385,10 @@ Now you should be able to install devtools. And then use that to
 install the miner and craft packages. Within R, type:
 
 ```r
-install.packages("devtools")
+install.packages("remotes")
 library(devtools)
-install_github("ropenscilabs/miner")
-install_github("ropenscilabs/craft")
+install_github("kbroman/miner")
+install_github("kbroman/craft")
 ```
 
 It's possible that you'll need to install some additional packages

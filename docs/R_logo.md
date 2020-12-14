@@ -4,7 +4,7 @@
 
 
 As a further illustration of use of the
-[miner](https://github.com/ropenscilabs/miner) package to interact
+[miner](https://github.com/kbroman/miner) package to interact
 with Minecraft from R, here I will render the R logo within Minecraft.
 
 ## Load and prepare an image file
@@ -28,7 +28,7 @@ logo
 ```
 
 ```
-## Image. Width: 724 pix Height: 561 pix Depth: 1 Colour channels: 3
+## Image. Width: 724 pix Height: 561 pix Depth: 1 Colour channels: 4
 ```
 
 The image is stored as a 4-dimensional array: horizontal and vertical
@@ -40,7 +40,7 @@ dim(logo)
 ```
 
 ```
-## [1] 724 561   1   3
+## [1] 724 561   1   4
 ```
 
 Let's reduce the size to 80x70.
@@ -73,7 +73,7 @@ logo <- logo[,,1,1]
 
 ## Render in Minecraft
 
-Now let's load the [miner](https://github.com/ROpenSciLabs/miner)
+Now let's load the [miner](https://github.com/kbroman/miner)
 package, connect to the MineCraft server, and find a spot to place the
 logo.
 

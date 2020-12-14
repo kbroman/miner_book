@@ -21,7 +21,7 @@ me <- whoami()
 
 Let's try a random walk in one and two dimensions. These should be recurrent, so you shouldn't find your character drifting too far out of the Minecraft world.
 
-We will first retrieve our position again in the Minecraft world. We will then randomly step in the minecraft lattice, provided by the awesome Maze in [the Maze vignette](https://github.com/ropenscilabs/miner/blob/master/extra_vignettes/maze.md)
+We will first retrieve our position again in the Minecraft world. We will then randomly step in the minecraft lattice, provided by the awesome Maze in [the Maze vignette](https://github.com/kbroman/miner/blob/master/extra_vignettes/maze.md)
 
 ```{r recurrent_walk, eval = FALSE}
 
