@@ -18,8 +18,8 @@ directly into R from the web, using the
 
 ```{r download_file}
 library(imager)
-url <- paste0("https://bids.berkeley.edu/sites/default/files/styles",
-              "/300x300/public/karthik_ram.jpeg?itok=loiSP_tm")
+url <- paste0("https://raw.githubusercontent.com/kbroman/miner_book/",
+              "refs/heads/master/figure/karthik_ram.jpeg")
 img <- load.image(url)
 ```
 
