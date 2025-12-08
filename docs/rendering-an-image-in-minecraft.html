@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Rendering an image in Minecraft | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Rendering an image in Minecraft | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="cover_sm.png" />
+  <meta property="og:image" content="/cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="github-repo" content="kbroman/miner_book" />
 
@@ -19,12 +18,12 @@
   <meta name="twitter:title" content="8 Rendering an image in Minecraft | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="twitter:image" content="cover_sm.png" />
+  <meta name="twitter:image" content="/cover_sm.png" />
 
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2025-12-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="number-guess-chat-bot-in-minecraft.html"/>
 <link rel="next" href="rendering-the-r-logo-in-minecraft.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,25 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +87,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +118,34 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -133,38 +161,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a><ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a><ul>
+<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
-<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a><ul>
+<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
 <li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a><ul>
+<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#what-is-docker"><i class="fa fa-check"></i><b>2.4.1</b> What is Docker?</a></li>
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a><ul>
+<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
+<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
 <li class="chapter" data-level="3.2" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#stairway-to-heaven"><i class="fa fa-check"></i><b>3.2</b> Stairway to heaven</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a><ul>
+<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#build-rainbow-with-r-graphics"><i class="fa fa-check"></i><b>4.1</b> Build rainbow with R graphics</a></li>
 <li class="chapter" data-level="4.2" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#minecraft-rainbow"><i class="fa fa-check"></i><b>4.2</b> Minecraft Rainbow</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a><ul>
+<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#connect-to-a-minecraft-server"><i class="fa fa-check"></i><b>5.1</b> Connect to a Minecraft server</a></li>
 <li class="chapter" data-level="5.2" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-player-id"><i class="fa fa-check"></i><b>5.2</b> Figure out your player ID</a></li>
 <li class="chapter" data-level="5.3" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-current-position"><i class="fa fa-check"></i><b>5.3</b> Figure out your current position</a></li>
@@ -172,33 +208,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#jump-on-top-of-the-tower"><i class="fa fa-check"></i><b>5.5</b> Jump on top of the tower</a></li>
 <li class="chapter" data-level="5.6" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#close-the-connection"><i class="fa fa-check"></i><b>5.6</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a><ul>
+<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="planting-a-garden.html"><a href="planting-a-garden.html#connect-with-a-minecraft-server"><i class="fa fa-check"></i><b>6.1</b> Connect with a Minecraft server</a></li>
 <li class="chapter" data-level="6.2" data-path="planting-a-garden.html"><a href="planting-a-garden.html#create-a-dataframe-with-recent-hits"><i class="fa fa-check"></i><b>6.2</b> Create a dataframe with recent hits</a></li>
 <li class="chapter" data-level="6.3" data-path="planting-a-garden.html"><a href="planting-a-garden.html#build-ice-towers"><i class="fa fa-check"></i><b>6.3</b> Build ice towers</a></li>
 <li class="chapter" data-level="6.4" data-path="planting-a-garden.html"><a href="planting-a-garden.html#write-a-function-to-do-this-interactively"><i class="fa fa-check"></i><b>6.4</b> Write a function to do this interactively</a></li>
 <li class="chapter" data-level="6.5" data-path="planting-a-garden.html"><a href="planting-a-garden.html#close-the-connection-1"><i class="fa fa-check"></i><b>6.5</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a><ul>
+<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
 <li class="chapter" data-level="7.2" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#init"><i class="fa fa-check"></i><b>7.2</b> Init</a></li>
 <li class="chapter" data-level="7.3" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#loop"><i class="fa fa-check"></i><b>7.3</b> Loop</a></li>
 <li class="chapter" data-level="7.4" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#lets-play"><i class="fa fa-check"></i><b>7.4</b> Let’s Play!</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a><ul>
+<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#load-and-prepare-an-image-file"><i class="fa fa-check"></i><b>8.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="8.2" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft"><i class="fa fa-check"></i><b>8.2</b> Render the image in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a><ul>
+<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#load-and-prepare-an-image-file-1"><i class="fa fa-check"></i><b>9.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="9.2" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#render-in-minecraft"><i class="fa fa-check"></i><b>9.2</b> Render in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a><ul>
+<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#generate-a-random-maze"><i class="fa fa-check"></i><b>10.1</b> Generate a random maze</a></li>
 <li class="chapter" data-level="10.2" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#transform-maze-graph-into-matrix"><i class="fa fa-check"></i><b>10.2</b> Transform maze graph into matrix</a></li>
 <li class="chapter" data-level="10.3" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#render-the-maze-in-minecraft"><i class="fa fa-check"></i><b>10.3</b> Render the maze in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a><ul>
+<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html#recurrent-random-walks"><i class="fa fa-check"></i><b>11.1</b> Recurrent Random Walks</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
@@ -219,49 +261,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rendering-an-image-in-minecraft" class="section level1">
-<h1><span class="header-section-number">8</span> Rendering an image in Minecraft</h1>
+<div id="rendering-an-image-in-minecraft" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Rendering an image in Minecraft<a href="rendering-an-image-in-minecraft.html#rendering-an-image-in-minecraft" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The <a href="https://github.com/kbroman/miner">miner</a> package makes it
 possible to manipulate minecraft. Here I will illustrate one use of
 this: reading in an image file and rendering it within minecraft as
 blocks.</p>
-<div id="load-and-prepare-an-image-file" class="section level2">
-<h2><span class="header-section-number">8.1</span> Load and prepare an image file</h2>
+<div id="load-and-prepare-an-image-file" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Load and prepare an image file<a href="rendering-an-image-in-minecraft.html#load-and-prepare-an-image-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s download an image file from the web. We’ll load it
 directly into R from the web, using the
 <a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="rendering-an-image-in-minecraft.html#cb61-1"></a><span class="kw">library</span>(imager)</span>
-<span id="cb61-2"><a href="rendering-an-image-in-minecraft.html#cb61-2"></a>url &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;https://bids.berkeley.edu/sites/default/files/styles&quot;</span>,</span>
-<span id="cb61-3"><a href="rendering-an-image-in-minecraft.html#cb61-3"></a>              <span class="st">&quot;/300x300/public/karthik_ram.jpeg?itok=loiSP_tm&quot;</span>)</span>
-<span id="cb61-4"><a href="rendering-an-image-in-minecraft.html#cb61-4"></a>img &lt;-<span class="st"> </span><span class="kw">load.image</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="rendering-an-image-in-minecraft.html#cb61-1" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
+<span id="cb61-2"><a href="rendering-an-image-in-minecraft.html#cb61-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://raw.githubusercontent.com/kbroman/miner_book/&quot;</span>,</span>
+<span id="cb61-3"><a href="rendering-an-image-in-minecraft.html#cb61-3" tabindex="-1"></a>              <span class="st">&quot;refs/heads/master/figure/karthik_ram.jpeg&quot;</span>)</span>
+<span id="cb61-4"><a href="rendering-an-image-in-minecraft.html#cb61-4" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">load.image</span>(url)</span></code></pre></div>
 <p>Print to see the size of the image.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="rendering-an-image-in-minecraft.html#cb62-1"></a>img</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="rendering-an-image-in-minecraft.html#cb62-1" tabindex="-1"></a>img</span></code></pre></div>
 <pre><code>## Image. Width: 300 pix Height: 300 pix Depth: 1 Colour channels: 3</code></pre>
 <p>The image is stored as a 4-dimensional array: horizontal and vertical
 position, time, and color.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="rendering-an-image-in-minecraft.html#cb64-1"></a><span class="kw">dim</span>(img)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="rendering-an-image-in-minecraft.html#cb64-1" tabindex="-1"></a><span class="fu">dim</span>(img)</span></code></pre></div>
 <pre><code>## [1] 300 300   1   3</code></pre>
 <p>Let’s convert it to grayscale, and make it 100x100.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="rendering-an-image-in-minecraft.html#cb66-1"></a>img &lt;-<span class="st"> </span><span class="kw">grayscale</span>(img)</span>
-<span id="cb66-2"><a href="rendering-an-image-in-minecraft.html#cb66-2"></a>img &lt;-<span class="st"> </span><span class="kw">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="rendering-an-image-in-minecraft.html#cb66-1" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">grayscale</span>(img)</span>
+<span id="cb66-2"><a href="rendering-an-image-in-minecraft.html#cb66-2" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</span></code></pre></div>
 <p>The level of gray is a number between 0 and 1. I’d like to coarsen
 that to having 7 levels, which I can turn into different kinds of
 minecraft blocks. I can use the R function <code>cut</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rendering-an-image-in-minecraft.html#cb67-1"></a>img[] &lt;-<span class="st"> </span><span class="kw">cut</span>(img, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rendering-an-image-in-minecraft.html#cb67-1" tabindex="-1"></a>img[] <span class="ot">&lt;-</span> <span class="fu">cut</span>(img, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">8</span>))</span></code></pre></div>
 </div>
-<div id="render-the-image-in-minecraft" class="section level2">
-<h2><span class="header-section-number">8.2</span> Render the image in Minecraft</h2>
+<div id="render-the-image-in-minecraft" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Render the image in Minecraft<a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now let’s load the <a href="https://github.com/kbroman/miner">miner</a>
 package and create a vector of different block types, from black to
 white. We can use <code>find_item</code> to find the item IDs for these block
 times. “Clay” has two possible item IDs; we’ll take the first one.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="rendering-an-image-in-minecraft.html#cb68-1"></a><span class="kw">library</span>(miner)</span>
-<span id="cb68-2"><a href="rendering-an-image-in-minecraft.html#cb68-2"></a>grayscale_blocks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,</span>
-<span id="cb68-3"><a href="rendering-an-image-in-minecraft.html#cb68-3"></a>                     <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)</span>
-<span id="cb68-4"><a href="rendering-an-image-in-minecraft.html#cb68-4"></a>grayscale_blocks &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="kw">lapply</span>(grayscale_blocks,</span>
-<span id="cb68-5"><a href="rendering-an-image-in-minecraft.html#cb68-5"></a>                         <span class="cf">function</span>(a) <span class="kw">find_item</span>(a)[<span class="dv">1</span>,,<span class="dt">drop=</span><span class="ot">FALSE</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="rendering-an-image-in-minecraft.html#cb68-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb68-2"><a href="rendering-an-image-in-minecraft.html#cb68-2" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,</span>
+<span id="cb68-3"><a href="rendering-an-image-in-minecraft.html#cb68-3" tabindex="-1"></a>                     <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)</span>
+<span id="cb68-4"><a href="rendering-an-image-in-minecraft.html#cb68-4" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="fu">lapply</span>(grayscale_blocks,</span>
+<span id="cb68-5"><a href="rendering-an-image-in-minecraft.html#cb68-5" tabindex="-1"></a>                         <span class="cf">function</span>(a) <span class="fu">find_item</span>(a)[<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>]))</span></code></pre></div>
 <p>Here’s the result:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rendering-an-image-in-minecraft.html#cb69-1"></a>grayscale_blocks</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rendering-an-image-in-minecraft.html#cb69-1" tabindex="-1"></a>grayscale_blocks</span></code></pre></div>
 <pre><code>##           name id style
 ## 81  Black Wool 35    15
 ## 73   Gray Wool 35     7
@@ -272,28 +314,28 @@ times. “Clay” has two possible item IDs; we’ll take the first one.</p>
 ## 95  Iron Block 42     0</code></pre>
 <p>Now, let’s render that in Minecraft. We use <code>mc_connect()</code> to connect
 to a minecraft server.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rendering-an-image-in-minecraft.html#cb71-1"></a><span class="kw">mc_connect</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rendering-an-image-in-minecraft.html#cb71-1" tabindex="-1"></a><span class="fu">mc_connect</span>()</span></code></pre></div>
 <p>Let’s find the “host” player position, and put the image 20 blocks
 above his/her head. Actually, I’ll hard-code it in here, so if I
 re-run this it ends up in the same place.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="rendering-an-image-in-minecraft.html#cb72-1"></a>host_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()</span>
-<span id="cb72-2"><a href="rendering-an-image-in-minecraft.html#cb72-2"></a>host_pos[<span class="dv">2</span>] &lt;-<span class="st"> </span>host_pos[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="dv">20</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="rendering-an-image-in-minecraft.html#cb72-1" tabindex="-1"></a>host_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
+<span id="cb72-2"><a href="rendering-an-image-in-minecraft.html#cb72-2" tabindex="-1"></a>host_pos[<span class="dv">2</span>] <span class="ot">&lt;-</span> host_pos[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">20</span></span></code></pre></div>
 <p>Now, we render the image, with a nested <code>for</code> loop.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rendering-an-image-in-minecraft.html#cb73-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</span>
-<span id="cb73-2"><a href="rendering-an-image-in-minecraft.html#cb73-2"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</span>
-<span id="cb73-3"><a href="rendering-an-image-in-minecraft.html#cb73-3"></a>        <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="op">+</span>i, host_pos[<span class="dv">2</span>]<span class="op">+</span>j, host_pos[<span class="dv">3</span>],</span>
-<span id="cb73-4"><a href="rendering-an-image-in-minecraft.html#cb73-4"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
-<span id="cb73-5"><a href="rendering-an-image-in-minecraft.html#cb73-5"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
-<span id="cb73-6"><a href="rendering-an-image-in-minecraft.html#cb73-6"></a>    }</span>
-<span id="cb73-7"><a href="rendering-an-image-in-minecraft.html#cb73-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rendering-an-image-in-minecraft.html#cb73-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb73-2"><a href="rendering-an-image-in-minecraft.html#cb73-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb73-3"><a href="rendering-an-image-in-minecraft.html#cb73-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>i, host_pos[<span class="dv">2</span>]<span class="sc">+</span>j, host_pos[<span class="dv">3</span>],</span>
+<span id="cb73-4"><a href="rendering-an-image-in-minecraft.html#cb73-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
+<span id="cb73-5"><a href="rendering-an-image-in-minecraft.html#cb73-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
+<span id="cb73-6"><a href="rendering-an-image-in-minecraft.html#cb73-6" tabindex="-1"></a>    }</span>
+<span id="cb73-7"><a href="rendering-an-image-in-minecraft.html#cb73-7" tabindex="-1"></a>}</span></code></pre></div>
 <p>Oops. that gives the image upside down and backwards. Let’s fix that.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="rendering-an-image-in-minecraft.html#cb74-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</span>
-<span id="cb74-2"><a href="rendering-an-image-in-minecraft.html#cb74-2"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</span>
-<span id="cb74-3"><a href="rendering-an-image-in-minecraft.html#cb74-3"></a>        <span class="kw">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="op">+</span>(<span class="dv">101</span><span class="op">-</span>i), host_pos[<span class="dv">2</span>]<span class="op">+</span>(<span class="dv">101</span><span class="op">-</span>j), host_pos[<span class="dv">3</span>],</span>
-<span id="cb74-4"><a href="rendering-an-image-in-minecraft.html#cb74-4"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
-<span id="cb74-5"><a href="rendering-an-image-in-minecraft.html#cb74-5"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
-<span id="cb74-6"><a href="rendering-an-image-in-minecraft.html#cb74-6"></a>    }</span>
-<span id="cb74-7"><a href="rendering-an-image-in-minecraft.html#cb74-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="rendering-an-image-in-minecraft.html#cb74-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb74-2"><a href="rendering-an-image-in-minecraft.html#cb74-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb74-3"><a href="rendering-an-image-in-minecraft.html#cb74-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>i), host_pos[<span class="dv">2</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>j), host_pos[<span class="dv">3</span>],</span>
+<span id="cb74-4"><a href="rendering-an-image-in-minecraft.html#cb74-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
+<span id="cb74-5"><a href="rendering-an-image-in-minecraft.html#cb74-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
+<span id="cb74-6"><a href="rendering-an-image-in-minecraft.html#cb74-6" tabindex="-1"></a>    }</span>
+<span id="cb74-7"><a href="rendering-an-image-in-minecraft.html#cb74-7" tabindex="-1"></a>}</span></code></pre></div>
 <p>The result looks like this:</p>
 <p><img src="figure/karthik_minecraft.png" /></p>
 
@@ -309,7 +351,6 @@ re-run this it ends up in the same place.</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -320,37 +361,42 @@ re-run this it ends up in the same place.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

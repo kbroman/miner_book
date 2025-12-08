@@ -14,7 +14,7 @@ We'll load it directly into R from the web using the
 [imager](https://cran.r-project.org/package=imager) package.
 
 
-```r
+``` r
 library(imager)
 url <- "https://www.r-project.org/logo/Rlogo.png"
 logo <- load.image(url)
@@ -23,7 +23,7 @@ logo <- load.image(url)
 Print to see the size of the image.
 
 
-```r
+``` r
 logo
 ```
 
@@ -35,7 +35,7 @@ The image is stored as a 4-dimensional array: horizontal and vertical
 position, time, and color.
 
 
-```r
+``` r
 dim(logo)
 ```
 
@@ -46,7 +46,7 @@ dim(logo)
 Let's reduce the size to 80x70.
 
 
-```r
+``` r
 logo <- resize(logo, 80, 70)
 ```
 
@@ -55,7 +55,7 @@ colors: transparent, gray, and blue. If we look at a histogram of the
 first color channel (red), we can see the three pieces:
 
 
-```r
+``` r
 par(mar=c(5.1,4.1,0.6,0.6), las=1)
 hist(logo[,,,1], breaks=100, main="",
      xlab="Red color intensity")
@@ -66,7 +66,7 @@ hist(logo[,,,1], breaks=100, main="",
 So let's truncate at 0.05 and 0.4.
 
 
-```r
+``` r
 logo[] <- cut(logo, c(-Inf, 0.05, 0.4, Inf))
 logo <- logo[,,1,1]
 ```
@@ -78,7 +78,7 @@ package, connect to the MineCraft server, and find a spot to place the
 logo.
 
 
-```r
+``` r
 library(miner)
 mc_connect()
 host_pos <- getPlayerPos()
@@ -92,7 +92,7 @@ First, we pick out the blue and gray wool blocks, to get the item and
 style IDs.
 
 
-```r
+``` r
 blue <- find_item("Blue Wool")
 gray <- find_item("Light Gray Wool")
 ```
@@ -100,7 +100,7 @@ gray <- find_item("Light Gray Wool")
 Now we try rendering the logo.
 
 
-```r
+``` r
 for(i in 1:nrow(logo)) {
     for(j in 1:ncol(logo)) {
         if(logo[i,j] == 2)

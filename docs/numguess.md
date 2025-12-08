@@ -18,7 +18,7 @@ This is a simple number guessing game:
 First, let's pick a random number between 1 and 100:
 
 
-```r
+``` r
 num <- ceiling(runif(1) * 100)
 ```
 

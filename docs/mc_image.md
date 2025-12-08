@@ -15,17 +15,17 @@ directly into R from the web, using the
 [imager](https://cran.r-project.org/package=imager) package.
 
 
-```r
+``` r
 library(imager)
-url <- paste0("https://bids.berkeley.edu/sites/default/files/styles",
-              "/300x300/public/karthik_ram.jpeg?itok=loiSP_tm")
+url <- paste0("https://raw.githubusercontent.com/kbroman/miner_book/",
+              "refs/heads/master/figure/karthik_ram.jpeg")
 img <- load.image(url)
 ```
 
 Print to see the size of the image.
 
 
-```r
+``` r
 img
 ```
 
@@ -37,7 +37,7 @@ The image is stored as a 4-dimensional array: horizontal and vertical
 position, time, and color.
 
 
-```r
+``` r
 dim(img)
 ```
 
@@ -48,7 +48,7 @@ dim(img)
 Let's convert it to grayscale, and make it 100x100.
 
 
-```r
+``` r
 img <- grayscale(img)
 img <- resize(img, 100, 100)
 ```
@@ -58,7 +58,7 @@ that to having 7 levels, which I can turn into different kinds of
 minecraft blocks. I can use the R function `cut`.
 
 
-```r
+``` r
 img[] <- cut(img, seq(0, 1, length.out=8))
 ```
 
@@ -71,7 +71,7 @@ white. We can use `find_item` to find the item IDs for these block
 times. "Clay" has two possible item IDs; we'll take the first one.
 
 
-```r
+``` r
 library(miner)
 grayscale_blocks <- c("Black Wool", "Gray Wool", "Bedrock",
                      "Coal Ore", "Clay", "White Wool", "Iron Block")
@@ -82,7 +82,7 @@ grayscale_blocks <- do.call("rbind", lapply(grayscale_blocks,
 Here's the result:
 
 
-```r
+``` r
 grayscale_blocks
 ```
 
@@ -101,7 +101,7 @@ Now, let's render that in Minecraft. We use `mc_connect()` to connect
 to a minecraft server.
 
 
-```r
+``` r
 mc_connect()
 ```
 
@@ -110,7 +110,7 @@ above his/her head. Actually, I'll hard-code it in here, so if I
 re-run this it ends up in the same place.
 
 
-```r
+``` r
 host_pos <- getPlayerPos()
 host_pos[2] <- host_pos[2] + 20
 ```
@@ -118,7 +118,7 @@ host_pos[2] <- host_pos[2] + 20
 Now, we render the image, with a nested `for` loop.
 
 
-```r
+``` r
 for(i in 1:100) {
     for(j in 1:100) {
         setBlock(host_pos[1]+i, host_pos[2]+j, host_pos[3],
@@ -131,7 +131,7 @@ for(i in 1:100) {
 Oops. that gives the image upside down and backwards. Let's fix that.
 
 
-```r
+``` r
 for(i in 1:100) {
     for(j in 1:100) {
         setBlock(host_pos[1]+(101-i), host_pos[2]+(101-j), host_pos[3],

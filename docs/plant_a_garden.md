@@ -9,7 +9,7 @@ From within R, you can get a record of recent events, like block hits. You can t
 First, you need to connect to a Minecraft server, which you can do with the `mc_connect` function:
 
 
-```r
+``` r
 mc_connect()
 ```
 
@@ -19,7 +19,7 @@ The `getBlockHits` function will pull a dataframe with recent hits made by playe
 Go into the game, make sure you have an iron sword, and use the right click to hit some blocks around you. Go back into R and create a dataframe with those hits using:
 
 
-```r
+``` r
 recent_hits <- getBlockHits()
 head(recent_hits, 3)
 ```
@@ -34,7 +34,7 @@ head(recent_hits, 3)
 The `getBlockHits` function will return hits from all players. You just want hits that you made. You can use functions in the `dplyr` library to filter the returned dataset just to those you made. You will need to know what your player ID is, but once you do, you can use `filter` to get down to just the rows of the hits dataframe where the player id equals your ID using the logical statement `player == [your player ID]`:
 
 
-```r
+``` r
 library(dplyr)
 hit_locs <- recent_hits %>%
   filter(player == 5799549)
@@ -43,7 +43,7 @@ hit_locs <- recent_hits %>%
 Now you know where your character made hits. The next step is to place flowers there. To start, let's make a dataframe with several of the different flowers available in Minecraft. To do this, we can filter the `mc_items` dataframe that comes with the `miner` dataset to just the rows with certain types of flowers:
 
 
-```r
+``` r
 data(mc_items)
 flowers <- mc_items %>%
   filter(name %in% c("Sunflower", "Lilac", "Rose Bush", "Peony",
@@ -67,7 +67,7 @@ flowers
 Now, you can use a loop. This will loop through every row of the hits dataframe. For each hit, it will randomly pick one of the flower types and place it at that block:
 
 
-```r
+``` r
 for(i in 1:nrow(hit_locs)){
   this_flower <- sample_n(flowers, 1)
   setBlock(hit_locs$x[i], hit_locs$y[i], hit_locs$z[i],
@@ -84,7 +84,7 @@ If you go back into your Minecraft world, you should see flowers where you made 
 Expanding on this, instead of just adding in flowers, you could make full towers. The `setBlocks` function lets you fill a cuboid space with a single type of blocks. If you have a dataframe of hit locations named `hit_locs`, as in the previous example, you can add ice towers with random heights between 1 and 4 units at each location using the following loop:
 
 
-```r
+``` r
 for(i in 1:nrow(hit_locs)){
   tower_height <- sample(1:4, size = 1)
   setBlocks(hit_locs$x[i], hit_locs$y[i], hit_locs$z[i],
@@ -100,7 +100,7 @@ for(i in 1:nrow(hit_locs)){
 You can expand on this idea and write a function that will "listen" to your Minecraft world from R and build ice towers as you make block hits.
 
 
-```r
+``` r
 ice_towers <- function(player_id, delay = 0.2){
   while(TRUE){
     latest_events <- miner::getBlockHits()
@@ -126,7 +126,7 @@ ice_towers <- function(player_id, delay = 0.2){
 You can set this function to run from within your R session with a call like:
 
 
-```r
+``` r
 ice_towers(player_id = 7433954)
 ```
 
@@ -137,6 +137,6 @@ Then you can go inside your Minecraft world, and you should be able to make ice 
 When you're done working with the Minecraft world, you can close the connection using `mc_close`:
 
 
-```r
+``` r
 mc_close()
 ```

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Planting a garden | R Programming with Minecraft</title>
+  <title>Page not found | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Planting a garden | R Programming with Minecraft" />
+  <meta property="og:title" content="Page not found | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="github-repo" content="kbroman/miner_book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Planting a garden | R Programming with Minecraft" />
+  <meta name="twitter:title" content="Page not found | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="twitter:image" content="/cover_sm.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="building-a-tower-and-jumping-on-top.html"/>
-<link rel="next" href="number-guess-chat-bot-in-minecraft.html"/>
+
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -261,105 +261,19 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="planting-a-garden" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">6</span> Planting a garden<a href="planting-a-garden.html#planting-a-garden" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>From within R, you can get a record of recent events, like block hits. You can take advantage of this to place blocks at the places you hit. This tutorial shows how to plant random flowers at every spot you hit. It then expands on these ideas to show how to make ice towers.</p>
-<div id="connect-with-a-minecraft-server" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Connect with a Minecraft server<a href="planting-a-garden.html#connect-with-a-minecraft-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, you need to connect to a Minecraft server, which you can do with the <code>mc_connect</code> function:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="planting-a-garden.html#cb47-1" tabindex="-1"></a><span class="fu">mc_connect</span>()</span></code></pre></div>
-</div>
-<div id="create-a-dataframe-with-recent-hits" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Create a dataframe with recent hits<a href="planting-a-garden.html#create-a-dataframe-with-recent-hits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>getBlockHits</code> function will pull a dataframe with recent hits made by players in the Minecraft world. This dataframe will only include hits that were made by an iron sword and with a right click.
-Go into the game, make sure you have an iron sword, and use the right click to hit some blocks around you. Go back into R and create a dataframe with those hits using:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="planting-a-garden.html#cb48-1" tabindex="-1"></a>recent_hits <span class="ot">&lt;-</span> <span class="fu">getBlockHits</span>()</span>
-<span id="cb48-2"><a href="planting-a-garden.html#cb48-2" tabindex="-1"></a><span class="fu">head</span>(recent_hits, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>    x  y  z block  player
-1  10  0  8     2 5799549
-2  10  0  8     2 5799549
-3  10  0  8     2 5799549</code></pre>
-<p>The <code>getBlockHits</code> function will return hits from all players. You just want hits that you made. You can use functions in the <code>dplyr</code> library to filter the returned dataset just to those you made. You will need to know what your player ID is, but once you do, you can use <code>filter</code> to get down to just the rows of the hits dataframe where the player id equals your ID using the logical statement <code>player == [your player ID]</code>:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="planting-a-garden.html#cb50-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb50-2"><a href="planting-a-garden.html#cb50-2" tabindex="-1"></a>hit_locs <span class="ot">&lt;-</span> recent_hits <span class="sc">%&gt;%</span></span>
-<span id="cb50-3"><a href="planting-a-garden.html#cb50-3" tabindex="-1"></a>  <span class="fu">filter</span>(player <span class="sc">==</span> <span class="dv">5799549</span>)</span></code></pre></div>
-<p>Now you know where your character made hits. The next step is to place flowers there. To start, let’s make a dataframe with several of the different flowers available in Minecraft. To do this, we can filter the <code>mc_items</code> dataframe that comes with the <code>miner</code> dataset to just the rows with certain types of flowers:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="planting-a-garden.html#cb51-1" tabindex="-1"></a><span class="fu">data</span>(mc_items)</span>
-<span id="cb51-2"><a href="planting-a-garden.html#cb51-2" tabindex="-1"></a>flowers <span class="ot">&lt;-</span> mc_items <span class="sc">%&gt;%</span></span>
-<span id="cb51-3"><a href="planting-a-garden.html#cb51-3" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Sunflower&quot;</span>, <span class="st">&quot;Lilac&quot;</span>, <span class="st">&quot;Rose Bush&quot;</span>, <span class="st">&quot;Peony&quot;</span>,</span>
-<span id="cb51-4"><a href="planting-a-garden.html#cb51-4" tabindex="-1"></a>                     <span class="st">&quot;Blue Orchid&quot;</span>, <span class="st">&quot;Red Tulip&quot;</span>, <span class="st">&quot;Pink Tulip&quot;</span>,</span>
-<span id="cb51-5"><a href="planting-a-garden.html#cb51-5" tabindex="-1"></a>                     <span class="st">&quot;Oxeye Daisy&quot;</span>))</span>
-<span id="cb51-6"><a href="planting-a-garden.html#cb51-6" tabindex="-1"></a>flowers</span></code></pre></div>
-<pre><code>         name  id style
-1 Blue Orchid  38     1
-2   Red Tulip  38     4
-3  Pink Tulip  38     7
-4 Oxeye Daisy  38     8
-5   Sunflower 175     0
-6       Lilac 175     1
-7   Rose Bush 175     4
-8       Peony 175     5</code></pre>
-<p>Now, you can use a loop. This will loop through every row of the hits dataframe. For each hit, it will randomly pick one of the flower types and place it at that block:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="planting-a-garden.html#cb53-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hit_locs)){</span>
-<span id="cb53-2"><a href="planting-a-garden.html#cb53-2" tabindex="-1"></a>  this_flower <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(flowers, <span class="dv">1</span>)</span>
-<span id="cb53-3"><a href="planting-a-garden.html#cb53-3" tabindex="-1"></a>  <span class="fu">setBlock</span>(hit_locs<span class="sc">$</span>x[i], hit_locs<span class="sc">$</span>y[i], hit_locs<span class="sc">$</span>z[i],</span>
-<span id="cb53-4"><a href="planting-a-garden.html#cb53-4" tabindex="-1"></a>           <span class="at">id =</span> this_flower<span class="sc">$</span>id, <span class="at">style =</span> this_flower<span class="sc">$</span>style)</span>
-<span id="cb53-5"><a href="planting-a-garden.html#cb53-5" tabindex="-1"></a>}</span></code></pre></div>
-<p>If you go back into your Minecraft world, you should see flowers where you made your hits, like this:</p>
-<p><img src="figure/flowers.png" /></p>
-</div>
-<div id="build-ice-towers" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Build ice towers<a href="planting-a-garden.html#build-ice-towers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Expanding on this, instead of just adding in flowers, you could make full towers. The <code>setBlocks</code> function lets you fill a cuboid space with a single type of blocks. If you have a dataframe of hit locations named <code>hit_locs</code>, as in the previous example, you can add ice towers with random heights between 1 and 4 units at each location using the following loop:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="planting-a-garden.html#cb54-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hit_locs)){</span>
-<span id="cb54-2"><a href="planting-a-garden.html#cb54-2" tabindex="-1"></a>  tower_height <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb54-3"><a href="planting-a-garden.html#cb54-3" tabindex="-1"></a>  <span class="fu">setBlocks</span>(hit_locs<span class="sc">$</span>x[i], hit_locs<span class="sc">$</span>y[i], hit_locs<span class="sc">$</span>z[i],</span>
-<span id="cb54-4"><a href="planting-a-garden.html#cb54-4" tabindex="-1"></a>            hit_locs<span class="sc">$</span>x[i], hit_locs<span class="sc">$</span>y[i] <span class="sc">+</span> tower_height, hit_locs<span class="sc">$</span>z[i],</span>
-<span id="cb54-5"><a href="planting-a-garden.html#cb54-5" tabindex="-1"></a>            <span class="at">id =</span> <span class="dv">212</span>)</span>
-<span id="cb54-6"><a href="planting-a-garden.html#cb54-6" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="figure/ice_towers.png" /></p>
-</div>
-<div id="write-a-function-to-do-this-interactively" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Write a function to do this interactively<a href="planting-a-garden.html#write-a-function-to-do-this-interactively" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You can expand on this idea and write a function that will “listen” to your Minecraft world from R and build ice towers as you make block hits.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="planting-a-garden.html#cb55-1" tabindex="-1"></a>ice_towers <span class="ot">&lt;-</span> <span class="cf">function</span>(player_id, <span class="at">delay =</span> <span class="fl">0.2</span>){</span>
-<span id="cb55-2"><a href="planting-a-garden.html#cb55-2" tabindex="-1"></a>  <span class="cf">while</span>(<span class="cn">TRUE</span>){</span>
-<span id="cb55-3"><a href="planting-a-garden.html#cb55-3" tabindex="-1"></a>    latest_events <span class="ot">&lt;-</span> miner<span class="sc">::</span><span class="fu">getBlockHits</span>()</span>
-<span id="cb55-4"><a href="planting-a-garden.html#cb55-4" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(latest_events) <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">next</span></span>
-<span id="cb55-5"><a href="planting-a-garden.html#cb55-5" tabindex="-1"></a></span>
-<span id="cb55-6"><a href="planting-a-garden.html#cb55-6" tabindex="-1"></a>    latest_events <span class="ot">&lt;-</span> latest_events <span class="sc">%&gt;%</span></span>
-<span id="cb55-7"><a href="planting-a-garden.html#cb55-7" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">filter</span>(player <span class="sc">==</span> player_id) <span class="sc">%&gt;%</span></span>
-<span id="cb55-8"><a href="planting-a-garden.html#cb55-8" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">distinct</span>()</span>
-<span id="cb55-9"><a href="planting-a-garden.html#cb55-9" tabindex="-1"></a></span>
-<span id="cb55-10"><a href="planting-a-garden.html#cb55-10" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(latest_events) <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">next</span></span>
-<span id="cb55-11"><a href="planting-a-garden.html#cb55-11" tabindex="-1"></a></span>
-<span id="cb55-12"><a href="planting-a-garden.html#cb55-12" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(latest_events)){</span>
-<span id="cb55-13"><a href="planting-a-garden.html#cb55-13" tabindex="-1"></a>      tower_height <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb55-14"><a href="planting-a-garden.html#cb55-14" tabindex="-1"></a>      miner<span class="sc">::</span><span class="fu">setBlocks</span>(latest_events<span class="sc">$</span>x[i], latest_events<span class="sc">$</span>y[i], latest_events<span class="sc">$</span>z[i],</span>
-<span id="cb55-15"><a href="planting-a-garden.html#cb55-15" tabindex="-1"></a>                       latest_events<span class="sc">$</span>x[i], latest_events<span class="sc">$</span>y[i] <span class="sc">+</span> tower_height, latest_events<span class="sc">$</span>z[i],</span>
-<span id="cb55-16"><a href="planting-a-garden.html#cb55-16" tabindex="-1"></a>                       <span class="at">id =</span> <span class="dv">212</span>)</span>
-<span id="cb55-17"><a href="planting-a-garden.html#cb55-17" tabindex="-1"></a>    }</span>
-<span id="cb55-18"><a href="planting-a-garden.html#cb55-18" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(delay)</span>
-<span id="cb55-19"><a href="planting-a-garden.html#cb55-19" tabindex="-1"></a>  }</span>
-<span id="cb55-20"><a href="planting-a-garden.html#cb55-20" tabindex="-1"></a>}</span></code></pre></div>
-<p>You can set this function to run from within your R session with a call like:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="planting-a-garden.html#cb56-1" tabindex="-1"></a><span class="fu">ice_towers</span>(<span class="at">player_id =</span> <span class="dv">7433954</span>)</span></code></pre></div>
-<p>Then you can go inside your Minecraft world, and you should be able to make ice towers anywhere you hit with a right click with an iron sword.</p>
-</div>
-<div id="close-the-connection-1" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Close the connection<a href="planting-a-garden.html#close-the-connection-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>When you’re done working with the Minecraft world, you can close the connection using <code>mc_close</code>:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="planting-a-garden.html#cb57-1" tabindex="-1"></a><span class="fu">mc_close</span>()</span></code></pre></div>
-
-</div>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="building-a-tower-and-jumping-on-top.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="number-guess-chat-bot-in-minecraft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -7,7 +7,7 @@ The function to create objects in `miner` is the `setBlock` function. It expects
 First, you need to find out where you are. You can use `getPlayerIds` to get the ids of all players currently in the Minecraft world. You can use the `getPlayerPos` function to find the position of each player. If you are the first player, you can pull your ID as the first element of the object returned by `getPlayerIds`:
 
 
-```r
+``` r
 ids <- getPlayerIds()
 lapply(ids, getPlayerPos)
 ali <- ids[1]
@@ -18,7 +18,7 @@ ali <- ids[1]
 We will create a matrix that contains our increments. First we create a matrix with as many columns as we want stairs, and three rows specifying our coordinates. The coordinates are obtained by incrementing the first and second element of each column. We then use `purrr:map` to input that matrix to the `setBlocks` function.
 
 
-```r
+``` r
 pos <- getPlayerPos(player_id = ali, tile = TRUE)
 stair_blocks <- 10
 

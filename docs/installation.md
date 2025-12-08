@@ -106,7 +106,7 @@ These instructions describe how to set up a Minecraft Server on Linux with the R
 First, make sure you have installed [Java](https://www.java.com/en/download/help/linux_x64_install.xml). Then make a directory for Minecraft and change into it.
 
 
-```bash
+``` bash
 mkdir ~/minecraft
 cd ~/minecraft
 ```
@@ -114,7 +114,7 @@ cd ~/minecraft
 Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-installation/), a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the `jar` file. This step will fail to start the server but will successfully create the plugin directory and the EULA.
 
 
-```bash
+``` bash
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 java -jar BuildTools.jar --rev 1.13.2
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
@@ -127,7 +127,7 @@ maximum available memory.
 Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
 
-```bash
+``` bash
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
 ```
 
@@ -138,7 +138,7 @@ Your Minecraft server should now be running. Open your Minecraft game on your de
 You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/kbroman/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
 
-```bash
+``` bash
 wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
 mv raspberryjuice-1.11.jar ~/minecraft/plugins
 ```
@@ -146,7 +146,7 @@ mv raspberryjuice-1.11.jar ~/minecraft/plugins
 Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
 
 
-```r
+``` r
 library(miner)
 mc_connect("<server-ip>")
 getPlayerIds()
@@ -165,7 +165,7 @@ level-type=FLAT
 If you want to run Minecraft in the background, then you can create a simple `start.sh` script:
 
 
-```bash
+``` bash
 #!/bin/sh
 java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar
 ```
@@ -176,7 +176,7 @@ maximum available memory.
 Then make it an executable, and run it with `nohup`:
 
 
-```bash
+``` bash
 chmod +x start.sh
 nohup ./start.sh
 ```
@@ -184,14 +184,14 @@ nohup ./start.sh
 If you need to use a different port, use the `-p` option. ([See other options](https://www.spigotmc.org/wiki/start-up-parameters/).)
 
 
-```bash
+``` bash
 java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui
 ```
 
 If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/kbroman/miner) package is `4711`.
 
 
-```bash
+``` bash
 telnet <server-ip> 25565
 telnet <server-ip> 4711
 ```
@@ -222,7 +222,7 @@ This file specifies the following steps that are needed to set up the required e
 This Dockerfile is included in the `miner` package. To find it on your computer once you've installed the `miner` package, you can run:
 
 
-```r
+``` r
 system.file("Dockerfile", package = "miner")
 ```
 
@@ -231,7 +231,7 @@ This call will return the file pathname on your computer for any the file named 
 If you'd like to take a look at the Dockerfile, from R you can run:
 
 
-```r
+``` r
 edit(system.file("Dockerfile", package = "miner"))
 ```
 
@@ -242,7 +242,7 @@ This will open the "Dockerfile" file in the `miner` package in a text editor.
 The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from [the Docker website](https://www.docker.com)), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using `cd` to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:
 
 
-```bash
+``` bash
 docker build -t minecraft .
 ```
 
@@ -251,7 +251,7 @@ The `docker build` call is the basic call to build a Docker image from a Dockerf
 Once you've built the image, you can check to see that it's in the Docker images on your system by running the following call from a command line:
 
 
-```bash
+``` bash
 docker images
 ```
 
@@ -266,7 +266,7 @@ java                latest              d23bdf5b1b1b        4 months ago        
 This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you'd ever like to remove a Docker image from your system, you can do that with the command line call `docker rmi` and the image ID. For example, if you ever wanted to remove the "minecraft" image listed above that you built with the call to `docker build`, you could run:
 
 
-```bash
+``` bash
 docker rmi 2c9e2f2c16d3
 ```
 
@@ -275,7 +275,7 @@ docker rmi 2c9e2f2c16d3
 Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:
 
 
-```bash
+``` bash
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 

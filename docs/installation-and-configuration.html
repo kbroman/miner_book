@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Installation and configuration | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Installation and configuration | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="cover_sm.png" />
+  <meta property="og:image" content="/cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="github-repo" content="kbroman/miner_book" />
 
@@ -19,12 +18,12 @@
   <meta name="twitter:title" content="2 Installation and configuration | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="twitter:image" content="cover_sm.png" />
+  <meta name="twitter:image" content="/cover_sm.png" />
 
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2025-12-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="a-stairway-to-heaven.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,25 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +87,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +118,34 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -133,38 +161,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a><ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a><ul>
+<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
-<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a><ul>
+<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
 <li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a><ul>
+<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#what-is-docker"><i class="fa fa-check"></i><b>2.4.1</b> What is Docker?</a></li>
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a><ul>
+<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
+<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
 <li class="chapter" data-level="3.2" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#stairway-to-heaven"><i class="fa fa-check"></i><b>3.2</b> Stairway to heaven</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a><ul>
+<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#build-rainbow-with-r-graphics"><i class="fa fa-check"></i><b>4.1</b> Build rainbow with R graphics</a></li>
 <li class="chapter" data-level="4.2" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#minecraft-rainbow"><i class="fa fa-check"></i><b>4.2</b> Minecraft Rainbow</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a><ul>
+<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#connect-to-a-minecraft-server"><i class="fa fa-check"></i><b>5.1</b> Connect to a Minecraft server</a></li>
 <li class="chapter" data-level="5.2" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-player-id"><i class="fa fa-check"></i><b>5.2</b> Figure out your player ID</a></li>
 <li class="chapter" data-level="5.3" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-current-position"><i class="fa fa-check"></i><b>5.3</b> Figure out your current position</a></li>
@@ -172,33 +208,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#jump-on-top-of-the-tower"><i class="fa fa-check"></i><b>5.5</b> Jump on top of the tower</a></li>
 <li class="chapter" data-level="5.6" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#close-the-connection"><i class="fa fa-check"></i><b>5.6</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a><ul>
+<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="planting-a-garden.html"><a href="planting-a-garden.html#connect-with-a-minecraft-server"><i class="fa fa-check"></i><b>6.1</b> Connect with a Minecraft server</a></li>
 <li class="chapter" data-level="6.2" data-path="planting-a-garden.html"><a href="planting-a-garden.html#create-a-dataframe-with-recent-hits"><i class="fa fa-check"></i><b>6.2</b> Create a dataframe with recent hits</a></li>
 <li class="chapter" data-level="6.3" data-path="planting-a-garden.html"><a href="planting-a-garden.html#build-ice-towers"><i class="fa fa-check"></i><b>6.3</b> Build ice towers</a></li>
 <li class="chapter" data-level="6.4" data-path="planting-a-garden.html"><a href="planting-a-garden.html#write-a-function-to-do-this-interactively"><i class="fa fa-check"></i><b>6.4</b> Write a function to do this interactively</a></li>
 <li class="chapter" data-level="6.5" data-path="planting-a-garden.html"><a href="planting-a-garden.html#close-the-connection-1"><i class="fa fa-check"></i><b>6.5</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a><ul>
+<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
 <li class="chapter" data-level="7.2" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#init"><i class="fa fa-check"></i><b>7.2</b> Init</a></li>
 <li class="chapter" data-level="7.3" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#loop"><i class="fa fa-check"></i><b>7.3</b> Loop</a></li>
 <li class="chapter" data-level="7.4" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#lets-play"><i class="fa fa-check"></i><b>7.4</b> Let’s Play!</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a><ul>
+<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#load-and-prepare-an-image-file"><i class="fa fa-check"></i><b>8.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="8.2" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft"><i class="fa fa-check"></i><b>8.2</b> Render the image in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a><ul>
+<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#load-and-prepare-an-image-file-1"><i class="fa fa-check"></i><b>9.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="9.2" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#render-in-minecraft"><i class="fa fa-check"></i><b>9.2</b> Render in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a><ul>
+<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#generate-a-random-maze"><i class="fa fa-check"></i><b>10.1</b> Generate a random maze</a></li>
 <li class="chapter" data-level="10.2" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#transform-maze-graph-into-matrix"><i class="fa fa-check"></i><b>10.2</b> Transform maze graph into matrix</a></li>
 <li class="chapter" data-level="10.3" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#render-the-maze-in-minecraft"><i class="fa fa-check"></i><b>10.3</b> Render the maze in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a><ul>
+<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html#recurrent-random-walks"><i class="fa fa-check"></i><b>11.1</b> Recurrent Random Walks</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
@@ -219,11 +261,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="installation-and-configuration" class="section level1">
-<h1><span class="header-section-number">2</span> Installation and configuration</h1>
+<div id="installation-and-configuration" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Installation and configuration<a href="installation-and-configuration.html#installation-and-configuration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>To use the <a href="https://github.com/kbroman/miner">miner</a> package, you’ll need a Minecraft server that is using the <a href="https://dev.bukkit.org/projects/raspberryjuice">RaspberryJuice</a> plugin. You can use <a href="https://www.spigotmc.org">Spigot</a> to set up your own server, even locally on your machine. The installation process doesn’t take too long, but it helps to have some <em>command line</em> experience.</p>
-<div id="mac-os-x" class="section level2">
-<h2><span class="header-section-number">2.1</span> Mac OS X</h2>
+<div id="mac-os-x" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Mac OS X<a href="installation-and-configuration.html#mac-os-x" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The first installation step on a Mac is of the Java SE (standard
 edition) development kid (JSK). The latest version should probably
 work. We got <a href="https://www.oracle.com/technetwork/java/javase/overview/index.html">JDK version
@@ -241,8 +283,8 @@ installed.</p>
 maybe you won’t have <code>wget</code> available and will need to download the
 files from a web browser and move them into place.</p>
 <p>The <code>~/minecraft</code> directory that you create will take up about 600 MB.</p>
-<div id="docker-on-mac-os-x" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Docker on Mac OS X</h3>
+<div id="docker-on-mac-os-x" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Docker on Mac OS X<a href="installation-and-configuration.html#docker-on-mac-os-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can also install Docker and create a Minecraft server within a
 Docker container on a Mac.</p>
 <p>Install <a href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">Docker CE (community edition) for
@@ -281,68 +323,68 @@ the default.</p>
 so anything I created in one instance would be lost in the next.</p>
 </div>
 </div>
-<div id="windows" class="section level2">
-<h2><span class="header-section-number">2.2</span> Windows</h2>
+<div id="windows" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Windows<a href="installation-and-configuration.html#windows" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Installing stuff in Windows.</p>
 </div>
-<div id="linux" class="section level2">
-<h2><span class="header-section-number">2.3</span> Linux</h2>
+<div id="linux" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Linux<a href="installation-and-configuration.html#linux" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>These instructions describe how to set up a Minecraft Server on Linux with the Raspberry Juice plugin. Once installed, you can connect to the server with the Microsoft game and with R via the <a href="https://github.com/kbroman/miner">miner</a> package. If you are new to Minecraft, you will first have to make a one time purchase of a Minecraft license.</p>
-<div id="install" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> Install</h3>
+<div id="install" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Install<a href="installation-and-configuration.html#install" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, make sure you have installed <a href="https://www.java.com/en/download/help/linux_x64_install.xml">Java</a>. Then make a directory for Minecraft and change into it.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="installation-and-configuration.html#cb5-1"></a><span class="fu">mkdir</span> ~/minecraft</span>
-<span id="cb5-2"><a href="installation-and-configuration.html#cb5-2"></a><span class="bu">cd</span> ~/minecraft</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="installation-and-configuration.html#cb5-1" tabindex="-1"></a><span class="fu">mkdir</span> ~/minecraft</span>
+<span id="cb5-2"><a href="installation-and-configuration.html#cb5-2" tabindex="-1"></a><span class="bu">cd</span> ~/minecraft</span></code></pre></div>
 <p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="installation-and-configuration.html#cb6-1"></a><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar</span>
-<span id="cb6-2"><a href="installation-and-configuration.html#cb6-2"></a><span class="ex">java</span> -jar BuildTools.jar --rev 1.13.2</span>
-<span id="cb6-3"><a href="installation-and-configuration.html#cb6-3"></a><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="installation-and-configuration.html#cb6-1" tabindex="-1"></a><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar</span>
+<span id="cb6-2"><a href="installation-and-configuration.html#cb6-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> BuildTools.jar <span class="at">--rev</span> 1.13.2</span>
+<span id="cb6-3"><a href="installation-and-configuration.html#cb6-3" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar nogui</span></code></pre></div>
 <p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
 <p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the
 maximum available memory.</p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="installation-and-configuration.html#cb7-1"></a><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="installation-and-configuration.html#cb7-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar nogui</span></code></pre></div>
 <p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
 </div>
-<div id="connect-with-miner" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> Connect with miner</h3>
+<div id="connect-with-miner" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Connect with miner<a href="installation-and-configuration.html#connect-with-miner" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/kbroman/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="installation-and-configuration.html#cb8-1"></a><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar</span>
-<span id="cb8-2"><a href="installation-and-configuration.html#cb8-2"></a><span class="fu">mv</span> raspberryjuice-1.11.jar ~/minecraft/plugins</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="installation-and-configuration.html#cb8-1" tabindex="-1"></a><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar</span>
+<span id="cb8-2"><a href="installation-and-configuration.html#cb8-2" tabindex="-1"></a><span class="fu">mv</span> raspberryjuice-1.11.jar ~/minecraft/plugins</span></code></pre></div>
 <p>Connect to your server from R using <code>mc_connect("&lt;server-ip&gt;")</code>. Test your connection by retrieving your player’s location.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="installation-and-configuration.html#cb9-1"></a><span class="kw">library</span>(miner)</span>
-<span id="cb9-2"><a href="installation-and-configuration.html#cb9-2"></a><span class="kw">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)</span>
-<span id="cb9-3"><a href="installation-and-configuration.html#cb9-3"></a><span class="kw">getPlayerIds</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="installation-and-configuration.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb9-2"><a href="installation-and-configuration.html#cb9-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)</span>
+<span id="cb9-3"><a href="installation-and-configuration.html#cb9-3" tabindex="-1"></a><span class="fu">getPlayerIds</span>()</span></code></pre></div>
 </div>
-<div id="configure" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> Configure</h3>
+<div id="configure" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Configure<a href="installation-and-configuration.html#configure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>~/minecraft/server.properties</code> file contains a list of configuration parameters for your Minecraft server. You will probably want to set <code>gamemode=1</code> and <code>force-gamemode=true</code>. If you want to create a superflat world also set <code>level-type=FLAT</code>.</p>
 <pre><code>gamemode=1
 force-gamemode=true
 level-type=FLAT</code></pre>
 <p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="installation-and-configuration.html#cb11-1"></a><span class="co">#!/bin/sh</span></span>
-<span id="cb11-2"><a href="installation-and-configuration.html#cb11-2"></a><span class="ex">java</span> -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="installation-and-configuration.html#cb11-1" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb11-2"><a href="installation-and-configuration.html#cb11-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-Xms512M</span> <span class="at">-Xmx1G</span> <span class="at">-XX:+UseConcMarkSweepGC</span> <span class="at">-jar</span> spigot-1.13.2.jar</span></code></pre></div>
 <p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the
 maximum available memory.</p>
 <p>Then make it an executable, and run it with <code>nohup</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="installation-and-configuration.html#cb12-1"></a><span class="fu">chmod</span> +x start.sh</span>
-<span id="cb12-2"><a href="installation-and-configuration.html#cb12-2"></a><span class="fu">nohup</span> ./start.sh</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="installation-and-configuration.html#cb12-1" tabindex="-1"></a><span class="fu">chmod</span> +x start.sh</span>
+<span id="cb12-2"><a href="installation-and-configuration.html#cb12-2" tabindex="-1"></a><span class="fu">nohup</span> ./start.sh</span></code></pre></div>
 <p>If you need to use a different port, use the <code>-p</code> option. (<a href="https://www.spigotmc.org/wiki/start-up-parameters/">See other options</a>.)</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="installation-and-configuration.html#cb13-1"></a><span class="ex">java</span> -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="installation-and-configuration.html#cb13-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar <span class="at">-p25566</span> nogui</span></code></pre></div>
 <p>If you’re having a hard time connecting, verify that your ports are open. The standard port for Minecraft is <code>25565</code>. The standard port for the <a href="https://github.com/kbroman/miner">miner</a> package is <code>4711</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="installation-and-configuration.html#cb14-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565</span>
-<span id="cb14-2"><a href="installation-and-configuration.html#cb14-2"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="installation-and-configuration.html#cb14-1" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565</span>
+<span id="cb14-2"><a href="installation-and-configuration.html#cb14-2" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</span></code></pre></div>
 </div>
 </div>
-<div id="docker" class="section level2">
-<h2><span class="header-section-number">2.4</span> Docker</h2>
-<div id="what-is-docker" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> What is Docker?</h3>
+<div id="docker" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Docker<a href="installation-and-configuration.html#docker" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-is-docker" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> What is Docker?<a href="installation-and-configuration.html#what-is-docker" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Docker is a program that runs on runs on Linux, OSX or Windows to set up a tiny operating system on your compute, like having a computer in your computer. The advantage of this is that it can save a lot of bother troubleshooting problem relating to the unique configuration details of your computer. With Docker we can set up an isolated operating system on your computer that is already equipped up with a Minecraft server and the various dependencies described above, so we don’t have to worry to about installing and configuring each item. Using a Docker container can take a lot of the bother out of a complicated setup like this.</p>
 </div>
-<div id="the-miner-dockerfile" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> The <code>miner</code> Dockerfile</h3>
+<div id="the-miner-dockerfile" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> The <code>miner</code> Dockerfile<a href="installation-and-configuration.html#the-miner-dockerfile" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>miner</code> package includes a Dockerfile, which is a plain text file that gives Docker the recipe for setting up an appropriate container.</p>
 <p>This file specifies the following steps that are needed to set up the required environment and run a Spigot Minecraft Server with the RaspberryJuice plug-in:</p>
 <ul>
@@ -357,35 +399,35 @@ maximum available memory.</p>
 <li>Start the Minecraft server, [explain options we’re using for that]</li>
 </ul>
 <p>This Dockerfile is included in the <code>miner</code> package. To find it on your computer once you’ve installed the <code>miner</code> package, you can run:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="installation-and-configuration.html#cb15-1"></a><span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="installation-and-configuration.html#cb15-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span></code></pre></div>
 <p>This call will return the file pathname on your computer for any the file named “Dockerfile” that come with the <code>miner</code> package.</p>
 <p>If you’d like to take a look at the Dockerfile, from R you can run:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="installation-and-configuration.html#cb16-1"></a><span class="kw">edit</span>(<span class="kw">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;miner&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="installation-and-configuration.html#cb16-1" tabindex="-1"></a><span class="fu">edit</span>(<span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>))</span></code></pre></div>
 <p>This will open the “Dockerfile” file in the <code>miner</code> package in a text editor.</p>
 </div>
-<div id="building-a-docker-image" class="section level3">
-<h3><span class="header-section-number">2.4.3</span> Building a Docker image</h3>
+<div id="building-a-docker-image" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Building a Docker image<a href="installation-and-configuration.html#building-a-docker-image" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="installation-and-configuration.html#cb17-1"></a><span class="ex">docker</span> build -t minecraft .</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="installation-and-configuration.html#cb17-1" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> minecraft .</span></code></pre></div>
 <p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
 <p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="installation-and-configuration.html#cb18-1"></a><span class="ex">docker</span> images</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="installation-and-configuration.html#cb18-1" tabindex="-1"></a><span class="ex">docker</span> images</span></code></pre></div>
 <p>You should see something like this:</p>
 <pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
 java                latest              d23bdf5b1b1b        4 months ago        643 MB</code></pre>
 <p>This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you’d ever like to remove a Docker image from your system, you can do that with the command line call <code>docker rmi</code> and the image ID. For example, if you ever wanted to remove the “minecraft” image listed above that you built with the call to <code>docker build</code>, you could run:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="installation-and-configuration.html#cb20-1"></a><span class="ex">docker</span> rmi 2c9e2f2c16d3</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="installation-and-configuration.html#cb20-1" tabindex="-1"></a><span class="ex">docker</span> rmi 2c9e2f2c16d3</span></code></pre></div>
 </div>
-<div id="running-a-docker-container-from-the-image" class="section level3">
-<h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image</h3>
+<div id="running-a-docker-container-from-the-image" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image<a href="installation-and-configuration.html#running-a-docker-container-from-the-image" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="installation-and-configuration.html#cb21-1"></a><span class="ex">docker</span> run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="installation-and-configuration.html#cb21-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-ti</span> <span class="at">--rm</span> <span class="at">-p</span> 4711:4711 <span class="at">-p</span> 25565:25565 minecraft</span></code></pre></div>
 <p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you’ll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select ‘Multiplayer’, then ‘Direct Connect’, then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running <code>docker-machine IP</code>. After the Minecraft server has started, the Docker terminal will have a prompt like this <code>&gt;</code> where you can enter commands to Minecraft. If you enter <code>op &lt;player&gt;</code> and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don’t run <code>op &lt;player&gt;</code> in the Docker terminal, you will get messages that you don’t have permission if you try to run commands in the desktop app.</p>
 </div>
 </div>
-<div id="raspberry-pi" class="section level2">
-<h2><span class="header-section-number">2.5</span> Raspberry Pi</h2>
+<div id="raspberry-pi" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Raspberry Pi<a href="installation-and-configuration.html#raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <a href="">Raspberry Pi</a> is an small (credit card sized), inexpensive
 computer that runs a scaled-back version of Linux. There are a few
 different ways to interact with Minecraft and R using a Raspberry Pi.
@@ -401,8 +443,8 @@ raspberryjuice plugin, on the Raspberry Pi, as we have done above. The
 Raspberry Pi can then act as a stand-alone Minecraft server.
 We will discuss each of these options, as well as how to set up a
 Raspberry Pi, below.</p>
-<div id="setting-up-a-raspberry-pi" class="section level3">
-<h3><span class="header-section-number">2.5.1</span> Setting up a Raspberry Pi</h3>
+<div id="setting-up-a-raspberry-pi" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Setting up a Raspberry Pi<a href="installation-and-configuration.html#setting-up-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’re working with a Raspberry Pi 3, with built-in Wifi. And we used a
 32 GB micro-SD card.</p>
 <ul>
@@ -421,19 +463,19 @@ to a shell rather than the desktop.</li>
 </ul></li>
 </ul>
 </div>
-<div id="minecraft-pi" class="section level3">
-<h3><span class="header-section-number">2.5.2</span> Minecraft Pi</h3>
+<div id="minecraft-pi" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Minecraft Pi<a href="installation-and-configuration.html#minecraft-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you run Minecraft Pi on your Raspberry Pi, and if you either know
 the IP address for your Pi, or you have set a hostname, you should be
 able to connect to Minecraft from another computer on the same network
 and on which you are
 running R:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="installation-and-configuration.html#cb22-1"></a><span class="kw">library</span>(miner)</span>
-<span id="cb22-2"><a href="installation-and-configuration.html#cb22-2"></a><span class="kw">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)</span>
-<span id="cb22-3"><a href="installation-and-configuration.html#cb22-3"></a><span class="kw">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="installation-and-configuration.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb22-2"><a href="installation-and-configuration.html#cb22-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)</span>
+<span id="cb22-3"><a href="installation-and-configuration.html#cb22-3" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)</span></code></pre></div>
 </div>
-<div id="installing-r-on-a-raspberry-pi" class="section level3">
-<h3><span class="header-section-number">2.5.3</span> Installing R on a Raspberry Pi</h3>
+<div id="installing-r-on-a-raspberry-pi" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Installing R on a Raspberry Pi<a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Install some libraries</p>
 <pre><code>sudo apt update
 sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev</code></pre>
@@ -468,22 +510,22 @@ discussion</a>.</p>
 </ul>
 <p>Now you should be able to install devtools. And then use that to
 install the miner and craft packages. Within R, type:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="installation-and-configuration.html#cb30-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb30-2"><a href="installation-and-configuration.html#cb30-2"></a><span class="kw">library</span>(devtools)</span>
-<span id="cb30-3"><a href="installation-and-configuration.html#cb30-3"></a><span class="kw">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
-<span id="cb30-4"><a href="installation-and-configuration.html#cb30-4"></a><span class="kw">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="installation-and-configuration.html#cb30-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb30-2"><a href="installation-and-configuration.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb30-3"><a href="installation-and-configuration.html#cb30-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
+<span id="cb30-4"><a href="installation-and-configuration.html#cb30-4" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
 <p>It’s possible that you’ll need to install some additional packages
 first, but hopefully this will happen automatically:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="installation-and-configuration.html#cb31-1"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;igraph&quot;</span>))</span>
-<span id="cb31-2"><a href="installation-and-configuration.html#cb31-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;Vessy/RMaze&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="installation-and-configuration.html#cb31-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;igraph&quot;</span>))</span>
+<span id="cb31-2"><a href="installation-and-configuration.html#cb31-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Vessy/RMaze&quot;</span>)</span></code></pre></div>
 <p>Now fire up Minecraft Pi, load the miner package within R, and connect
 to minecraft. Test that it’s working by posting to the minecraft chat.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="installation-and-configuration.html#cb32-1"></a><span class="kw">library</span>(miner)</span>
-<span id="cb32-2"><a href="installation-and-configuration.html#cb32-2"></a><span class="kw">mc_connect</span>()</span>
-<span id="cb32-3"><a href="installation-and-configuration.html#cb32-3"></a><span class="kw">chatPost</span>(“Hello, Minecraft<span class="op">!</span>”)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="installation-and-configuration.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb32-2"><a href="installation-and-configuration.html#cb32-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span>
+<span id="cb32-3"><a href="installation-and-configuration.html#cb32-3" tabindex="-1"></a><span class="fu">chatPost</span>(“Hello, Minecraft<span class="sc">!</span>”)</span></code></pre></div>
 </div>
-<div id="minecraft-server-on-a-raspberry-pi" class="section level3">
-<h3><span class="header-section-number">2.5.4</span> Minecraft Server on a Raspberry Pi</h3>
+<div id="minecraft-server-on-a-raspberry-pi" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> Minecraft Server on a Raspberry Pi<a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Follow the instructions above, which come from
 <a href="http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/" class="uri">http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/</a>.</p>
 <pre><code>mkdir ~/minecraft
@@ -507,7 +549,6 @@ mv raspberryjuice-1.11.jar ~/minecraft/plugins</code></pre>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -518,37 +559,42 @@ mv raspberryjuice-1.11.jar ~/minecraft/plugins</code></pre>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

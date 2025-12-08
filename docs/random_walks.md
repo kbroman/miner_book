@@ -3,7 +3,7 @@
 Let's first find out which player you are. We will connect to our minecraft server, retrieve the IDs of all currently playing players, as well as their current positions. We'll then go into a quick `Sys.sleep` at which time you should try and move your player around in the minecraft world. Assuming no one else has been moving or dying you should catch your player ID's in a variable called `me`.
 
 
-```r
+``` r
 mc_connect('52.168.137.73')
 whoami <- function() {
 
@@ -25,7 +25,7 @@ Let's try a random walk in one and two dimensions. These should be recurrent, so
 We will first retrieve our position again in the Minecraft world. We will then randomly step in the minecraft lattice, provided by the awesome Maze in [the Maze vignette](https://github.com/kbroman/miner/blob/master/extra_vignettes/maze.md)
 
 
-```r
+``` r
 my_pos <- getPlayerPos(me)
 n_moves <- 1000
 moves <- replicate(n_moves, c(0,0,0))

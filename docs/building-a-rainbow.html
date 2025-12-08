@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Building a rainbow | R Programming with Minecraft</title>
   <meta name="description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Building a rainbow | R Programming with Minecraft" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="cover_sm.png" />
+  <meta property="og:image" content="/cover_sm.png" />
   <meta property="og:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
   <meta name="github-repo" content="kbroman/miner_book" />
 
@@ -19,12 +18,12 @@
   <meta name="twitter:title" content="4 Building a rainbow | R Programming with Minecraft" />
   
   <meta name="twitter:description" content="The miner R package allows you to interact with Minecraft using the R programming language. This book shows you how to do use it." />
-  <meta name="twitter:image" content="cover_sm.png" />
+  <meta name="twitter:image" content="/cover_sm.png" />
 
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2025-12-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="a-stairway-to-heaven.html"/>
 <link rel="next" href="building-a-tower-and-jumping-on-top.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,25 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +87,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +118,34 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 </head>
@@ -133,38 +161,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a><ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a><ul>
+<li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
-<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a><ul>
+<li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
 <li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a><ul>
+<li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#what-is-docker"><i class="fa fa-check"></i><b>2.4.1</b> What is Docker?</a></li>
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a><ul>
+<li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a><ul>
+<li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#building-objects"><i class="fa fa-check"></i><b>3.1</b> Building Objects</a></li>
 <li class="chapter" data-level="3.2" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html#stairway-to-heaven"><i class="fa fa-check"></i><b>3.2</b> Stairway to heaven</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a><ul>
+<li class="chapter" data-level="4" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html"><i class="fa fa-check"></i><b>4</b> Building a rainbow</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#build-rainbow-with-r-graphics"><i class="fa fa-check"></i><b>4.1</b> Build rainbow with R graphics</a></li>
 <li class="chapter" data-level="4.2" data-path="building-a-rainbow.html"><a href="building-a-rainbow.html#minecraft-rainbow"><i class="fa fa-check"></i><b>4.2</b> Minecraft Rainbow</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a><ul>
+<li class="chapter" data-level="5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html"><i class="fa fa-check"></i><b>5</b> Building a tower and jumping on top</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#connect-to-a-minecraft-server"><i class="fa fa-check"></i><b>5.1</b> Connect to a Minecraft server</a></li>
 <li class="chapter" data-level="5.2" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-player-id"><i class="fa fa-check"></i><b>5.2</b> Figure out your player ID</a></li>
 <li class="chapter" data-level="5.3" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#figure-out-your-current-position"><i class="fa fa-check"></i><b>5.3</b> Figure out your current position</a></li>
@@ -172,33 +208,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#jump-on-top-of-the-tower"><i class="fa fa-check"></i><b>5.5</b> Jump on top of the tower</a></li>
 <li class="chapter" data-level="5.6" data-path="building-a-tower-and-jumping-on-top.html"><a href="building-a-tower-and-jumping-on-top.html#close-the-connection"><i class="fa fa-check"></i><b>5.6</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a><ul>
+<li class="chapter" data-level="6" data-path="planting-a-garden.html"><a href="planting-a-garden.html"><i class="fa fa-check"></i><b>6</b> Planting a garden</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="planting-a-garden.html"><a href="planting-a-garden.html#connect-with-a-minecraft-server"><i class="fa fa-check"></i><b>6.1</b> Connect with a Minecraft server</a></li>
 <li class="chapter" data-level="6.2" data-path="planting-a-garden.html"><a href="planting-a-garden.html#create-a-dataframe-with-recent-hits"><i class="fa fa-check"></i><b>6.2</b> Create a dataframe with recent hits</a></li>
 <li class="chapter" data-level="6.3" data-path="planting-a-garden.html"><a href="planting-a-garden.html#build-ice-towers"><i class="fa fa-check"></i><b>6.3</b> Build ice towers</a></li>
 <li class="chapter" data-level="6.4" data-path="planting-a-garden.html"><a href="planting-a-garden.html#write-a-function-to-do-this-interactively"><i class="fa fa-check"></i><b>6.4</b> Write a function to do this interactively</a></li>
 <li class="chapter" data-level="6.5" data-path="planting-a-garden.html"><a href="planting-a-garden.html#close-the-connection-1"><i class="fa fa-check"></i><b>6.5</b> Close the connection</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a><ul>
+<li class="chapter" data-level="7" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html"><i class="fa fa-check"></i><b>7</b> Number-guess chat bot in Minecraft</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
 <li class="chapter" data-level="7.2" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#init"><i class="fa fa-check"></i><b>7.2</b> Init</a></li>
 <li class="chapter" data-level="7.3" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#loop"><i class="fa fa-check"></i><b>7.3</b> Loop</a></li>
 <li class="chapter" data-level="7.4" data-path="number-guess-chat-bot-in-minecraft.html"><a href="number-guess-chat-bot-in-minecraft.html#lets-play"><i class="fa fa-check"></i><b>7.4</b> Let’s Play!</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a><ul>
+<li class="chapter" data-level="8" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html"><i class="fa fa-check"></i><b>8</b> Rendering an image in Minecraft</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#load-and-prepare-an-image-file"><i class="fa fa-check"></i><b>8.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="8.2" data-path="rendering-an-image-in-minecraft.html"><a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft"><i class="fa fa-check"></i><b>8.2</b> Render the image in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a><ul>
+<li class="chapter" data-level="9" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html"><i class="fa fa-check"></i><b>9</b> Rendering the R logo in Minecraft</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#load-and-prepare-an-image-file-1"><i class="fa fa-check"></i><b>9.1</b> Load and prepare an image file</a></li>
 <li class="chapter" data-level="9.2" data-path="rendering-the-r-logo-in-minecraft.html"><a href="rendering-the-r-logo-in-minecraft.html#render-in-minecraft"><i class="fa fa-check"></i><b>9.2</b> Render in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a><ul>
+<li class="chapter" data-level="10" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html"><i class="fa fa-check"></i><b>10</b> Generate a maze in Minecraft</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#generate-a-random-maze"><i class="fa fa-check"></i><b>10.1</b> Generate a random maze</a></li>
 <li class="chapter" data-level="10.2" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#transform-maze-graph-into-matrix"><i class="fa fa-check"></i><b>10.2</b> Transform maze graph into matrix</a></li>
 <li class="chapter" data-level="10.3" data-path="generate-a-maze-in-minecraft.html"><a href="generate-a-maze-in-minecraft.html#render-the-maze-in-minecraft"><i class="fa fa-check"></i><b>10.3</b> Render the maze in Minecraft</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a><ul>
+<li class="chapter" data-level="11" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html"><i class="fa fa-check"></i><b>11</b> Random Walks in the Minecraft World</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="random-walks-in-the-minecraft-world.html"><a href="random-walks-in-the-minecraft-world.html#recurrent-random-walks"><i class="fa fa-check"></i><b>11.1</b> Recurrent Random Walks</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
@@ -219,12 +261,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="building-a-rainbow" class="section level1">
-<h1><span class="header-section-number">4</span> Building a rainbow</h1>
-<p>This is a very simple example of building a rainbow inspired by the RaspberryJuice.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+<div id="building-a-rainbow" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Building a rainbow<a href="building-a-rainbow.html#building-a-rainbow" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This is a very simple example of building a rainbow inspired by the RaspberryJuice. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 In this example, we’ll build a rainbow near current player and immediately watch the rainbow.</p>
-<div id="build-rainbow-with-r-graphics" class="section level2">
-<h2><span class="header-section-number">4.1</span> Build rainbow with R graphics</h2>
+<div id="build-rainbow-with-r-graphics" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Build rainbow with R graphics<a href="building-a-rainbow.html#build-rainbow-with-r-graphics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, you’ll need to draw a rainbow with R Base plot system.</p>
 <ul>
 <li>Generate a rainbow data</li>
@@ -232,24 +274,24 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <li>Draw a rainbow with R Base plot</li>
 </ul>
 <p>It is possible to draw a rainbow with other R plot system like ggplot2.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="building-a-rainbow.html#cb36-1"></a><span class="co"># 1. Rainbow plot --------------------------------------------</span></span>
-<span id="cb36-2"><a href="building-a-rainbow.html#cb36-2"></a><span class="co">## 1.1. Rainbow Data</span></span>
-<span id="cb36-3"><a href="building-a-rainbow.html#cb36-3"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)</span>
-<span id="cb36-4"><a href="building-a-rainbow.html#cb36-4"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>((x <span class="op">/</span><span class="st"> </span><span class="fl">128.0</span>) <span class="op">*</span><span class="st"> </span>pi)</span>
-<span id="cb36-5"><a href="building-a-rainbow.html#cb36-5"></a></span>
-<span id="cb36-6"><a href="building-a-rainbow.html#cb36-6"></a><span class="co">## 1.2. Rainbow Color</span></span>
-<span id="cb36-7"><a href="building-a-rainbow.html#cb36-7"></a>n &lt;-<span class="st"> </span><span class="dv">7</span></span>
-<span id="cb36-8"><a href="building-a-rainbow.html#cb36-8"></a>color &lt;-<span class="st"> </span><span class="kw">rainbow</span>(n, <span class="dt">s =</span> <span class="dv">1</span>, <span class="dt">v =</span> <span class="dv">1</span>, <span class="dt">start =</span> <span class="dv">0</span>, <span class="dt">end =</span> <span class="kw">max</span>(<span class="dv">1</span>, n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>n, <span class="dt">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb36-9"><a href="building-a-rainbow.html#cb36-9"></a></span>
-<span id="cb36-10"><a href="building-a-rainbow.html#cb36-10"></a><span class="co">## 1.3. Draw Rainbow with Base Plot System</span></span>
-<span id="cb36-11"><a href="building-a-rainbow.html#cb36-11"></a></span>
-<span id="cb36-12"><a href="building-a-rainbow.html#cb36-12"></a><span class="kw">plot</span>(x, y, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
-<span id="cb36-13"><a href="building-a-rainbow.html#cb36-13"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) {</span>
-<span id="cb36-14"><a href="building-a-rainbow.html#cb36-14"></a>  <span class="kw">lines</span>(x, y<span class="op">+</span>i, <span class="dt">col=</span>color[i])</span>
-<span id="cb36-15"><a href="building-a-rainbow.html#cb36-15"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="building-a-rainbow.html#cb36-1" tabindex="-1"></a><span class="co"># 1. Rainbow plot --------------------------------------------</span></span>
+<span id="cb36-2"><a href="building-a-rainbow.html#cb36-2" tabindex="-1"></a><span class="do">## 1.1. Rainbow Data</span></span>
+<span id="cb36-3"><a href="building-a-rainbow.html#cb36-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)</span>
+<span id="cb36-4"><a href="building-a-rainbow.html#cb36-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi)</span>
+<span id="cb36-5"><a href="building-a-rainbow.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="building-a-rainbow.html#cb36-6" tabindex="-1"></a><span class="do">## 1.2. Rainbow Color</span></span>
+<span id="cb36-7"><a href="building-a-rainbow.html#cb36-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb36-8"><a href="building-a-rainbow.html#cb36-8" tabindex="-1"></a>color <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(n, <span class="at">s =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="fu">max</span>(<span class="dv">1</span>, n <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>n, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb36-9"><a href="building-a-rainbow.html#cb36-9" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="building-a-rainbow.html#cb36-10" tabindex="-1"></a><span class="do">## 1.3. Draw Rainbow with Base Plot System</span></span>
+<span id="cb36-11"><a href="building-a-rainbow.html#cb36-11" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="building-a-rainbow.html#cb36-12" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb36-13"><a href="building-a-rainbow.html#cb36-13" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb36-14"><a href="building-a-rainbow.html#cb36-14" tabindex="-1"></a>  <span class="fu">lines</span>(x, y<span class="sc">+</span>i, <span class="at">col=</span>color[i])</span>
+<span id="cb36-15"><a href="building-a-rainbow.html#cb36-15" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="minecraft-rainbow" class="section level2">
-<h2><span class="header-section-number">4.2</span> Minecraft Rainbow</h2>
+<div id="minecraft-rainbow" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Minecraft Rainbow<a href="building-a-rainbow.html#minecraft-rainbow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To build a rainbow on the Minecraft world, we will take the following steps;</p>
 <ol style="list-style-type: decimal">
 <li>Get the current player position with <code>getPlayerPos()</code> function.</li>
@@ -257,28 +299,28 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <li>Build a rainbow referring to current player location and configured items.</li>
 <li>Finally, watch the rainbow a little far from the current player position.</li>
 </ol>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="building-a-rainbow.html#cb37-1"></a><span class="co">## 2.1. Current Player Position</span></span>
-<span id="cb37-2"><a href="building-a-rainbow.html#cb37-2"></a>cur_pos &lt;-<span class="st"> </span><span class="kw">getPlayerPos</span>()</span>
-<span id="cb37-3"><a href="building-a-rainbow.html#cb37-3"></a></span>
-<span id="cb37-4"><a href="building-a-rainbow.html#cb37-4"></a><span class="co">## 2.2. Rainbow Configuration</span></span>
-<span id="cb37-5"><a href="building-a-rainbow.html#cb37-5"></a></span>
-<span id="cb37-6"><a href="building-a-rainbow.html#cb37-6"></a>height &lt;-<span class="st"> </span><span class="dv">50</span></span>
-<span id="cb37-7"><a href="building-a-rainbow.html#cb37-7"></a>colors  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">10</span>)</span>
-<span id="cb37-8"><a href="building-a-rainbow.html#cb37-8"></a></span>
-<span id="cb37-9"><a href="building-a-rainbow.html#cb37-9"></a>blue_block &lt;-<span class="st"> </span><span class="kw">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)</span>
-<span id="cb37-10"><a href="building-a-rainbow.html#cb37-10"></a></span>
-<span id="cb37-11"><a href="building-a-rainbow.html#cb37-11"></a><span class="co">## 2.3. Build a Rainbow</span></span>
-<span id="cb37-12"><a href="building-a-rainbow.html#cb37-12"></a></span>
-<span id="cb37-13"><a href="building-a-rainbow.html#cb37-13"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">128</span>){</span>
-<span id="cb37-14"><a href="building-a-rainbow.html#cb37-14"></a>  <span class="cf">for</span> (color <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {</span>
-<span id="cb37-15"><a href="building-a-rainbow.html#cb37-15"></a>    y  &lt;-<span class="st"> </span><span class="kw">sin</span>((x <span class="op">/</span><span class="st"> </span><span class="fl">128.0</span>) <span class="op">*</span><span class="st"> </span>pi) <span class="op">*</span><span class="st"> </span>height <span class="op">+</span><span class="st"> </span>color</span>
-<span id="cb37-16"><a href="building-a-rainbow.html#cb37-16"></a>    <span class="kw">setBlock</span>(cur_pos[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">64</span>, cur_pos[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>y, cur_pos[<span class="dv">3</span>], blue_block[<span class="dv">2</span>], colors[color])</span>
-<span id="cb37-17"><a href="building-a-rainbow.html#cb37-17"></a>  }</span>
-<span id="cb37-18"><a href="building-a-rainbow.html#cb37-18"></a>}</span>
-<span id="cb37-19"><a href="building-a-rainbow.html#cb37-19"></a></span>
-<span id="cb37-20"><a href="building-a-rainbow.html#cb37-20"></a><span class="co">## 2.4. Watch a Rainbow</span></span>
-<span id="cb37-21"><a href="building-a-rainbow.html#cb37-21"></a></span>
-<span id="cb37-22"><a href="building-a-rainbow.html#cb37-22"></a><span class="kw">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]<span class="op">-</span><span class="dv">50</span>, <span class="dt">tile=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="building-a-rainbow.html#cb37-1" tabindex="-1"></a><span class="do">## 2.1. Current Player Position</span></span>
+<span id="cb37-2"><a href="building-a-rainbow.html#cb37-2" tabindex="-1"></a>cur_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
+<span id="cb37-3"><a href="building-a-rainbow.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="building-a-rainbow.html#cb37-4" tabindex="-1"></a><span class="do">## 2.2. Rainbow Configuration</span></span>
+<span id="cb37-5"><a href="building-a-rainbow.html#cb37-5" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="building-a-rainbow.html#cb37-6" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb37-7"><a href="building-a-rainbow.html#cb37-7" tabindex="-1"></a>colors  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">10</span>)</span>
+<span id="cb37-8"><a href="building-a-rainbow.html#cb37-8" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="building-a-rainbow.html#cb37-9" tabindex="-1"></a>blue_block <span class="ot">&lt;-</span> <span class="fu">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)</span>
+<span id="cb37-10"><a href="building-a-rainbow.html#cb37-10" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="building-a-rainbow.html#cb37-11" tabindex="-1"></a><span class="do">## 2.3. Build a Rainbow</span></span>
+<span id="cb37-12"><a href="building-a-rainbow.html#cb37-12" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="building-a-rainbow.html#cb37-13" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">128</span>){</span>
+<span id="cb37-14"><a href="building-a-rainbow.html#cb37-14" tabindex="-1"></a>  <span class="cf">for</span> (color <span class="cf">in</span> <span class="fu">seq_along</span>(colors)) {</span>
+<span id="cb37-15"><a href="building-a-rainbow.html#cb37-15" tabindex="-1"></a>    y  <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi) <span class="sc">*</span> height <span class="sc">+</span> color</span>
+<span id="cb37-16"><a href="building-a-rainbow.html#cb37-16" tabindex="-1"></a>    <span class="fu">setBlock</span>(cur_pos[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">-</span> <span class="dv">64</span>, cur_pos[<span class="dv">2</span>] <span class="sc">+</span> y, cur_pos[<span class="dv">3</span>], blue_block[<span class="dv">2</span>], colors[color])</span>
+<span id="cb37-17"><a href="building-a-rainbow.html#cb37-17" tabindex="-1"></a>  }</span>
+<span id="cb37-18"><a href="building-a-rainbow.html#cb37-18" tabindex="-1"></a>}</span>
+<span id="cb37-19"><a href="building-a-rainbow.html#cb37-19" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="building-a-rainbow.html#cb37-20" tabindex="-1"></a><span class="do">## 2.4. Watch a Rainbow</span></span>
+<span id="cb37-21"><a href="building-a-rainbow.html#cb37-21" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="building-a-rainbow.html#cb37-22" tabindex="-1"></a><span class="fu">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">50</span>, <span class="at">tile=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The result looks like this:</p>
 <p><img src="figure/rainbow.png" /></p>
 
@@ -300,7 +342,6 @@ In this example, we’ll build a rainbow near current player and immediately wat
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -311,37 +352,42 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

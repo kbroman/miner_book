@@ -18,7 +18,7 @@ First, you'll need to draw a rainbow with R Base plot system.
 It is possible to draw a rainbow with other R plot system like ggplot2.
 
 
-```r
+``` r
 # 1. Rainbow plot --------------------------------------------
 ## 1.1. Rainbow Data
 x <- seq(1,128,1)
@@ -46,7 +46,7 @@ To build a rainbow on the Minecraft world, we will take the following steps;
 1. Finally, watch the rainbow a little far from the current player position.
 
 
-```r
+``` r
 ## 2.1. Current Player Position
 cur_pos <- getPlayerPos()
 
