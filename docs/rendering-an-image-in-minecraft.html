@@ -271,24 +271,24 @@ blocks.</p>
 <p>First, let’s download an image file from the web. We’ll load it
 directly into R from the web, using the
 <a href="https://cran.r-project.org/package=imager">imager</a> package.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="rendering-an-image-in-minecraft.html#cb61-1" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
-<span id="cb61-2"><a href="rendering-an-image-in-minecraft.html#cb61-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://raw.githubusercontent.com/kbroman/miner_book/&quot;</span>,</span>
-<span id="cb61-3"><a href="rendering-an-image-in-minecraft.html#cb61-3" tabindex="-1"></a>              <span class="st">&quot;refs/heads/master/figure/karthik_ram.jpeg&quot;</span>)</span>
-<span id="cb61-4"><a href="rendering-an-image-in-minecraft.html#cb61-4" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">load.image</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="rendering-an-image-in-minecraft.html#cb57-1" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
+<span id="cb57-2"><a href="rendering-an-image-in-minecraft.html#cb57-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://raw.githubusercontent.com/kbroman/miner_book/&quot;</span>,</span>
+<span id="cb57-3"><a href="rendering-an-image-in-minecraft.html#cb57-3" tabindex="-1"></a>              <span class="st">&quot;refs/heads/master/figure/karthik_ram.jpeg&quot;</span>)</span>
+<span id="cb57-4"><a href="rendering-an-image-in-minecraft.html#cb57-4" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">load.image</span>(url)</span></code></pre></div>
 <p>Print to see the size of the image.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="rendering-an-image-in-minecraft.html#cb62-1" tabindex="-1"></a>img</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="rendering-an-image-in-minecraft.html#cb58-1" tabindex="-1"></a>img</span></code></pre></div>
 <pre><code>## Image. Width: 300 pix Height: 300 pix Depth: 1 Colour channels: 3</code></pre>
 <p>The image is stored as a 4-dimensional array: horizontal and vertical
 position, time, and color.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="rendering-an-image-in-minecraft.html#cb64-1" tabindex="-1"></a><span class="fu">dim</span>(img)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="rendering-an-image-in-minecraft.html#cb60-1" tabindex="-1"></a><span class="fu">dim</span>(img)</span></code></pre></div>
 <pre><code>## [1] 300 300   1   3</code></pre>
 <p>Let’s convert it to grayscale, and make it 100x100.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="rendering-an-image-in-minecraft.html#cb66-1" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">grayscale</span>(img)</span>
-<span id="cb66-2"><a href="rendering-an-image-in-minecraft.html#cb66-2" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="rendering-an-image-in-minecraft.html#cb62-1" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">grayscale</span>(img)</span>
+<span id="cb62-2"><a href="rendering-an-image-in-minecraft.html#cb62-2" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">resize</span>(img, <span class="dv">100</span>, <span class="dv">100</span>)</span></code></pre></div>
 <p>The level of gray is a number between 0 and 1. I’d like to coarsen
 that to having 7 levels, which I can turn into different kinds of
 minecraft blocks. I can use the R function <code>cut</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rendering-an-image-in-minecraft.html#cb67-1" tabindex="-1"></a>img[] <span class="ot">&lt;-</span> <span class="fu">cut</span>(img, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="rendering-an-image-in-minecraft.html#cb63-1" tabindex="-1"></a>img[] <span class="ot">&lt;-</span> <span class="fu">cut</span>(img, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">8</span>))</span></code></pre></div>
 </div>
 <div id="render-the-image-in-minecraft" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Render the image in Minecraft<a href="rendering-an-image-in-minecraft.html#render-the-image-in-minecraft" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -296,13 +296,13 @@ minecraft blocks. I can use the R function <code>cut</code>.</p>
 package and create a vector of different block types, from black to
 white. We can use <code>find_item</code> to find the item IDs for these block
 times. “Clay” has two possible item IDs; we’ll take the first one.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="rendering-an-image-in-minecraft.html#cb68-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
-<span id="cb68-2"><a href="rendering-an-image-in-minecraft.html#cb68-2" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,</span>
-<span id="cb68-3"><a href="rendering-an-image-in-minecraft.html#cb68-3" tabindex="-1"></a>                     <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)</span>
-<span id="cb68-4"><a href="rendering-an-image-in-minecraft.html#cb68-4" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="fu">lapply</span>(grayscale_blocks,</span>
-<span id="cb68-5"><a href="rendering-an-image-in-minecraft.html#cb68-5" tabindex="-1"></a>                         <span class="cf">function</span>(a) <span class="fu">find_item</span>(a)[<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="rendering-an-image-in-minecraft.html#cb64-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb64-2"><a href="rendering-an-image-in-minecraft.html#cb64-2" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Black Wool&quot;</span>, <span class="st">&quot;Gray Wool&quot;</span>, <span class="st">&quot;Bedrock&quot;</span>,</span>
+<span id="cb64-3"><a href="rendering-an-image-in-minecraft.html#cb64-3" tabindex="-1"></a>                     <span class="st">&quot;Coal Ore&quot;</span>, <span class="st">&quot;Clay&quot;</span>, <span class="st">&quot;White Wool&quot;</span>, <span class="st">&quot;Iron Block&quot;</span>)</span>
+<span id="cb64-4"><a href="rendering-an-image-in-minecraft.html#cb64-4" tabindex="-1"></a>grayscale_blocks <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="fu">lapply</span>(grayscale_blocks,</span>
+<span id="cb64-5"><a href="rendering-an-image-in-minecraft.html#cb64-5" tabindex="-1"></a>                         <span class="cf">function</span>(a) <span class="fu">find_item</span>(a)[<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>]))</span></code></pre></div>
 <p>Here’s the result:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rendering-an-image-in-minecraft.html#cb69-1" tabindex="-1"></a>grayscale_blocks</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="rendering-an-image-in-minecraft.html#cb65-1" tabindex="-1"></a>grayscale_blocks</span></code></pre></div>
 <pre><code>##           name id style
 ## 81  Black Wool 35    15
 ## 73   Gray Wool 35     7
@@ -313,28 +313,28 @@ times. “Clay” has two possible item IDs; we’ll take the first one.</p>
 ## 95  Iron Block 42     0</code></pre>
 <p>Now, let’s render that in Minecraft. We use <code>mc_connect()</code> to connect
 to a minecraft server.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rendering-an-image-in-minecraft.html#cb71-1" tabindex="-1"></a><span class="fu">mc_connect</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rendering-an-image-in-minecraft.html#cb67-1" tabindex="-1"></a><span class="fu">mc_connect</span>()</span></code></pre></div>
 <p>Let’s find the “host” player position, and put the image 20 blocks
 above his/her head. Actually, I’ll hard-code it in here, so if I
 re-run this it ends up in the same place.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="rendering-an-image-in-minecraft.html#cb72-1" tabindex="-1"></a>host_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
-<span id="cb72-2"><a href="rendering-an-image-in-minecraft.html#cb72-2" tabindex="-1"></a>host_pos[<span class="dv">2</span>] <span class="ot">&lt;-</span> host_pos[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">20</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="rendering-an-image-in-minecraft.html#cb68-1" tabindex="-1"></a>host_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
+<span id="cb68-2"><a href="rendering-an-image-in-minecraft.html#cb68-2" tabindex="-1"></a>host_pos[<span class="dv">2</span>] <span class="ot">&lt;-</span> host_pos[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">20</span></span></code></pre></div>
 <p>Now, we render the image, with a nested <code>for</code> loop.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rendering-an-image-in-minecraft.html#cb73-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb73-2"><a href="rendering-an-image-in-minecraft.html#cb73-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb73-3"><a href="rendering-an-image-in-minecraft.html#cb73-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>i, host_pos[<span class="dv">2</span>]<span class="sc">+</span>j, host_pos[<span class="dv">3</span>],</span>
-<span id="cb73-4"><a href="rendering-an-image-in-minecraft.html#cb73-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
-<span id="cb73-5"><a href="rendering-an-image-in-minecraft.html#cb73-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
-<span id="cb73-6"><a href="rendering-an-image-in-minecraft.html#cb73-6" tabindex="-1"></a>    }</span>
-<span id="cb73-7"><a href="rendering-an-image-in-minecraft.html#cb73-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rendering-an-image-in-minecraft.html#cb69-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb69-2"><a href="rendering-an-image-in-minecraft.html#cb69-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb69-3"><a href="rendering-an-image-in-minecraft.html#cb69-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>i, host_pos[<span class="dv">2</span>]<span class="sc">+</span>j, host_pos[<span class="dv">3</span>],</span>
+<span id="cb69-4"><a href="rendering-an-image-in-minecraft.html#cb69-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
+<span id="cb69-5"><a href="rendering-an-image-in-minecraft.html#cb69-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
+<span id="cb69-6"><a href="rendering-an-image-in-minecraft.html#cb69-6" tabindex="-1"></a>    }</span>
+<span id="cb69-7"><a href="rendering-an-image-in-minecraft.html#cb69-7" tabindex="-1"></a>}</span></code></pre></div>
 <p>Oops. that gives the image upside down and backwards. Let’s fix that.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="rendering-an-image-in-minecraft.html#cb74-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb74-2"><a href="rendering-an-image-in-minecraft.html#cb74-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb74-3"><a href="rendering-an-image-in-minecraft.html#cb74-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>i), host_pos[<span class="dv">2</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>j), host_pos[<span class="dv">3</span>],</span>
-<span id="cb74-4"><a href="rendering-an-image-in-minecraft.html#cb74-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
-<span id="cb74-5"><a href="rendering-an-image-in-minecraft.html#cb74-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
-<span id="cb74-6"><a href="rendering-an-image-in-minecraft.html#cb74-6" tabindex="-1"></a>    }</span>
-<span id="cb74-7"><a href="rendering-an-image-in-minecraft.html#cb74-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="rendering-an-image-in-minecraft.html#cb70-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb70-2"><a href="rendering-an-image-in-minecraft.html#cb70-2" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb70-3"><a href="rendering-an-image-in-minecraft.html#cb70-3" tabindex="-1"></a>        <span class="fu">setBlock</span>(host_pos[<span class="dv">1</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>i), host_pos[<span class="dv">2</span>]<span class="sc">+</span>(<span class="dv">101</span><span class="sc">-</span>j), host_pos[<span class="dv">3</span>],</span>
+<span id="cb70-4"><a href="rendering-an-image-in-minecraft.html#cb70-4" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">2</span>],</span>
+<span id="cb70-5"><a href="rendering-an-image-in-minecraft.html#cb70-5" tabindex="-1"></a>                 grayscale_blocks[img[i,j,<span class="dv">1</span>,<span class="dv">1</span>], <span class="dv">3</span>])</span>
+<span id="cb70-6"><a href="rendering-an-image-in-minecraft.html#cb70-6" tabindex="-1"></a>    }</span>
+<span id="cb70-7"><a href="rendering-an-image-in-minecraft.html#cb70-7" tabindex="-1"></a>}</span></code></pre></div>
 <p>The result looks like this:</p>
 <p><img src="figure/karthik_minecraft.png" /></p>
 

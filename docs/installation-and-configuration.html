@@ -482,45 +482,21 @@ sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev<
 <p>Run R; I got version 3.3.3 which is old but good enough.</p>
 <p>Create an <code>~/.Rprofile</code> file (use the editor <code>nano</code>), with one line:</p>
 <pre><code>options(repos=“https://cran.rstudio.com”)</code></pre>
-<p>Want to install the
-<a href="https://cran.rstudio.com/package=devtools">devtools</a> package, but it
-has a bunch of dependencies and I hit snags on
-<a href="https://cran.rstudio.com/package=fs">fs</a> and
-<a href="https://cran.rstudio.com/package=later">later</a>.</p>
-<p>To get fs installed, I followed <a href="https://github.com/r-lib/fs/issues/128#issuecomment-435552967">this
-discussion</a>.</p>
-<ul>
-<li><p>grab the github repository for the package</p>
-<pre><code>git clone git://github.com/r-lib/fs</code></pre></li>
-<li><p>Use <code>nano</code> to edit the file <code>fs/src/Makevars</code>. Right after the line
-<code>ifeq ($UNAME), Linux)</code>, added the following line:</p>
-<pre><code>PKG_LIBS += -pthread</code></pre></li>
-<li><p>The install that package by typing</p>
-<pre><code>R CMD INSTALL fs</code></pre></li>
-</ul>
-<p>To install the <code>later</code> app, I followed <a href="https://github.com/r-lib/later/issues/73#issuecomment-433438182">this
-discussion</a>.</p>
-<ul>
-<li><p>Download the package</p>
-<pre><code>git clone git://github.com/r-lab/later</code></pre></li>
-<li><p>Edit the <code>later/src/Makevars</code> file using the <code>nano</code> editor. Add
-<code>-lboost_atomic</code> to the end of the line with <code>PKG_LIBS</code>.</p></li>
-</ul>
-<p>Now you should be able to install devtools. And then use that to
+<p>Now install the <a href="https://remotes.r-lib.org">remotes</a> package. And then use that to
 install the miner and craft packages. Within R, type:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="installation-and-configuration.html#cb30-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb30-2"><a href="installation-and-configuration.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb30-3"><a href="installation-and-configuration.html#cb30-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
-<span id="cb30-4"><a href="installation-and-configuration.html#cb30-4" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="installation-and-configuration.html#cb26-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb26-2"><a href="installation-and-configuration.html#cb26-2" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb26-3"><a href="installation-and-configuration.html#cb26-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
+<span id="cb26-4"><a href="installation-and-configuration.html#cb26-4" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
 <p>It’s possible that you’ll need to install some additional packages
 first, but hopefully this will happen automatically:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="installation-and-configuration.html#cb31-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;igraph&quot;</span>))</span>
-<span id="cb31-2"><a href="installation-and-configuration.html#cb31-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Vessy/RMaze&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="installation-and-configuration.html#cb27-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;igraph&quot;</span>))</span>
+<span id="cb27-2"><a href="installation-and-configuration.html#cb27-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;kbroman/RMaze&quot;</span>)</span></code></pre></div>
 <p>Now fire up Minecraft Pi, load the miner package within R, and connect
 to minecraft. Test that it’s working by posting to the minecraft chat.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="installation-and-configuration.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
-<span id="cb32-2"><a href="installation-and-configuration.html#cb32-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span>
-<span id="cb32-3"><a href="installation-and-configuration.html#cb32-3" tabindex="-1"></a><span class="fu">chatPost</span>(“Hello, Minecraft<span class="sc">!</span>”)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="installation-and-configuration.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb28-2"><a href="installation-and-configuration.html#cb28-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span>
+<span id="cb28-3"><a href="installation-and-configuration.html#cb28-3" tabindex="-1"></a><span class="fu">chatPost</span>(“Hello, Minecraft<span class="sc">!</span>”)</span></code></pre></div>
 </div>
 <div id="minecraft-server-on-a-raspberry-pi" class="section level3 hasAnchor" number="2.5.4">
 <h3><span class="header-section-number">2.5.4</span> Minecraft Server on a Raspberry Pi<a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
