@@ -340,52 +340,12 @@ Create an `~/.Rprofile` file (use the editor `nano`), with one line:
 options(repos=“https://cran.rstudio.com”)
 ```
 
-Want to install the
-[devtools](https://cran.rstudio.com/package=devtools) package, but it
-has a bunch of dependencies and I hit snags on
-[fs](https://cran.rstudio.com/package=fs) and
-[later](https://cran.rstudio.com/package=later).
-
-To get fs installed, I followed [this
-discussion](https://github.com/r-lib/fs/issues/128#issuecomment-435552967).
-
-- grab the github repository for the package
-
-  ```
-  git clone git://github.com/r-lib/fs
-  ```
-
-- Use `nano` to edit the file `fs/src/Makevars`. Right after the line
-  `ifeq ($UNAME), Linux)`, added the following line:
-
-  ```
-  PKG_LIBS += -pthread
-  ```
-
-- The install that package by typing
-
-  ```
-  R CMD INSTALL fs
-  ```
-
-To install the `later` app, I followed [this
-discussion](https://github.com/r-lib/later/issues/73#issuecomment-433438182).
-
-- Download the package
-
-  ```
-  git clone git://github.com/r-lab/later
-  ```
-
-- Edit the `later/src/Makevars` file using the `nano` editor. Add
-  `-lboost_atomic` to the end of the line with `PKG_LIBS`.
-
-Now you should be able to install devtools. And then use that to
+Now install the [remotes](https://remotes.r-lib.org) package. And then use that to
 install the miner and craft packages. Within R, type:
 
 ```r
 install.packages("remotes")
-library(devtools)
+library(remotes)
 install_github("kbroman/miner")
 install_github("kbroman/craft")
 ```
@@ -395,7 +355,7 @@ first, but hopefully this will happen automatically:
 
 ```r
 install.packages(c("stringr", "ggplot2", "shiny", "igraph"))
-devtools::install_github("Vessy/RMaze")
+devtools::install_github("kbroman/RMaze")
 ```
 
 
