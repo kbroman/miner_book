@@ -9,11 +9,10 @@ To use the [miner](https://github.com/kbroman/miner) package, you'll need a Mine
 ## Mac OS X
 
 The first installation step on a Mac is of the Java SE (standard
-edition) development kid (JSK). The latest version should probably
-work. We got [JDK version
-11](https://www.oracle.com/technetwork/java/javase/overview/index.html).
+edition) development kit (JSK). The latest version should probably
+work. We got [JDK version 26](https://www.oracle.com/java/technologies/downloads/)
 You'll get a `.dmg` installer file named something like
-`jdk-11.0.2_osx-x64_bin.dmg`. Double-click to run and go through the
+`jdk-26_macos-aarch64_bin.dmg` or `jdk-26_macos-x64_bin.dmg`. Double-click to run and go through the
 installation screens.
 
 Second, open a terminal (in Applications/Utilities). Verify that java
@@ -24,7 +23,7 @@ java -version
 javac -version
 ```
 
-They both should show 11.0.2 (or whatever version number you
+They both should show 26.0.1 (or whatever version number you
 installed.
 
 The rest of the installation is just like for Linux (below). Though
@@ -116,8 +115,8 @@ Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-ins
 
 ```{bash}
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-java -jar BuildTools.jar --rev 1.13.2
-java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
+java -jar BuildTools.jar --rev 26.1.2
+java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar nogui
 ```
 Edit the file `eula.txt` so that the line `eula=false` is instead `eula=true`
 
@@ -127,7 +126,7 @@ maximum available memory.
 Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
 ```{bash}
-java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar nogui
+java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar nogui
 ```
 
 Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing `op <playername>` into the server prompt. When you are finished playing type `stop` in the server prompt to stop the server.
@@ -137,8 +136,8 @@ Your Minecraft server should now be running. Open your Minecraft game on your de
 You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/kbroman/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
 ```{bash}
-wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
-mv raspberryjuice-1.11.jar ~/minecraft/plugins
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar
+mv raspberryjuice-1.12.jar ~/minecraft/plugins
 ```
 
 Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
@@ -163,7 +162,7 @@ If you want to run Minecraft in the background, then you can create a simple `st
 
 ```{bash}
 #!/bin/sh
-java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-1.13.2.jar
+java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-26.1.2.jar
 ```
 
 Note that `-Xms` sets the initial memory usage and `-Xmx` sets the
@@ -179,7 +178,7 @@ nohup ./start.sh
 If you need to use a different port, use the `-p` option. ([See other options](https://www.spigotmc.org/wiki/start-up-parameters/).)
 
 ```{bash}
-java -jar -Xms1024M -Xmx2048M spigot-1.13.2.jar -p25566 nogui
+java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar -p25566 nogui
 ```
 
 If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/kbroman/miner) package is `4711`.
@@ -420,8 +419,8 @@ Follow the instructions above, which come from
 mkdir ~/minecraft
 cd ~/minecraft
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-java -Xms1024M -jar BuildTools.jar -rev 1.13.2
+java -Xms1024M -jar BuildTools.jar -rev 26.1.2
 
-wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
-mv raspberryjuice-1.11.jar ~/minecraft/plugins
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar
+mv raspberryjuice-1.12.jar ~/minecraft/plugins
 ```
