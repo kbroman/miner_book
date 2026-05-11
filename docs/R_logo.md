@@ -61,7 +61,7 @@ hist(logo[,,,1], breaks=100, main="",
      xlab="Red color intensity")
 ```
 
-<img src="R_logo_files/figure-html/hist_red-1.png" width="672" />
+<img src="R_logo_files/figure-html/hist_red-1.png" alt="" width="672" />
 
 So let's truncate at 0.05 and 0.4.
 

@@ -30,7 +30,7 @@ This is a graph representation of the maze, which can be rendered with `ggplot2`
 plotMaze(maze, n, n)
 ```
 
-<img src="maze_files/figure-html/maze-plot-1.png" width="672" />
+<img src="maze_files/figure-html/maze-plot-1.png" alt="" width="672" />
 
 ## Transform maze graph into matrix
 

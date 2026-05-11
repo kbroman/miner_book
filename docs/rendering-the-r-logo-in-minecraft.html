@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2025-12-08" />
+<meta name="date" content="2026-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,7 +129,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -289,7 +288,7 @@ first color channel (red), we can see the three pieces:</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rendering-the-r-logo-in-minecraft.html#cb81-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>,<span class="fl">4.1</span>,<span class="fl">0.6</span>,<span class="fl">0.6</span>), <span class="at">las=</span><span class="dv">1</span>)</span>
 <span id="cb81-2"><a href="rendering-the-r-logo-in-minecraft.html#cb81-2" tabindex="-1"></a><span class="fu">hist</span>(logo[,,,<span class="dv">1</span>], <span class="at">breaks=</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>,</span>
 <span id="cb81-3"><a href="rendering-the-r-logo-in-minecraft.html#cb81-3" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Red color intensity&quot;</span>)</span></code></pre></div>
-<p><img src="R_logo_files/figure-html/hist_red-1.png" width="672" /></p>
+<p><img src="R_logo_files/figure-html/hist_red-1.png" alt="" width="672" /></p>
 <p>So let’s truncate at 0.05 and 0.4.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="rendering-the-r-logo-in-minecraft.html#cb82-1" tabindex="-1"></a>logo[] <span class="ot">&lt;-</span> <span class="fu">cut</span>(logo, <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">0.05</span>, <span class="fl">0.4</span>, <span class="cn">Inf</span>))</span>
 <span id="cb82-2"><a href="rendering-the-r-logo-in-minecraft.html#cb82-2" tabindex="-1"></a>logo <span class="ot">&lt;-</span> logo[,,<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>

@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2025-12-08" />
+<meta name="date" content="2026-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,7 +129,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -267,17 +266,16 @@ div.csl-indent {
 <div id="mac-os-x" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Mac OS X<a href="installation-and-configuration.html#mac-os-x" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The first installation step on a Mac is of the Java SE (standard
-edition) development kid (JSK). The latest version should probably
-work. We got <a href="https://www.oracle.com/technetwork/java/javase/overview/index.html">JDK version
-11</a>.
+edition) development kit (JSK). The latest version should probably
+work. We got <a href="https://www.oracle.com/java/technologies/downloads/">JDK version 26</a>
 You’ll get a <code>.dmg</code> installer file named something like
-<code>jdk-11.0.2_osx-x64_bin.dmg</code>. Double-click to run and go through the
+<code>jdk-26_macos-aarch64_bin.dmg</code> or <code>jdk-26_macos-x64_bin.dmg</code>. Double-click to run and go through the
 installation screens.</p>
 <p>Second, open a terminal (in Applications/Utilities). Verify that java
 was installed correctly by typing</p>
 <pre class="shell"><code>java -version
 javac -version</code></pre>
-<p>They both should show 11.0.2 (or whatever version number you
+<p>They both should show 26.0.1 (or whatever version number you
 installed.</p>
 <p>The rest of the installation is just like for Linux (below). Though
 maybe you won’t have <code>wget</code> available and will need to download the
@@ -337,20 +335,20 @@ so anything I created in one instance would be lost in the next.</p>
 <span id="cb5-2"><a href="installation-and-configuration.html#cb5-2" tabindex="-1"></a><span class="bu">cd</span> ~/minecraft</span></code></pre></div>
 <p>Download <code>Buildtools.jar</code> from <a href="https://www.spigotmc.org/wiki/spigot-installation/">Spigot</a>, a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the <code>jar</code> file. This step will fail to start the server but will successfully create the plugin directory and the EULA.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="installation-and-configuration.html#cb6-1" tabindex="-1"></a><span class="fu">wget</span> https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar</span>
-<span id="cb6-2"><a href="installation-and-configuration.html#cb6-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> BuildTools.jar <span class="at">--rev</span> 1.13.2</span>
-<span id="cb6-3"><a href="installation-and-configuration.html#cb6-3" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar nogui</span></code></pre></div>
+<span id="cb6-2"><a href="installation-and-configuration.html#cb6-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> BuildTools.jar <span class="at">--rev</span> 26.1.2</span>
+<span id="cb6-3"><a href="installation-and-configuration.html#cb6-3" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar nogui</span></code></pre></div>
 <p>Edit the file <code>eula.txt</code> so that the line <code>eula=false</code> is instead <code>eula=true</code></p>
 <p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the
 maximum available memory.</p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="installation-and-configuration.html#cb7-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar nogui</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="installation-and-configuration.html#cb7-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar nogui</span></code></pre></div>
 <p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
 </div>
 <div id="connect-with-miner" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Connect with miner<a href="installation-and-configuration.html#connect-with-miner" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/kbroman/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="installation-and-configuration.html#cb8-1" tabindex="-1"></a><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar</span>
-<span id="cb8-2"><a href="installation-and-configuration.html#cb8-2" tabindex="-1"></a><span class="fu">mv</span> raspberryjuice-1.11.jar ~/minecraft/plugins</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="installation-and-configuration.html#cb8-1" tabindex="-1"></a><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar</span>
+<span id="cb8-2"><a href="installation-and-configuration.html#cb8-2" tabindex="-1"></a><span class="fu">mv</span> raspberryjuice-1.12.jar ~/minecraft/plugins</span></code></pre></div>
 <p>Connect to your server from R using <code>mc_connect("&lt;server-ip&gt;")</code>. Test your connection by retrieving your player’s location.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="installation-and-configuration.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
 <span id="cb9-2"><a href="installation-and-configuration.html#cb9-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)</span>
@@ -364,14 +362,14 @@ force-gamemode=true
 level-type=FLAT</code></pre>
 <p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="installation-and-configuration.html#cb11-1" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
-<span id="cb11-2"><a href="installation-and-configuration.html#cb11-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-Xms512M</span> <span class="at">-Xmx1G</span> <span class="at">-XX:+UseConcMarkSweepGC</span> <span class="at">-jar</span> spigot-1.13.2.jar</span></code></pre></div>
+<span id="cb11-2"><a href="installation-and-configuration.html#cb11-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-Xms512M</span> <span class="at">-Xmx1G</span> <span class="at">-XX:+UseConcMarkSweepGC</span> <span class="at">-jar</span> spigot-26.1.2.jar</span></code></pre></div>
 <p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the
 maximum available memory.</p>
 <p>Then make it an executable, and run it with <code>nohup</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="installation-and-configuration.html#cb12-1" tabindex="-1"></a><span class="fu">chmod</span> +x start.sh</span>
 <span id="cb12-2"><a href="installation-and-configuration.html#cb12-2" tabindex="-1"></a><span class="fu">nohup</span> ./start.sh</span></code></pre></div>
 <p>If you need to use a different port, use the <code>-p</code> option. (<a href="https://www.spigotmc.org/wiki/start-up-parameters/">See other options</a>.)</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="installation-and-configuration.html#cb13-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-1.13.2.jar <span class="at">-p25566</span> nogui</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="installation-and-configuration.html#cb13-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar <span class="at">-p25566</span> nogui</span></code></pre></div>
 <p>If you’re having a hard time connecting, verify that your ports are open. The standard port for Minecraft is <code>25565</code>. The standard port for the <a href="https://github.com/kbroman/miner">miner</a> package is <code>4711</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="installation-and-configuration.html#cb14-1" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565</span>
 <span id="cb14-2"><a href="installation-and-configuration.html#cb14-2" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</span></code></pre></div>
@@ -531,10 +529,10 @@ to minecraft. Test that it’s working by posting to the minecraft chat.</p>
 <pre><code>mkdir ~/minecraft
 cd ~/minecraft
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-java -Xms1024M -jar BuildTools.jar -rev 1.13.2
+java -Xms1024M -jar BuildTools.jar -rev 26.1.2
 
-wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.11.jar
-mv raspberryjuice-1.11.jar ~/minecraft/plugins</code></pre>
+wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar
+mv raspberryjuice-1.12.jar ~/minecraft/plugins</code></pre>
 
 </div>
 </div>
