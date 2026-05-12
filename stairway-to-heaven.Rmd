@@ -30,7 +30,7 @@ t_stairs <- stairs + t_upset
 
 library(tidyverse)
 
-d_stairs <- as.data.frame(t_stairs) %>% tbl_df
+d_stairs <- as.data.frame(t_stairs) %>% as_tibble
 
 d_stairs %>% map(function(x) setBlock(x[1], x[2], x[3], id = 53))
 ```
