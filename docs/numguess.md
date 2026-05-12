@@ -19,7 +19,7 @@ First, let's pick a random number between 1 and 100:
 
 
 ``` r
-num <- ceiling(runif(1) * 100)
+num <- sample(1:100, 1)
 ```
 
 Then we connect to the Minecraft server and write a message in the chat window so that players get notified:
@@ -60,6 +60,7 @@ while (TRUE) {
             }
         }
     }
+    Sys.sleep(0.2)  # 0.2 sec delay to avoid locking
 }
 ```
 
