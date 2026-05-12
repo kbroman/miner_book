@@ -26,15 +26,18 @@ getPlayerIds()
 [1] 4787622 4998164 5004347 5212137 5299528
 ```
 
-If you're not sure which player is yours, there are ways you can try to figure it out. For example, you can leave the game and then come back and see which player ID is added when you come back.
+If you're not sure which player is yours, there are ways you can try to figure it out. For example, you can leave the game and then come back and see which player ID is added whe
+n you come back.
+You can also use the function `getPlayerId()` which takes your player name.
 
 ## Figure out your current position
 
-Once you know your player's ID, you can use the `getPlayerPos` function to find your location. Save it to an object so you can reference it to build the column and then move yourself on top:
+Once you know your player's ID, you can use the `getPlayerPos` function to find your location. Save it to an object so you can reference it to build the column and then move yourself on top.
+We use `tile=TRUE` to have the values truncated to integers.
 
 
 ``` r
-my_pos <- getPlayerPos(5004347)
+my_pos <- getPlayerPos(5004347, tile=TRUE)
 ```
 
 ## Build a tower
@@ -57,7 +60,7 @@ Now you can build the tower. You can use the `setBlocks` function to fill a cubo
 
 
 ``` r
-ground_height <- getHeight(my_pos[1] + -1, my_pos[3] + -1)
+ground_height <- getHeight(my_pos[1] + 3, my_pos[3] + 3)
 setBlocks(my_pos[1] + 3, ground_height, my_pos[3] + 3,
           my_pos[1] + 3, ground_height + 5, my_pos[3] + 3,
           id = 1)
@@ -70,10 +73,12 @@ Once you run this, you should see a tower near you in the Minecraft world:
 ## Jump on top of the tower
 
 Now you can use the `setPlayerPos` function to move yourself on top of it. You need to go just a bit further than where you started building the tower, or you'll end up right beside it but not on top of it. Instead of adding 3 to the x and z coordinates of your current position, then you can add 3.5.
+Also, you need to place yourself one higher than the top of the tower
+you made.
 
 
 ``` r
-setPlayerPos(my_pos[1] + 3.5, ground_height + 5, my_pos[3] + 3.5,
+setPlayerPos(my_pos[1] + 3.5, ground_height + 6, my_pos[3] + 3.5,
              player_id = 5004347)
 ```
 
