@@ -131,6 +131,7 @@ ice_towers(player_id = 7433954)
 ```
 
 Then you can go inside your Minecraft world, and you should be able to make ice towers anywhere you hit with a right click with an iron sword.
+(**Note**: a version of this function is included in the [craft](https://github.com/kbroman/craft) package.)
 
 ## Close the connection
 
