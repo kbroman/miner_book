@@ -3,7 +3,8 @@
 A [bookdown](https://bookdown.org/) book about
 [R](https://www.r-project.org) and [Minecraft](https://minecraft.net),
 and particularly about using R to interact with Minecraft, using the
-[miner](https://github.com/kbroman/miner) package.
+[miner](https://github.com/kbroman/miner) and
+[craft](https://github.com/kbroman/craft) packages.
 
 View the book online at <https://kbroman.org/miner_book/>.
 
@@ -12,7 +13,7 @@ View the book online at <https://kbroman.org/miner_book/>.
 This book was written to accompany the
 [miner R package](https://github.com/kbroman/miner), which was
 created as part of the
-[ROpenSci unconference](http://unconf17.ropensci.org/) in May, 2017
+[ROpenSci unconference](http://unconf17.ropensci.org/) in May, 2017,
 by:
 
 * [Brooke Anderson](https://github.com/geanders)
