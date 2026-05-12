@@ -5,20 +5,20 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE,
                       fig.width=7, eval = FALSE)
 ```
 
-This is a very simple example of building a rainbow inspired by the RaspberryJuice. [^minecraft-rainbow]
+This is a very simple example of building a rainbow inspired by the
+[RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice) plugin.
 In this example, we'll build a rainbow near current player and immediately watch the rainbow.
-
-[^minecraft-rainbow]: [RaspberryJuice](https://dev.bukkit.org/projects/raspberryjuice)
 
 ## Build rainbow with R graphics
 
-First, you'll need to draw a rainbow with R Base plot system.
+First, you'll need to draw a rainbow with the R base plot system.
 
-- Generate a rainbow data
+- Generate rainbow data
 - Prepare rainbow colors
-- Draw a rainbow with R Base plot
+- Draw a rainbow with R base plot
 
-It is possible to draw a rainbow with other R plot system like ggplot2.
+It is possible to draw a rainbow with other R plot systems like
+[ggplot2](https://ggplot2.tidyverse.org).
 
 ```{r}
 # 1. Rainbow plot --------------------------------------------
@@ -38,14 +38,14 @@ for(i in 1:7) {
 }
 ```
 
-## Minecraft Rainbow 
+## Minecraft Rainbow
 
 To build a rainbow on the Minecraft world, we will take the following steps;
 
 1. Get the current player position with `getPlayerPos()` function.
-1. Configure rainbow height, colors, and item.
-1. Build a rainbow referring to current player location and configured items.
-1. Finally, watch the rainbow a little far from the current player position.
+1. Configure rainbow height, colors, and items.
+1. Build a rainbow, referring to current player location and configured items.
+1. Finally, watch the rainbow by moving a bit away from the current player position.
 
 ```{r}
 ## 2.1. Current Player Position
@@ -74,4 +74,4 @@ setPlayerPos(cur_pos[1], cur_pos[2], cur_pos[3]-50, tile=TRUE)
 
 The result looks like this:
 
-![](figure/rainbow.png)
+![image of rainbow in minecraft](figure/rainbow.png)
