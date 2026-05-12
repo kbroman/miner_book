@@ -68,3 +68,6 @@ while (TRUE) {
 The result looks like this:
 
 ![](figure/guessnum.png)
+
+This game is included as the function `num_guess()` in the
+[craft](https://github.com/kbroman/craft) package.
