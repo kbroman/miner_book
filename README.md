@@ -15,7 +15,7 @@ View the book online at <https://kbroman.org/miner_book/>.
 This book was written to accompany the
 [miner R package](https://github.com/kbroman/miner), which was
 created as part of the
-[ROpenSci unconference](http://unconf17.ropensci.org/) in May, 2017,
+[ROpenSci unconference](https://unconf17.ropensci.org/) in May, 2017,
 by:
 
 * [Brooke Anderson](https://github.com/geanders)
@@ -30,4 +30,4 @@ by:
 
 Licensed under [CC BY](https://creativecommons.org/licenses/by/4.0/)
 
-[![CC BY](http://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+[![CC BY](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
