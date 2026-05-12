@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-10" />
+<meta name="date" content="2026-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,7 +286,7 @@ div.csl-indent {
 <span id="cb31-11"><a href="a-stairway-to-heaven.html#cb31-11" tabindex="-1"></a></span>
 <span id="cb31-12"><a href="a-stairway-to-heaven.html#cb31-12" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb31-13"><a href="a-stairway-to-heaven.html#cb31-13" tabindex="-1"></a></span>
-<span id="cb31-14"><a href="a-stairway-to-heaven.html#cb31-14" tabindex="-1"></a>d_stairs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(t_stairs) <span class="sc">%&gt;%</span> tbl_df</span>
+<span id="cb31-14"><a href="a-stairway-to-heaven.html#cb31-14" tabindex="-1"></a>d_stairs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(t_stairs) <span class="sc">%&gt;%</span> as_tibble</span>
 <span id="cb31-15"><a href="a-stairway-to-heaven.html#cb31-15" tabindex="-1"></a></span>
 <span id="cb31-16"><a href="a-stairway-to-heaven.html#cb31-16" tabindex="-1"></a>d_stairs <span class="sc">%&gt;%</span> <span class="fu">map</span>(<span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>], <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
 <p>Here is an example of the resulting stairway:</p>
