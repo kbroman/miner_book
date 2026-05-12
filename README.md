@@ -1,6 +1,6 @@
 ## miner_book
 
-[![zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20137121.svg)](https://doi.org/10.5281/zenodo.20137121)
+[![zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20137120.svg)](https://doi.org/10.5281/zenodo.20137120)
 
 A [bookdown](https://bookdown.org/) book about
 [R](https://www.r-project.org) and [Minecraft](https://minecraft.net),
