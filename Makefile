@@ -20,7 +20,7 @@ cover_sm.png: cover/cover.png
 	cd cover;convert -resize 281x364 cover.png ../cover_sm.png
 
 cover_med.png: cover/cover.png
-	cd cover;convert -resize 386x500 cover.png ../cover_med.png
+	cd cover;convert -resize 772x1000 cover.png ../cover_med.png
 
 cover/cover.png: cover/cover.pdf
 	cd cover;convert -flatten -resize 100% -density 300 cover.pdf cover.png
