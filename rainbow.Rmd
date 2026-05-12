@@ -74,4 +74,4 @@ setPlayerPos(cur_pos[1], cur_pos[2], cur_pos[3]-50, tile=TRUE)
 
 The result looks like this:
 
-![image of rainbow in minecraft](figure/rainbow.png)
+![](figure/rainbow.png)
