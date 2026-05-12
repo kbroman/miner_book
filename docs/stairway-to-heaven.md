@@ -2,41 +2,92 @@
 
 ## Building Objects
 
-The function to create objects in `miner` is the `setBlock` function. It expects four arguments, the first three being the coordinates of your item's location, and the fourth being the `block_id` you want to set. An optional argument is `block_style`.
+The function to create objects in [miner](https://github.com/kbroman/miner) is the `setBlock` function. It expects four arguments, the first three being the coordinates of your item's location, and the fourth being the `block_id` you want to set. An optional argument is `block_style`.
 
-First, you need to find out where you are. You can use `getPlayerIds` to get the ids of all players currently in the Minecraft world. You can use the `getPlayerPos` function to find the position of each player. If you are the first player, you can pull your ID as the first element of the object returned by `getPlayerIds`:
+We first load the [miner](https://github.com/kbroman/miner) package.
+
+
+``` r
+library(miner)
+```
+
+First, you need to find out where you are, and before we do that we need to figure out who we are. You can use `getPlayerIds` to get the ids of all players currently in the Minecraft world. You can use the `getPlayerPos` function to find the position of each player. If you are the first player, you can pull your ID as the first element of the object returned by `getPlayerIds`:
 
 
 ``` r
 ids <- getPlayerIds()
 lapply(ids, getPlayerPos)
-ali <- ids[1]
+my_id <- ids[1]
 ```
 
 ## Stairway to heaven
 
-We will create a matrix that contains our increments. First we create a matrix with as many columns as we want stairs, and three rows specifying our coordinates. The coordinates are obtained by incrementing the first and second element of each column. We then use `purrr:map` to input that matrix to the `setBlocks` function.
+We will create a matrix that contains our increments. First we create
+a matrix with as many columns as we want stairs, and three rows
+specifying our coordinates. The coordinates are obtained by
+incrementing the first and second element of each column. We then use
+`apply` to pass each column to the `setBlocks` function.
 
 
 ``` r
-pos <- getPlayerPos(player_id = ali, tile = TRUE)
-stair_blocks <- 10
+# get your position
+pos <- getPlayerPos(my_id, tile = TRUE)
 
-stepsize <- 1
+# shift the position slightly,
+#   so the stairs aren't right on top of you
+pos <- pos + c(1, 0, 1)
 
-stairs <- replicate(stair_blocks, pos)
-upset <- cbind(rep(0, 3), replicate(stair_blocks - 1, c(1, 1, 0)))
-t_upset <- t(apply(upset, 1, cumsum))
+# number of stairs to create
+n_stairs <- 10
 
-t_stairs <- stairs + t_upset
+# matrix to contain stair locations
+# first repeat the start position a bunch of times
+stairs <- replicate(n_stairs, pos)
 
-library(tidyverse)
+# for all but the first stair, move over and up one
+# this is position relative to previous stair
+upset <- cbind(rep(0, 3), replicate(n_stairs - 1, c(1, 1, 0)))
 
-d_stairs <- as.data.frame(t_stairs) %>% as_tibble
+# for each row, use cumsum to get position relative to first stair
+#    then transpose so that the result still has 3 rows
+upset <- t(apply(upset, 1, cumsum))
 
-d_stairs %>% map(function(x) setBlock(x[1], x[2], x[3], id = 53))
+# get final positions and transpose
+#   now rows are stairs and columns are coordinates
+stairs <- stairs + upset
+```
+
+We're almost ready to add our stairs, but first we need to get the
+item ID for oak wood stairs.
+
+
+``` r
+find_item("Oak Wood Stairs")
+```
+
+```
+##                name id style
+## 120 Oak Wood Stairs 53     0
+```
+
+Okay, so now we can add our stairs, using `id=53`.
+
+
+``` r
+# now add the stairs
+apply(stairs, 2, function(x) setBlock(x[1], x[2], x[3], id = 53))
 ```
 
 Here is an example of the resulting stairway:
 
 ![](figure/stairs.png)
+
+
+We can call that last command a couple of more times, with shifts in
+the last coordinate, to make an extra-wide, luxurious set of stairs.
+
+
+``` r
+apply(stairs, 2, function(x) setBlock(x[1], x[2], x[3]+1, id = 53))
+apply(stairs, 2, function(x) setBlock(x[1], x[2], x[3]-1, id = 53))
+```
