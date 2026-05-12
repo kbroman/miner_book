@@ -23,7 +23,7 @@ cover_med.png: cover/cover.png
 	cd cover;convert -resize 386x500 cover.png ../cover_med.png
 
 cover/cover.png: cover/cover.pdf
-	cd cover;convert -flatten cover.pdf cover.png
+	cd cover;convert -flatten -resize 100% -density 300 cover.pdf cover.png
 
 cover/cover.pdf: cover/cover.tex cover/cover_image.png
 	cd cover;xelatex cover
