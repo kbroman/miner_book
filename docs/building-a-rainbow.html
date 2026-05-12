@@ -262,17 +262,19 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="building-a-rainbow" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Building a rainbow<a href="building-a-rainbow.html#building-a-rainbow" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This is a very simple example of building a rainbow inspired by the RaspberryJuice. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+<p>This is a very simple example of building a rainbow inspired by the
+<a href="https://dev.bukkit.org/projects/raspberryjuice">RaspberryJuice</a> plugin.
 In this example, we’ll build a rainbow near current player and immediately watch the rainbow.</p>
 <div id="build-rainbow-with-r-graphics" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Build rainbow with R graphics<a href="building-a-rainbow.html#build-rainbow-with-r-graphics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, you’ll need to draw a rainbow with R Base plot system.</p>
+<p>First, you’ll need to draw a rainbow with the R base plot system.</p>
 <ul>
-<li>Generate a rainbow data</li>
+<li>Generate rainbow data</li>
 <li>Prepare rainbow colors</li>
-<li>Draw a rainbow with R Base plot</li>
+<li>Draw a rainbow with R base plot</li>
 </ul>
-<p>It is possible to draw a rainbow with other R plot system like ggplot2.</p>
+<p>It is possible to draw a rainbow with other R plot systems like
+<a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="building-a-rainbow.html#cb32-1" tabindex="-1"></a><span class="co"># 1. Rainbow plot --------------------------------------------</span></span>
 <span id="cb32-2"><a href="building-a-rainbow.html#cb32-2" tabindex="-1"></a><span class="do">## 1.1. Rainbow Data</span></span>
 <span id="cb32-3"><a href="building-a-rainbow.html#cb32-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)</span>
@@ -294,9 +296,9 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <p>To build a rainbow on the Minecraft world, we will take the following steps;</p>
 <ol style="list-style-type: decimal">
 <li>Get the current player position with <code>getPlayerPos()</code> function.</li>
-<li>Configure rainbow height, colors, and item.</li>
-<li>Build a rainbow referring to current player location and configured items.</li>
-<li>Finally, watch the rainbow a little far from the current player position.</li>
+<li>Configure rainbow height, colors, and items.</li>
+<li>Build a rainbow, referring to current player location and configured items.</li>
+<li>Finally, watch the rainbow by moving a bit away from the current player position.</li>
 </ol>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="building-a-rainbow.html#cb33-1" tabindex="-1"></a><span class="do">## 2.1. Current Player Position</span></span>
 <span id="cb33-2"><a href="building-a-rainbow.html#cb33-2" tabindex="-1"></a>cur_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
@@ -321,15 +323,12 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <span id="cb33-21"><a href="building-a-rainbow.html#cb33-21" tabindex="-1"></a></span>
 <span id="cb33-22"><a href="building-a-rainbow.html#cb33-22" tabindex="-1"></a><span class="fu">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">50</span>, <span class="at">tile=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The result looks like this:</p>
-<p><img src="figure/rainbow.png" /></p>
+<div class="float">
+<img src="figure/rainbow.png" alt="image of rainbow in minecraft" />
+<div class="figcaption">image of rainbow in minecraft</div>
+</div>
 
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p><a href="https://dev.bukkit.org/projects/raspberryjuice">RaspberryJuice</a><a href="building-a-rainbow.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
