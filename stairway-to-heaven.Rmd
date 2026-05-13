@@ -80,3 +80,8 @@ the last coordinate, to make an extra-wide, luxurious set of stairs.
 apply(stairs, 2, function(x) setBlock(x[1], x[2], x[3]+1, id = 53))
 apply(stairs, 2, function(x) setBlock(x[1], x[2], x[3]-1, id = 53))
 ```
+
+Note: check out the function `buildStairs()` in the
+[craft](https://github.com/kbroman/craft) package, which implements
+this feature, building stairs going either down or up, in the
+direction that a player is facing.
