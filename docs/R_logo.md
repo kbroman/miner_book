@@ -120,3 +120,7 @@ for(i in 1:nrow(logo)) {
 The result looks like this:
 
 ![](figure/Rlogo_minecraft.png)
+
+Note: check out the function `buildRlogo()` in the
+[craft](https://github.com/kbroman/craft) package, which implements
+this feature.

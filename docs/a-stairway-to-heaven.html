@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-12" />
+<meta name="date" content="2026-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -318,6 +318,10 @@ item ID for oak wood stairs.</p>
 the last coordinate, to make an extra-wide, luxurious set of stairs.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-stairway-to-heaven.html#cb36-1" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span>
 <span id="cb36-2"><a href="a-stairway-to-heaven.html#cb36-2" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
+<p>Note: check out the function <code>buildStairs()</code> in the
+<a href="https://github.com/kbroman/craft">craft</a> package, which implements
+this feature, building stairs going either down or up, in the
+direction that a player is facing.</p>
 
 </div>
 </div>
