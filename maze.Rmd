@@ -4,10 +4,13 @@ This example illustrates how to generate a perfect maze from R and the render in
 
 ## Generate a random maze
 
-First, we need to generate a maze, for which we will use the [`Rmaze`](https://github.com/Vessy/Rmaze) R package's depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub:
+First, we need to generate a maze, for which we will use the [`Rmaze`](https://github.com/Vessy/Rmaze) R package's depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub.
+Use the [remotes](https://remotes.r-lib.org) package. (Note that we "forked" the
+Rmaze package and made some small corrections, not to the code but to
+the package metadata; it can be hard to keep up with changing R policies.)
 
 ```{r rmaze-install, eval = FALSE}
-devtools::install_github('Vessy/Rmaze')
+remotes::install_github('kbroman/Rmaze')
 ```
 
 Then load the package and generate a maze with, for example, 10 x 10 tiles:
