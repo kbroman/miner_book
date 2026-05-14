@@ -265,8 +265,11 @@ div.csl-indent {
 <p>This example illustrates how to generate a perfect maze from R and the render in Minecraft.</p>
 <div id="generate-a-random-maze" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Generate a random maze<a href="generate-a-maze-in-minecraft.html#generate-a-random-maze" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, we need to generate a maze, for which we will use the <a href="https://github.com/Vessy/Rmaze"><code>Rmaze</code></a> R package’s depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="generate-a-maze-in-minecraft.html#cb87-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;Vessy/Rmaze&#39;</span>)</span></code></pre></div>
+<p>First, we need to generate a maze, for which we will use the <a href="https://github.com/Vessy/Rmaze"><code>Rmaze</code></a> R package’s depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub.
+Use the <a href="https://remotes.r-lib.org">remotes</a> package. (Note that we “forked” the
+Rmaze package and made some small corrections, not to the code but to
+the package metadata; it can be hard to keep up with changing R policies.)</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="generate-a-maze-in-minecraft.html#cb87-1" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;kbroman/Rmaze&#39;</span>)</span></code></pre></div>
 <p>Then load the package and generate a maze with, for example, 10 x 10 tiles:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="generate-a-maze-in-minecraft.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(Rmaze)</span>
 <span id="cb88-2"><a href="generate-a-maze-in-minecraft.html#cb88-2" tabindex="-1"></a></span>
@@ -339,32 +342,40 @@ div.csl-indent {
 <p>Now that we have a binary matrix representation of the maze, it’s very easy to render the related blocks in Minecraft. First, we need to load the <code>miner</code> package and establish a connection to a Minecraft server:</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="generate-a-maze-in-minecraft.html#cb102-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
 <span id="cb102-2"><a href="generate-a-maze-in-minecraft.html#cb102-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span></code></pre></div>
+<p>First, let’s find our own position, so we can place the maze relative
+to our own location. If you’re the only one on the minecraft server,
+it’s easy. (We use <code>tile=TRUE</code> to truncate the coordinates to integers.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="generate-a-maze-in-minecraft.html#cb103-1" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(<span class="at">tile=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Next, we will clean up some space, then generate the floor (diamond) and ceiling (glass), then the wall blocks(gold):</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="generate-a-maze-in-minecraft.html#cb103-1" tabindex="-1"></a><span class="do">## create objects with number of columns and rows in the dataframe</span></span>
-<span id="cb103-2"><a href="generate-a-maze-in-minecraft.html#cb103-2" tabindex="-1"></a>nr <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
-<span id="cb103-3"><a href="generate-a-maze-in-minecraft.html#cb103-3" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df)</span>
-<span id="cb103-4"><a href="generate-a-maze-in-minecraft.html#cb103-4" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="generate-a-maze-in-minecraft.html#cb103-5" tabindex="-1"></a><span class="do">## clean up some space</span></span>
-<span id="cb103-6"><a href="generate-a-maze-in-minecraft.html#cb103-6" tabindex="-1"></a><span class="fu">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">0</span>)</span>
-<span id="cb103-7"><a href="generate-a-maze-in-minecraft.html#cb103-7" tabindex="-1"></a><span class="do">## add floor</span></span>
-<span id="cb103-8"><a href="generate-a-maze-in-minecraft.html#cb103-8" tabindex="-1"></a><span class="fu">setBlocks</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">1</span>, nr, <span class="dv">50</span>, nc, <span class="dv">57</span>)</span>
-<span id="cb103-9"><a href="generate-a-maze-in-minecraft.html#cb103-9" tabindex="-1"></a><span class="do">## add torch</span></span>
-<span id="cb103-10"><a href="generate-a-maze-in-minecraft.html#cb103-10" tabindex="-1"></a><span class="fu">setBlocks</span>(nr <span class="sc">-</span> <span class="dv">4</span>, <span class="dv">51</span>, <span class="dv">2</span>, nr, <span class="dv">52</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
-<span id="cb103-11"><a href="generate-a-maze-in-minecraft.html#cb103-11" tabindex="-1"></a><span class="do">## maze ceiling</span></span>
-<span id="cb103-12"><a href="generate-a-maze-in-minecraft.html#cb103-12" tabindex="-1"></a><span class="fu">setBlocks</span>(<span class="dv">1</span>, <span class="dv">54</span>, <span class="dv">1</span>, nr, <span class="dv">54</span>, nc, <span class="dv">95</span>)</span>
-<span id="cb103-13"><a href="generate-a-maze-in-minecraft.html#cb103-13" tabindex="-1"></a><span class="do">## 3 blocks tall maze walls</span></span>
-<span id="cb103-14"><a href="generate-a-maze-in-minecraft.html#cb103-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)) {</span>
-<span id="cb103-15"><a href="generate-a-maze-in-minecraft.html#cb103-15" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(df)) {</span>
-<span id="cb103-16"><a href="generate-a-maze-in-minecraft.html#cb103-16" tabindex="-1"></a>        <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(df[i, j])) {</span>
-<span id="cb103-17"><a href="generate-a-maze-in-minecraft.html#cb103-17" tabindex="-1"></a>            <span class="fu">setBlock</span>(i, <span class="dv">51</span>, j, <span class="dv">41</span>)</span>
-<span id="cb103-18"><a href="generate-a-maze-in-minecraft.html#cb103-18" tabindex="-1"></a>            <span class="fu">setBlock</span>(i, <span class="dv">52</span>, j, <span class="dv">41</span>)</span>
-<span id="cb103-19"><a href="generate-a-maze-in-minecraft.html#cb103-19" tabindex="-1"></a>            <span class="fu">setBlock</span>(i, <span class="dv">53</span>, j, <span class="dv">41</span>)</span>
-<span id="cb103-20"><a href="generate-a-maze-in-minecraft.html#cb103-20" tabindex="-1"></a>        }</span>
-<span id="cb103-21"><a href="generate-a-maze-in-minecraft.html#cb103-21" tabindex="-1"></a>    }</span>
-<span id="cb103-22"><a href="generate-a-maze-in-minecraft.html#cb103-22" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="generate-a-maze-in-minecraft.html#cb104-1" tabindex="-1"></a><span class="do">## create objects with number of columns and rows in the dataframe</span></span>
+<span id="cb104-2"><a href="generate-a-maze-in-minecraft.html#cb104-2" tabindex="-1"></a>nr <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
+<span id="cb104-3"><a href="generate-a-maze-in-minecraft.html#cb104-3" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df)</span>
+<span id="cb104-4"><a href="generate-a-maze-in-minecraft.html#cb104-4" tabindex="-1"></a></span>
+<span id="cb104-5"><a href="generate-a-maze-in-minecraft.html#cb104-5" tabindex="-1"></a><span class="do">## clean up some space</span></span>
+<span id="cb104-6"><a href="generate-a-maze-in-minecraft.html#cb104-6" tabindex="-1"></a><span class="fu">setBlocks</span>(pos[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb104-7"><a href="generate-a-maze-in-minecraft.html#cb104-7" tabindex="-1"></a>          pos[<span class="dv">1</span>]<span class="sc">+</span>nr, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">5</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>nc, <span class="dv">0</span>)</span>
+<span id="cb104-8"><a href="generate-a-maze-in-minecraft.html#cb104-8" tabindex="-1"></a><span class="do">## add floor</span></span>
+<span id="cb104-9"><a href="generate-a-maze-in-minecraft.html#cb104-9" tabindex="-1"></a><span class="fu">setBlocks</span>(pos[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb104-10"><a href="generate-a-maze-in-minecraft.html#cb104-10" tabindex="-1"></a>          pos[<span class="dv">1</span>]<span class="sc">+</span>nr, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>nc, <span class="dv">57</span>)</span>
+<span id="cb104-11"><a href="generate-a-maze-in-minecraft.html#cb104-11" tabindex="-1"></a><span class="do">## add torch</span></span>
+<span id="cb104-12"><a href="generate-a-maze-in-minecraft.html#cb104-12" tabindex="-1"></a><span class="fu">setBlocks</span>(pos[<span class="dv">1</span>]<span class="sc">+</span>nr <span class="sc">-</span> <span class="dv">4</span>, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">2</span>, pos[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">2</span>,</span>
+<span id="cb104-13"><a href="generate-a-maze-in-minecraft.html#cb104-13" tabindex="-1"></a>          pos[<span class="dv">1</span>]<span class="sc">+</span>nr, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">3</span>, pos[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb104-14"><a href="generate-a-maze-in-minecraft.html#cb104-14" tabindex="-1"></a><span class="do">## maze ceiling</span></span>
+<span id="cb104-15"><a href="generate-a-maze-in-minecraft.html#cb104-15" tabindex="-1"></a><span class="fu">setBlocks</span>(pos[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">5</span>, pos[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb104-16"><a href="generate-a-maze-in-minecraft.html#cb104-16" tabindex="-1"></a>          pos[<span class="dv">1</span>]<span class="sc">+</span>nr, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">5</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>nc, <span class="dv">95</span>)</span>
+<span id="cb104-17"><a href="generate-a-maze-in-minecraft.html#cb104-17" tabindex="-1"></a><span class="do">## 3 blocks tall maze walls</span></span>
+<span id="cb104-18"><a href="generate-a-maze-in-minecraft.html#cb104-18" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)) {</span>
+<span id="cb104-19"><a href="generate-a-maze-in-minecraft.html#cb104-19" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(df)) {</span>
+<span id="cb104-20"><a href="generate-a-maze-in-minecraft.html#cb104-20" tabindex="-1"></a>        <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(df[i, j])) {</span>
+<span id="cb104-21"><a href="generate-a-maze-in-minecraft.html#cb104-21" tabindex="-1"></a>            <span class="fu">setBlock</span>(pos[<span class="dv">1</span>]<span class="sc">+</span>i, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">2</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>j, <span class="dv">41</span>)</span>
+<span id="cb104-22"><a href="generate-a-maze-in-minecraft.html#cb104-22" tabindex="-1"></a>            <span class="fu">setBlock</span>(pos[<span class="dv">1</span>]<span class="sc">+</span>i, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">3</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>j, <span class="dv">41</span>)</span>
+<span id="cb104-23"><a href="generate-a-maze-in-minecraft.html#cb104-23" tabindex="-1"></a>            <span class="fu">setBlock</span>(pos[<span class="dv">1</span>]<span class="sc">+</span>i, pos[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">4</span>, pos[<span class="dv">3</span>]<span class="sc">+</span>j, <span class="dv">41</span>)</span>
+<span id="cb104-24"><a href="generate-a-maze-in-minecraft.html#cb104-24" tabindex="-1"></a>        }</span>
+<span id="cb104-25"><a href="generate-a-maze-in-minecraft.html#cb104-25" tabindex="-1"></a>    }</span>
+<span id="cb104-26"><a href="generate-a-maze-in-minecraft.html#cb104-26" tabindex="-1"></a>}</span></code></pre></div>
 <p>The result looks like this:</p>
 <p><img src="figure/maze-minecraft.png" /></p>
-<p>For a more complete solution, see the <code>mc_maze</code> and <code>mc_mazer</code> functions. The prior generates a maze with given dimensions right in front of a specified player id, while the latter does the same but triggered from the chat window by any player.</p>
+<p>For a more complete solution, see the <code>mc_maze</code> and <code>mc_mazer</code> functions in the <a href="https://github.com/kbroman/craft">craft</a> package. The <code>mc_maze</code> function generates a maze with given dimensions right in front of a specified player id, while the <code>mc_mazer</code> function does the same but triggered from the chat window by any player.</p>
 
 </div>
 </div>

@@ -4,11 +4,14 @@ This example illustrates how to generate a perfect maze from R and the render in
 
 ## Generate a random maze
 
-First, we need to generate a maze, for which we will use the [`Rmaze`](https://github.com/Vessy/Rmaze) R package's depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub:
+First, we need to generate a maze, for which we will use the [`Rmaze`](https://github.com/Vessy/Rmaze) R package's depth-first search algorithm. As the package is not on CRAN, you have to install from GitHub.
+Use the [remotes](https://remotes.r-lib.org) package. (Note that we "forked" the
+Rmaze package and made some small corrections, not to the code but to
+the package metadata; it can be hard to keep up with changing R policies.)
 
 
 ``` r
-devtools::install_github('Vessy/Rmaze')
+remotes::install_github('kbroman/Rmaze')
 ```
 
 Then load the package and generate a maze with, for example, 10 x 10 tiles:
@@ -155,6 +158,16 @@ library(miner)
 mc_connect()
 ```
 
+First, let's find our own position, so we can place the maze relative
+to our own location. If you're the only one on the minecraft server,
+it's easy. (We use `tile=TRUE` to truncate the coordinates to integers.
+
+
+``` r
+pos <- getPlayerPos(tile=TRUE)
+```
+
+
 Next, we will clean up some space, then generate the floor (diamond) and ceiling (glass), then the wall blocks(gold):
 
 
@@ -164,20 +177,24 @@ nr <- nrow(df)
 nc <- ncol(df)
 
 ## clean up some space
-setBlocks(1, 50, 1, nr, 54, nc, 0)
+setBlocks(pos[1]+1, pos[2]+1, pos[3]+1,
+          pos[1]+nr, pos[2]+5, pos[3]+nc, 0)
 ## add floor
-setBlocks(1, 50, 1, nr, 50, nc, 57)
+setBlocks(pos[1]+1, pos[2]+1, pos[3]+1,
+          pos[1]+nr, pos[2]+1, pos[3]+nc, 57)
 ## add torch
-setBlocks(nr - 4, 51, 2, nr, 52, 4, 50)
+setBlocks(pos[1]+nr - 4, pos[2]+2, pos[3]+2,
+          pos[1]+nr, pos[2]+3, pos[3]+4, 50)
 ## maze ceiling
-setBlocks(1, 54, 1, nr, 54, nc, 95)
+setBlocks(pos[1]+1, pos[2]+5, pos[3]+1,
+          pos[1]+nr, pos[2]+5, pos[3]+nc, 95)
 ## 3 blocks tall maze walls
 for (i in 1:nrow(df)) {
     for (j in 1:ncol(df)) {
         if (!is.na(df[i, j])) {
-            setBlock(i, 51, j, 41)
-            setBlock(i, 52, j, 41)
-            setBlock(i, 53, j, 41)
+            setBlock(pos[1]+i, pos[2]+2, pos[3]+j, 41)
+            setBlock(pos[1]+i, pos[2]+3, pos[3]+j, 41)
+            setBlock(pos[1]+i, pos[2]+4, pos[3]+j, 41)
         }
     }
 }
@@ -187,4 +204,4 @@ The result looks like this:
 
 ![](figure/maze-minecraft.png)
 
-For a more complete solution, see the `mc_maze` and `mc_mazer` functions. The prior generates a maze with given dimensions right in front of a specified player id, while the latter does the same but triggered from the chat window by any player.
+For a more complete solution, see the `mc_maze` and `mc_mazer` functions in the [craft](https://github.com/kbroman/craft) package. The `mc_maze` function generates a maze with given dimensions right in front of a specified player id, while the `mc_mazer` function does the same but triggered from the chat window by any player.
