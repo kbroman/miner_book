@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-13" />
+<meta name="date" content="2026-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -162,16 +162,13 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
-</ul></li>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
 <li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
+<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installation"><i class="fa fa-check"></i><b>2.3.1</b> Installation</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
-<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
+<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configuration"><i class="fa fa-check"></i><b>2.3.3</b> Configuration</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
 <ul>
@@ -179,13 +176,13 @@ div.csl-indent {
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
+<li class="chapter" data-level="2.4.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.4.5</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
-<li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
@@ -275,21 +272,21 @@ In this example, we’ll build a rainbow near current player and immediately wat
 </ul>
 <p>It is possible to draw a rainbow with other R plot systems like
 <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="building-a-rainbow.html#cb37-1" tabindex="-1"></a><span class="co"># 1. Rainbow plot --------------------------------------------</span></span>
-<span id="cb37-2"><a href="building-a-rainbow.html#cb37-2" tabindex="-1"></a><span class="do">## 1.1. Rainbow Data</span></span>
-<span id="cb37-3"><a href="building-a-rainbow.html#cb37-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)</span>
-<span id="cb37-4"><a href="building-a-rainbow.html#cb37-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi)</span>
-<span id="cb37-5"><a href="building-a-rainbow.html#cb37-5" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="building-a-rainbow.html#cb37-6" tabindex="-1"></a><span class="do">## 1.2. Rainbow Color</span></span>
-<span id="cb37-7"><a href="building-a-rainbow.html#cb37-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb37-8"><a href="building-a-rainbow.html#cb37-8" tabindex="-1"></a>color <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(n, <span class="at">s =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="fu">max</span>(<span class="dv">1</span>, n <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>n, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb37-9"><a href="building-a-rainbow.html#cb37-9" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="building-a-rainbow.html#cb37-10" tabindex="-1"></a><span class="do">## 1.3. Draw Rainbow with Base Plot System</span></span>
-<span id="cb37-11"><a href="building-a-rainbow.html#cb37-11" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="building-a-rainbow.html#cb37-12" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
-<span id="cb37-13"><a href="building-a-rainbow.html#cb37-13" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb37-14"><a href="building-a-rainbow.html#cb37-14" tabindex="-1"></a>  <span class="fu">lines</span>(x, y<span class="sc">+</span>i, <span class="at">col=</span>color[i])</span>
-<span id="cb37-15"><a href="building-a-rainbow.html#cb37-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="building-a-rainbow.html#cb40-1" tabindex="-1"></a><span class="co"># 1. Rainbow plot --------------------------------------------</span></span>
+<span id="cb40-2"><a href="building-a-rainbow.html#cb40-2" tabindex="-1"></a><span class="do">## 1.1. Rainbow Data</span></span>
+<span id="cb40-3"><a href="building-a-rainbow.html#cb40-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>)</span>
+<span id="cb40-4"><a href="building-a-rainbow.html#cb40-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi)</span>
+<span id="cb40-5"><a href="building-a-rainbow.html#cb40-5" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="building-a-rainbow.html#cb40-6" tabindex="-1"></a><span class="do">## 1.2. Rainbow Color</span></span>
+<span id="cb40-7"><a href="building-a-rainbow.html#cb40-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb40-8"><a href="building-a-rainbow.html#cb40-8" tabindex="-1"></a>color <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(n, <span class="at">s =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="fu">max</span>(<span class="dv">1</span>, n <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>n, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb40-9"><a href="building-a-rainbow.html#cb40-9" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="building-a-rainbow.html#cb40-10" tabindex="-1"></a><span class="do">## 1.3. Draw Rainbow with Base Plot System</span></span>
+<span id="cb40-11"><a href="building-a-rainbow.html#cb40-11" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="building-a-rainbow.html#cb40-12" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb40-13"><a href="building-a-rainbow.html#cb40-13" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb40-14"><a href="building-a-rainbow.html#cb40-14" tabindex="-1"></a>  <span class="fu">lines</span>(x, y<span class="sc">+</span>i, <span class="at">col=</span>color[i])</span>
+<span id="cb40-15"><a href="building-a-rainbow.html#cb40-15" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="minecraft-rainbow" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Minecraft Rainbow<a href="building-a-rainbow.html#minecraft-rainbow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -300,28 +297,28 @@ In this example, we’ll build a rainbow near current player and immediately wat
 <li>Build a rainbow, referring to current player location and configured items.</li>
 <li>Finally, watch the rainbow by moving a bit away from the current player position.</li>
 </ol>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="building-a-rainbow.html#cb38-1" tabindex="-1"></a><span class="do">## 2.1. Current Player Position</span></span>
-<span id="cb38-2"><a href="building-a-rainbow.html#cb38-2" tabindex="-1"></a>cur_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
-<span id="cb38-3"><a href="building-a-rainbow.html#cb38-3" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="building-a-rainbow.html#cb38-4" tabindex="-1"></a><span class="do">## 2.2. Rainbow Configuration</span></span>
-<span id="cb38-5"><a href="building-a-rainbow.html#cb38-5" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="building-a-rainbow.html#cb38-6" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb38-7"><a href="building-a-rainbow.html#cb38-7" tabindex="-1"></a>colors  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">10</span>)</span>
-<span id="cb38-8"><a href="building-a-rainbow.html#cb38-8" tabindex="-1"></a></span>
-<span id="cb38-9"><a href="building-a-rainbow.html#cb38-9" tabindex="-1"></a>blue_block <span class="ot">&lt;-</span> <span class="fu">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)</span>
-<span id="cb38-10"><a href="building-a-rainbow.html#cb38-10" tabindex="-1"></a></span>
-<span id="cb38-11"><a href="building-a-rainbow.html#cb38-11" tabindex="-1"></a><span class="do">## 2.3. Build a Rainbow</span></span>
-<span id="cb38-12"><a href="building-a-rainbow.html#cb38-12" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="building-a-rainbow.html#cb38-13" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">128</span>){</span>
-<span id="cb38-14"><a href="building-a-rainbow.html#cb38-14" tabindex="-1"></a>  <span class="cf">for</span> (color <span class="cf">in</span> <span class="fu">seq_along</span>(colors)) {</span>
-<span id="cb38-15"><a href="building-a-rainbow.html#cb38-15" tabindex="-1"></a>    y  <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi) <span class="sc">*</span> height <span class="sc">+</span> color</span>
-<span id="cb38-16"><a href="building-a-rainbow.html#cb38-16" tabindex="-1"></a>    <span class="fu">setBlock</span>(cur_pos[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">-</span> <span class="dv">64</span>, cur_pos[<span class="dv">2</span>] <span class="sc">+</span> y, cur_pos[<span class="dv">3</span>], blue_block[<span class="dv">2</span>], colors[color])</span>
-<span id="cb38-17"><a href="building-a-rainbow.html#cb38-17" tabindex="-1"></a>  }</span>
-<span id="cb38-18"><a href="building-a-rainbow.html#cb38-18" tabindex="-1"></a>}</span>
-<span id="cb38-19"><a href="building-a-rainbow.html#cb38-19" tabindex="-1"></a></span>
-<span id="cb38-20"><a href="building-a-rainbow.html#cb38-20" tabindex="-1"></a><span class="do">## 2.4. Watch a Rainbow</span></span>
-<span id="cb38-21"><a href="building-a-rainbow.html#cb38-21" tabindex="-1"></a></span>
-<span id="cb38-22"><a href="building-a-rainbow.html#cb38-22" tabindex="-1"></a><span class="fu">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">50</span>, <span class="at">tile=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="building-a-rainbow.html#cb41-1" tabindex="-1"></a><span class="do">## 2.1. Current Player Position</span></span>
+<span id="cb41-2"><a href="building-a-rainbow.html#cb41-2" tabindex="-1"></a>cur_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>()</span>
+<span id="cb41-3"><a href="building-a-rainbow.html#cb41-3" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="building-a-rainbow.html#cb41-4" tabindex="-1"></a><span class="do">## 2.2. Rainbow Configuration</span></span>
+<span id="cb41-5"><a href="building-a-rainbow.html#cb41-5" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="building-a-rainbow.html#cb41-6" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb41-7"><a href="building-a-rainbow.html#cb41-7" tabindex="-1"></a>colors  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">10</span>)</span>
+<span id="cb41-8"><a href="building-a-rainbow.html#cb41-8" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="building-a-rainbow.html#cb41-9" tabindex="-1"></a>blue_block <span class="ot">&lt;-</span> <span class="fu">find_item</span>(<span class="st">&quot;Blue Wool&quot;</span>)</span>
+<span id="cb41-10"><a href="building-a-rainbow.html#cb41-10" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="building-a-rainbow.html#cb41-11" tabindex="-1"></a><span class="do">## 2.3. Build a Rainbow</span></span>
+<span id="cb41-12"><a href="building-a-rainbow.html#cb41-12" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="building-a-rainbow.html#cb41-13" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">128</span>){</span>
+<span id="cb41-14"><a href="building-a-rainbow.html#cb41-14" tabindex="-1"></a>  <span class="cf">for</span> (color <span class="cf">in</span> <span class="fu">seq_along</span>(colors)) {</span>
+<span id="cb41-15"><a href="building-a-rainbow.html#cb41-15" tabindex="-1"></a>    y  <span class="ot">&lt;-</span> <span class="fu">sin</span>((x <span class="sc">/</span> <span class="fl">128.0</span>) <span class="sc">*</span> pi) <span class="sc">*</span> height <span class="sc">+</span> color</span>
+<span id="cb41-16"><a href="building-a-rainbow.html#cb41-16" tabindex="-1"></a>    <span class="fu">setBlock</span>(cur_pos[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">-</span> <span class="dv">64</span>, cur_pos[<span class="dv">2</span>] <span class="sc">+</span> y, cur_pos[<span class="dv">3</span>], blue_block[<span class="dv">2</span>], colors[color])</span>
+<span id="cb41-17"><a href="building-a-rainbow.html#cb41-17" tabindex="-1"></a>  }</span>
+<span id="cb41-18"><a href="building-a-rainbow.html#cb41-18" tabindex="-1"></a>}</span>
+<span id="cb41-19"><a href="building-a-rainbow.html#cb41-19" tabindex="-1"></a></span>
+<span id="cb41-20"><a href="building-a-rainbow.html#cb41-20" tabindex="-1"></a><span class="do">## 2.4. Watch a Rainbow</span></span>
+<span id="cb41-21"><a href="building-a-rainbow.html#cb41-21" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="building-a-rainbow.html#cb41-22" tabindex="-1"></a><span class="fu">setPlayerPos</span>(cur_pos[<span class="dv">1</span>], cur_pos[<span class="dv">2</span>], cur_pos[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">50</span>, <span class="at">tile=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The result looks like this:</p>
 <p><img src="figure/rainbow.png" /></p>
 

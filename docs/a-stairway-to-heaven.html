@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-13" />
+<meta name="date" content="2026-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -162,16 +162,13 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
-</ul></li>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
 <li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
+<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installation"><i class="fa fa-check"></i><b>2.3.1</b> Installation</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
-<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
+<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configuration"><i class="fa fa-check"></i><b>2.3.3</b> Configuration</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
 <ul>
@@ -179,13 +176,13 @@ div.csl-indent {
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
+<li class="chapter" data-level="2.4.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.4.5</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
-<li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
@@ -266,11 +263,11 @@ div.csl-indent {
 <h2><span class="header-section-number">3.1</span> Building Objects<a href="a-stairway-to-heaven.html#building-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The function to create objects in <a href="https://github.com/kbroman/miner">miner</a> is the <code>setBlock</code> function. It expects four arguments, the first three being the coordinates of your item’s location, and the fourth being the <code>block_id</code> you want to set. An optional argument is <code>block_style</code>.</p>
 <p>We first load the <a href="https://github.com/kbroman/miner">miner</a> package.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="a-stairway-to-heaven.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="a-stairway-to-heaven.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span></code></pre></div>
 <p>First, you need to find out where you are, and before we do that we need to figure out who we are. You can use <code>getPlayerIds</code> to get the ids of all players currently in the Minecraft world. You can use the <code>getPlayerPos</code> function to find the position of each player. If you are the first player, you can pull your ID as the first element of the object returned by <code>getPlayerIds</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="a-stairway-to-heaven.html#cb31-1" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">getPlayerIds</span>()</span>
-<span id="cb31-2"><a href="a-stairway-to-heaven.html#cb31-2" tabindex="-1"></a><span class="fu">lapply</span>(ids, getPlayerPos)</span>
-<span id="cb31-3"><a href="a-stairway-to-heaven.html#cb31-3" tabindex="-1"></a>my_id <span class="ot">&lt;-</span> ids[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="a-stairway-to-heaven.html#cb34-1" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">getPlayerIds</span>()</span>
+<span id="cb34-2"><a href="a-stairway-to-heaven.html#cb34-2" tabindex="-1"></a><span class="fu">lapply</span>(ids, getPlayerPos)</span>
+<span id="cb34-3"><a href="a-stairway-to-heaven.html#cb34-3" tabindex="-1"></a>my_id <span class="ot">&lt;-</span> ids[<span class="dv">1</span>]</span></code></pre></div>
 </div>
 <div id="stairway-to-heaven" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Stairway to heaven<a href="a-stairway-to-heaven.html#stairway-to-heaven" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -279,45 +276,45 @@ a matrix with as many columns as we want stairs, and three rows
 specifying our coordinates. The coordinates are obtained by
 incrementing the first and second element of each column. We then use
 <code>apply</code> to pass each column to the <code>setBlocks</code> function.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="a-stairway-to-heaven.html#cb32-1" tabindex="-1"></a><span class="co"># get your position</span></span>
-<span id="cb32-2"><a href="a-stairway-to-heaven.html#cb32-2" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(my_id, <span class="at">tile =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb32-3"><a href="a-stairway-to-heaven.html#cb32-3" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="a-stairway-to-heaven.html#cb32-4" tabindex="-1"></a><span class="co"># shift the position slightly,</span></span>
-<span id="cb32-5"><a href="a-stairway-to-heaven.html#cb32-5" tabindex="-1"></a><span class="co">#   so the stairs aren&#39;t right on top of you</span></span>
-<span id="cb32-6"><a href="a-stairway-to-heaven.html#cb32-6" tabindex="-1"></a>pos <span class="ot">&lt;-</span> pos <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb32-7"><a href="a-stairway-to-heaven.html#cb32-7" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="a-stairway-to-heaven.html#cb32-8" tabindex="-1"></a><span class="co"># number of stairs to create</span></span>
-<span id="cb32-9"><a href="a-stairway-to-heaven.html#cb32-9" tabindex="-1"></a>n_stairs <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb32-10"><a href="a-stairway-to-heaven.html#cb32-10" tabindex="-1"></a></span>
-<span id="cb32-11"><a href="a-stairway-to-heaven.html#cb32-11" tabindex="-1"></a><span class="co"># matrix to contain stair locations</span></span>
-<span id="cb32-12"><a href="a-stairway-to-heaven.html#cb32-12" tabindex="-1"></a><span class="co"># first repeat the start position a bunch of times</span></span>
-<span id="cb32-13"><a href="a-stairway-to-heaven.html#cb32-13" tabindex="-1"></a>stairs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_stairs, pos)</span>
-<span id="cb32-14"><a href="a-stairway-to-heaven.html#cb32-14" tabindex="-1"></a></span>
-<span id="cb32-15"><a href="a-stairway-to-heaven.html#cb32-15" tabindex="-1"></a><span class="co"># for all but the first stair, move over and up one</span></span>
-<span id="cb32-16"><a href="a-stairway-to-heaven.html#cb32-16" tabindex="-1"></a><span class="co"># this is position relative to previous stair</span></span>
-<span id="cb32-17"><a href="a-stairway-to-heaven.html#cb32-17" tabindex="-1"></a>upset <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="fu">replicate</span>(n_stairs <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)))</span>
-<span id="cb32-18"><a href="a-stairway-to-heaven.html#cb32-18" tabindex="-1"></a></span>
-<span id="cb32-19"><a href="a-stairway-to-heaven.html#cb32-19" tabindex="-1"></a><span class="co"># for each row, use cumsum to get position relative to first stair</span></span>
-<span id="cb32-20"><a href="a-stairway-to-heaven.html#cb32-20" tabindex="-1"></a><span class="co">#    then transpose so that the result still has 3 rows</span></span>
-<span id="cb32-21"><a href="a-stairway-to-heaven.html#cb32-21" tabindex="-1"></a>upset <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(upset, <span class="dv">1</span>, cumsum))</span>
-<span id="cb32-22"><a href="a-stairway-to-heaven.html#cb32-22" tabindex="-1"></a></span>
-<span id="cb32-23"><a href="a-stairway-to-heaven.html#cb32-23" tabindex="-1"></a><span class="co"># get final positions and transpose</span></span>
-<span id="cb32-24"><a href="a-stairway-to-heaven.html#cb32-24" tabindex="-1"></a><span class="co">#   now rows are stairs and columns are coordinates</span></span>
-<span id="cb32-25"><a href="a-stairway-to-heaven.html#cb32-25" tabindex="-1"></a>stairs <span class="ot">&lt;-</span> stairs <span class="sc">+</span> upset</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="a-stairway-to-heaven.html#cb35-1" tabindex="-1"></a><span class="co"># get your position</span></span>
+<span id="cb35-2"><a href="a-stairway-to-heaven.html#cb35-2" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(my_id, <span class="at">tile =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-3"><a href="a-stairway-to-heaven.html#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="a-stairway-to-heaven.html#cb35-4" tabindex="-1"></a><span class="co"># shift the position slightly,</span></span>
+<span id="cb35-5"><a href="a-stairway-to-heaven.html#cb35-5" tabindex="-1"></a><span class="co">#   so the stairs aren&#39;t right on top of you</span></span>
+<span id="cb35-6"><a href="a-stairway-to-heaven.html#cb35-6" tabindex="-1"></a>pos <span class="ot">&lt;-</span> pos <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb35-7"><a href="a-stairway-to-heaven.html#cb35-7" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="a-stairway-to-heaven.html#cb35-8" tabindex="-1"></a><span class="co"># number of stairs to create</span></span>
+<span id="cb35-9"><a href="a-stairway-to-heaven.html#cb35-9" tabindex="-1"></a>n_stairs <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb35-10"><a href="a-stairway-to-heaven.html#cb35-10" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="a-stairway-to-heaven.html#cb35-11" tabindex="-1"></a><span class="co"># matrix to contain stair locations</span></span>
+<span id="cb35-12"><a href="a-stairway-to-heaven.html#cb35-12" tabindex="-1"></a><span class="co"># first repeat the start position a bunch of times</span></span>
+<span id="cb35-13"><a href="a-stairway-to-heaven.html#cb35-13" tabindex="-1"></a>stairs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_stairs, pos)</span>
+<span id="cb35-14"><a href="a-stairway-to-heaven.html#cb35-14" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="a-stairway-to-heaven.html#cb35-15" tabindex="-1"></a><span class="co"># for all but the first stair, move over and up one</span></span>
+<span id="cb35-16"><a href="a-stairway-to-heaven.html#cb35-16" tabindex="-1"></a><span class="co"># this is position relative to previous stair</span></span>
+<span id="cb35-17"><a href="a-stairway-to-heaven.html#cb35-17" tabindex="-1"></a>upset <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="fu">replicate</span>(n_stairs <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)))</span>
+<span id="cb35-18"><a href="a-stairway-to-heaven.html#cb35-18" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="a-stairway-to-heaven.html#cb35-19" tabindex="-1"></a><span class="co"># for each row, use cumsum to get position relative to first stair</span></span>
+<span id="cb35-20"><a href="a-stairway-to-heaven.html#cb35-20" tabindex="-1"></a><span class="co">#    then transpose so that the result still has 3 rows</span></span>
+<span id="cb35-21"><a href="a-stairway-to-heaven.html#cb35-21" tabindex="-1"></a>upset <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(upset, <span class="dv">1</span>, cumsum))</span>
+<span id="cb35-22"><a href="a-stairway-to-heaven.html#cb35-22" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="a-stairway-to-heaven.html#cb35-23" tabindex="-1"></a><span class="co"># get final positions and transpose</span></span>
+<span id="cb35-24"><a href="a-stairway-to-heaven.html#cb35-24" tabindex="-1"></a><span class="co">#   now rows are stairs and columns are coordinates</span></span>
+<span id="cb35-25"><a href="a-stairway-to-heaven.html#cb35-25" tabindex="-1"></a>stairs <span class="ot">&lt;-</span> stairs <span class="sc">+</span> upset</span></code></pre></div>
 <p>We’re almost ready to add our stairs, but first we need to get the
 item ID for oak wood stairs.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="a-stairway-to-heaven.html#cb33-1" tabindex="-1"></a><span class="fu">find_item</span>(<span class="st">&quot;Oak Wood Stairs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-stairway-to-heaven.html#cb36-1" tabindex="-1"></a><span class="fu">find_item</span>(<span class="st">&quot;Oak Wood Stairs&quot;</span>)</span></code></pre></div>
 <pre><code>##                name id style
 ## 120 Oak Wood Stairs 53     0</code></pre>
 <p>Okay, so now we can add our stairs, using <code>id=53</code>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="a-stairway-to-heaven.html#cb35-1" tabindex="-1"></a><span class="co"># now add the stairs</span></span>
-<span id="cb35-2"><a href="a-stairway-to-heaven.html#cb35-2" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>], <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="a-stairway-to-heaven.html#cb38-1" tabindex="-1"></a><span class="co"># now add the stairs</span></span>
+<span id="cb38-2"><a href="a-stairway-to-heaven.html#cb38-2" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>], <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
 <p>Here is an example of the resulting stairway:</p>
 <p><img src="figure/stairs.png" /></p>
 <p>We can call that last command a couple of more times, with shifts in
 the last coordinate, to make an extra-wide, luxurious set of stairs.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-stairway-to-heaven.html#cb36-1" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span>
-<span id="cb36-2"><a href="a-stairway-to-heaven.html#cb36-2" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="a-stairway-to-heaven.html#cb39-1" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span>
+<span id="cb39-2"><a href="a-stairway-to-heaven.html#cb39-2" tabindex="-1"></a><span class="fu">apply</span>(stairs, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">setBlock</span>(x[<span class="dv">1</span>], x[<span class="dv">2</span>], x[<span class="dv">3</span>]<span class="sc">-</span><span class="dv">1</span>, <span class="at">id =</span> <span class="dv">53</span>))</span></code></pre></div>
 <p>Note: check out the function <code>buildStairs()</code> in the
 <a href="https://github.com/kbroman/craft">craft</a> package, which implements
 this feature, building stairs going either down or up, in the

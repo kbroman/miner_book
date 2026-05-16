@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-13" />
+<meta name="date" content="2026-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -162,16 +162,13 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html"><i class="fa fa-check"></i><b>2</b> Installation and configuration</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.1.1</b> Docker on Mac OS X</a></li>
-</ul></li>
+<li class="chapter" data-level="2.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#mac-os-x"><i class="fa fa-check"></i><b>2.1</b> Mac OS X</a></li>
 <li class="chapter" data-level="2.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#windows"><i class="fa fa-check"></i><b>2.2</b> Windows</a></li>
 <li class="chapter" data-level="2.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#linux"><i class="fa fa-check"></i><b>2.3</b> Linux</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#install"><i class="fa fa-check"></i><b>2.3.1</b> Install</a></li>
+<li class="chapter" data-level="2.3.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installation"><i class="fa fa-check"></i><b>2.3.1</b> Installation</a></li>
 <li class="chapter" data-level="2.3.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#connect-with-miner"><i class="fa fa-check"></i><b>2.3.2</b> Connect with miner</a></li>
-<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configure"><i class="fa fa-check"></i><b>2.3.3</b> Configure</a></li>
+<li class="chapter" data-level="2.3.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#configuration"><i class="fa fa-check"></i><b>2.3.3</b> Configuration</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker"><i class="fa fa-check"></i><b>2.4</b> Docker</a>
 <ul>
@@ -179,13 +176,13 @@ div.csl-indent {
 <li class="chapter" data-level="2.4.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#the-miner-dockerfile"><i class="fa fa-check"></i><b>2.4.2</b> The <code>miner</code> Dockerfile</a></li>
 <li class="chapter" data-level="2.4.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#building-a-docker-image"><i class="fa fa-check"></i><b>2.4.3</b> Building a Docker image</a></li>
 <li class="chapter" data-level="2.4.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#running-a-docker-container-from-the-image"><i class="fa fa-check"></i><b>2.4.4</b> Running a Docker container from the image</a></li>
+<li class="chapter" data-level="2.4.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#docker-on-mac-os-x"><i class="fa fa-check"></i><b>2.4.5</b> Docker on Mac OS X</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#raspberry-pi"><i class="fa fa-check"></i><b>2.5</b> Raspberry Pi</a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#setting-up-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.1</b> Setting up a Raspberry Pi</a></li>
 <li class="chapter" data-level="2.5.2" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-pi"><i class="fa fa-check"></i><b>2.5.2</b> Minecraft Pi</a></li>
 <li class="chapter" data-level="2.5.3" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.3</b> Installing R on a Raspberry Pi</a></li>
-<li class="chapter" data-level="2.5.4" data-path="installation-and-configuration.html"><a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi"><i class="fa fa-check"></i><b>2.5.4</b> Minecraft Server on a Raspberry Pi</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="a-stairway-to-heaven.html"><a href="a-stairway-to-heaven.html"><i class="fa fa-check"></i><b>3</b> A Stairway to Heaven</a>
@@ -279,42 +276,42 @@ div.csl-indent {
 <div id="init" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Init<a href="number-guess-chat-bot-in-minecraft.html#init" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s pick a random number between 1 and 100:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="number-guess-chat-bot-in-minecraft.html#cb59-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="number-guess-chat-bot-in-minecraft.html#cb62-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p>Then we connect to the Minecraft server and write a message in the chat window so that players get notified:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="number-guess-chat-bot-in-minecraft.html#cb60-1" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="number-guess-chat-bot-in-minecraft.html#cb63-1" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</span></code></pre></div>
 </div>
 <div id="loop" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Loop<a href="number-guess-chat-bot-in-minecraft.html#loop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Then we can run an infinite loop to provide feedback to the user:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="number-guess-chat-bot-in-minecraft.html#cb61-1" tabindex="-1"></a><span class="cf">while</span> (<span class="cn">TRUE</span>) {</span>
-<span id="cb61-2"><a href="number-guess-chat-bot-in-minecraft.html#cb61-2" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="number-guess-chat-bot-in-minecraft.html#cb61-3" tabindex="-1"></a>    <span class="do">## poll for most recent chat messages</span></span>
-<span id="cb61-4"><a href="number-guess-chat-bot-in-minecraft.html#cb61-4" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">getChatPosts</span>()</span>
-<span id="cb61-5"><a href="number-guess-chat-bot-in-minecraft.html#cb61-5" tabindex="-1"></a></span>
-<span id="cb61-6"><a href="number-guess-chat-bot-in-minecraft.html#cb61-6" tabindex="-1"></a>    <span class="do">## do nothing if there are no messages since last poll</span></span>
-<span id="cb61-7"><a href="number-guess-chat-bot-in-minecraft.html#cb61-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(msg) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb61-8"><a href="number-guess-chat-bot-in-minecraft.html#cb61-8" tabindex="-1"></a></span>
-<span id="cb61-9"><a href="number-guess-chat-bot-in-minecraft.html#cb61-9" tabindex="-1"></a>        <span class="do">## iterate through all messages</span></span>
-<span id="cb61-10"><a href="number-guess-chat-bot-in-minecraft.html#cb61-10" tabindex="-1"></a>        <span class="cf">for</span> (msgi <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(msg))) {</span>
-<span id="cb61-11"><a href="number-guess-chat-bot-in-minecraft.html#cb61-11" tabindex="-1"></a></span>
-<span id="cb61-12"><a href="number-guess-chat-bot-in-minecraft.html#cb61-12" tabindex="-1"></a>            <span class="do">## check if the message is a number</span></span>
-<span id="cb61-13"><a href="number-guess-chat-bot-in-minecraft.html#cb61-13" tabindex="-1"></a>            numi <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">as.numeric</span>(<span class="fu">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))</span>
-<span id="cb61-14"><a href="number-guess-chat-bot-in-minecraft.html#cb61-14" tabindex="-1"></a>            <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(numi)) {</span>
-<span id="cb61-15"><a href="number-guess-chat-bot-in-minecraft.html#cb61-15" tabindex="-1"></a></span>
-<span id="cb61-16"><a href="number-guess-chat-bot-in-minecraft.html#cb61-16" tabindex="-1"></a>                <span class="do">## compare numbers</span></span>
-<span id="cb61-17"><a href="number-guess-chat-bot-in-minecraft.html#cb61-17" tabindex="-1"></a>                <span class="cf">if</span> (num <span class="sc">==</span> numi) {</span>
-<span id="cb61-18"><a href="number-guess-chat-bot-in-minecraft.html#cb61-18" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)</span>
-<span id="cb61-19"><a href="number-guess-chat-bot-in-minecraft.html#cb61-19" tabindex="-1"></a>                } <span class="cf">else</span> {</span>
-<span id="cb61-20"><a href="number-guess-chat-bot-in-minecraft.html#cb61-20" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,</span>
-<span id="cb61-21"><a href="number-guess-chat-bot-in-minecraft.html#cb61-21" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(numi <span class="sc">&gt;</span> num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),</span>
-<span id="cb61-22"><a href="number-guess-chat-bot-in-minecraft.html#cb61-22" tabindex="-1"></a>                                     numi))</span>
-<span id="cb61-23"><a href="number-guess-chat-bot-in-minecraft.html#cb61-23" tabindex="-1"></a>                }</span>
-<span id="cb61-24"><a href="number-guess-chat-bot-in-minecraft.html#cb61-24" tabindex="-1"></a></span>
-<span id="cb61-25"><a href="number-guess-chat-bot-in-minecraft.html#cb61-25" tabindex="-1"></a>            }</span>
-<span id="cb61-26"><a href="number-guess-chat-bot-in-minecraft.html#cb61-26" tabindex="-1"></a>        }</span>
-<span id="cb61-27"><a href="number-guess-chat-bot-in-minecraft.html#cb61-27" tabindex="-1"></a>    }</span>
-<span id="cb61-28"><a href="number-guess-chat-bot-in-minecraft.html#cb61-28" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="fl">0.2</span>)  <span class="co"># 0.2 sec delay to avoid locking</span></span>
-<span id="cb61-29"><a href="number-guess-chat-bot-in-minecraft.html#cb61-29" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="number-guess-chat-bot-in-minecraft.html#cb64-1" tabindex="-1"></a><span class="cf">while</span> (<span class="cn">TRUE</span>) {</span>
+<span id="cb64-2"><a href="number-guess-chat-bot-in-minecraft.html#cb64-2" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="number-guess-chat-bot-in-minecraft.html#cb64-3" tabindex="-1"></a>    <span class="do">## poll for most recent chat messages</span></span>
+<span id="cb64-4"><a href="number-guess-chat-bot-in-minecraft.html#cb64-4" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">getChatPosts</span>()</span>
+<span id="cb64-5"><a href="number-guess-chat-bot-in-minecraft.html#cb64-5" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="number-guess-chat-bot-in-minecraft.html#cb64-6" tabindex="-1"></a>    <span class="do">## do nothing if there are no messages since last poll</span></span>
+<span id="cb64-7"><a href="number-guess-chat-bot-in-minecraft.html#cb64-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(msg) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb64-8"><a href="number-guess-chat-bot-in-minecraft.html#cb64-8" tabindex="-1"></a></span>
+<span id="cb64-9"><a href="number-guess-chat-bot-in-minecraft.html#cb64-9" tabindex="-1"></a>        <span class="do">## iterate through all messages</span></span>
+<span id="cb64-10"><a href="number-guess-chat-bot-in-minecraft.html#cb64-10" tabindex="-1"></a>        <span class="cf">for</span> (msgi <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(msg))) {</span>
+<span id="cb64-11"><a href="number-guess-chat-bot-in-minecraft.html#cb64-11" tabindex="-1"></a></span>
+<span id="cb64-12"><a href="number-guess-chat-bot-in-minecraft.html#cb64-12" tabindex="-1"></a>            <span class="do">## check if the message is a number</span></span>
+<span id="cb64-13"><a href="number-guess-chat-bot-in-minecraft.html#cb64-13" tabindex="-1"></a>            numi <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">as.numeric</span>(<span class="fu">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))</span>
+<span id="cb64-14"><a href="number-guess-chat-bot-in-minecraft.html#cb64-14" tabindex="-1"></a>            <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(numi)) {</span>
+<span id="cb64-15"><a href="number-guess-chat-bot-in-minecraft.html#cb64-15" tabindex="-1"></a></span>
+<span id="cb64-16"><a href="number-guess-chat-bot-in-minecraft.html#cb64-16" tabindex="-1"></a>                <span class="do">## compare numbers</span></span>
+<span id="cb64-17"><a href="number-guess-chat-bot-in-minecraft.html#cb64-17" tabindex="-1"></a>                <span class="cf">if</span> (num <span class="sc">==</span> numi) {</span>
+<span id="cb64-18"><a href="number-guess-chat-bot-in-minecraft.html#cb64-18" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)</span>
+<span id="cb64-19"><a href="number-guess-chat-bot-in-minecraft.html#cb64-19" tabindex="-1"></a>                } <span class="cf">else</span> {</span>
+<span id="cb64-20"><a href="number-guess-chat-bot-in-minecraft.html#cb64-20" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,</span>
+<span id="cb64-21"><a href="number-guess-chat-bot-in-minecraft.html#cb64-21" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(numi <span class="sc">&gt;</span> num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),</span>
+<span id="cb64-22"><a href="number-guess-chat-bot-in-minecraft.html#cb64-22" tabindex="-1"></a>                                     numi))</span>
+<span id="cb64-23"><a href="number-guess-chat-bot-in-minecraft.html#cb64-23" tabindex="-1"></a>                }</span>
+<span id="cb64-24"><a href="number-guess-chat-bot-in-minecraft.html#cb64-24" tabindex="-1"></a></span>
+<span id="cb64-25"><a href="number-guess-chat-bot-in-minecraft.html#cb64-25" tabindex="-1"></a>            }</span>
+<span id="cb64-26"><a href="number-guess-chat-bot-in-minecraft.html#cb64-26" tabindex="-1"></a>        }</span>
+<span id="cb64-27"><a href="number-guess-chat-bot-in-minecraft.html#cb64-27" tabindex="-1"></a>    }</span>
+<span id="cb64-28"><a href="number-guess-chat-bot-in-minecraft.html#cb64-28" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="fl">0.2</span>)  <span class="co"># 0.2 sec delay to avoid locking</span></span>
+<span id="cb64-29"><a href="number-guess-chat-bot-in-minecraft.html#cb64-29" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="lets-play" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> Let’s Play!<a href="number-guess-chat-bot-in-minecraft.html#lets-play" class="anchor-section" aria-label="Anchor link to header"></a></h2>

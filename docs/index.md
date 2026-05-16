@@ -1,7 +1,7 @@
 ---
 title: "R Programming with Minecraft"
 author: "Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi"
-date: "2026-05-13"
+date: "2026-05-16"
 output: bookdown::gitbook
 site: bookdown::bookdown_site
 cover-image: "cover_sm.png"
