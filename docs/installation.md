@@ -49,7 +49,7 @@ javac -version
 ```
 
 They both should show 26.0.1 (or whatever version number you
-installed.
+installed).
 
 The rest of the installation is just like for Linux (below). Though
 maybe you won't have `wget` available and will need to download the
