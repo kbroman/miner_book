@@ -63,7 +63,92 @@ The `~/minecraft` directory that you create will take up about 600 MB.
 
 ## Windows
 
-Installing stuff in Windows.
+We're focusing here on Windows 11. We presume that you've already
+installed [R](https://cran.r-project.org/) and likely [RStudio
+Desktop](https://posit.co/download/rstudio-desktop).
+You will also need to install
+[RTools](https://cran.r-project.org/bin/windows/Rtools/); pick the
+version that corresponds to the version of R that you installed.
+
+Install the [Java SE Development
+Kit](https://www.oracle.com/java/technologies/downloads/#jdk26-windows).
+
+Also install [Git for Windows](https://git-scm.com/install/windows),
+which we want primarily for "git bash", which we will use for the rest
+of the installation. You will need to choose an editor, which could be
+`nano`, or you could install
+[Notepad++](https://notepad-plus-plus.org/downloads/).
+
+Open git bash, and type the following, to make and enter a directory
+that will contain your minecraft server:
+
+```
+mkdir ~/minecraft
+cd ~/minecraft
+```
+
+Use `curl` to download the code:
+
+```
+curl -OL https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+```
+
+You might check that java is installed correctly.
+
+```
+java -version
+javac -version
+```
+
+For us, they both showed 26.1.
+
+Now let's compile the minecraft code and do an initial start of the
+server.
+
+```
+java -jar BuildTools.jar --rev 26.1.2
+java -jar -Xms1024M -Xmx4000M spigot-26.1.2.jar nogui
+```
+
+It will stop and ask you to accept the
+[EULA](https://en.wikipedia.org/wiki/End-user_license_agreement),
+which you can do by editing the file `eula.txt` to have the line
+`eula=true`, or you can do it at the command line:
+
+```
+echo "eula=true" > eula.txt
+```
+
+Now you might want to edit the server settings in `server.properties`.
+In particular, you might change `gamemode` from survival to creative
+and change `force-gamemode` from false to true, so players entering
+the game are forced to be in the default creative gamemode.
+
+Now we download the raspberry juice plugin.
+
+```
+cd plugins
+curl -OL https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.1.jar
+```
+
+To start the server, run that last line of java again, or you can create a simple `start.sh` script:
+
+```{bash}
+#!/bin/sh
+java -jar -Xms1024M -Xmx4000M spigot-26.1.2.jar nogui
+```
+
+Note that `-Xms` sets the initial memory usage and `-Xmx` sets the
+maximum available memory.
+
+Then make it an executable, and run it:
+
+```{bash}
+chmod +x start.sh
+./start.sh
+```
+
+
 
 ## Linux
 
@@ -161,6 +246,10 @@ telnet <server-ip> 4711
 ### What is Docker?
 
 Docker is a program that runs on runs on Linux, OSX or Windows to set up a tiny operating system on your compute, like having a computer in your computer. The advantage of this is that it can save a lot of bother troubleshooting problem relating to the unique configuration details of your computer. With Docker we can set up an isolated operating system on your computer that is already equipped up with a Minecraft server and the various dependencies described above, so we don't have to worry to about installing and configuring each item. Using a Docker container can take a lot of the bother out of a complicated setup like this.
+
+The main disadvantage of Docker is that it will re-create the
+Minecraft world each time you run it, so anything you create in one
+instance will be lost in the next.
 
 ### The `miner` Dockerfile
 
@@ -291,8 +380,58 @@ didn't work either.] What ultimately worked for me was just to use
 off the IP, typing `miner::mc_connect()`, and `"localhost"` will be
 the default.
 
-One problem I had: docker seemed to re-create the world each time,
-so anything I created in one instance would be lost in the next.
+
+
+
+### Docker on Windows
+
+You can also install Docker and create a Minecraft server within a
+Docker container on Windows.
+
+Install [Docker Desktop for
+Windows](https://docs.docker.com/desktop/setup/install/windows-install/).
+You will need to sign up for a free account in order to download
+Docker.
+
+The rest follows the Docker instructions, run using git bash. As with
+the Mac, you may need `sudo` with the docker commands, and you may
+need to enable `sudo` in the developer settings.
+
+First we need to find the `Dockerfile` that is distributed with the
+[miner](https://github.com/kbroman/miner) package. We can use
+`system.file()` to find it's location, and `file.copy()` to copy it
+somewhere else. You can use `getwd()` to see where your R working
+directory is, which will contain the copy of the file.
+
+```
+dockerfile <- system.file("Dockerfile", package = "miner")
+file.copy(dockerfile, ".")
+getwd()
+```
+
+Now open git bash and build the docker container:
+
+```shell
+sudo docker build -t minecraft .
+```
+
+Run the docker container:
+
+```
+sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
+```
+
+To connect to the minecraft server from your minecraft game client, or
+with `miner::mc_connect()` within R, you need to have an IP address
+for the docker instance. [But I wasn't able to get `docker-machine` to
+work. And I tried `docker ps` to get a list of containers, and `docker
+inspect <containerID> | grep IPAddress` but the IP address I found
+didn't work either.] What ultimately worked for me was just to use
+`"localhost"` in place of an IP address. Within R, you can just leave
+off the IP, typing `miner::mc_connect()`, and `"localhost"` will be
+the default.
+
+
 
 
 
