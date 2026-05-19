@@ -12,6 +12,7 @@ the-miner-dockerfile
 building-a-docker-image
 running-a-docker-container-from-the-image
 docker-on-mac-os-x
+docker-on-windows
 raspberry-pi
 setting-up-a-raspberry-pi
 minecraft-pi
