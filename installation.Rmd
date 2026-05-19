@@ -258,7 +258,7 @@ question](https://stackoverflow.com/questions/44533319/how-to-assign-more-memory
 Click on the whale in the menu bar, select "preferences" and
 "advanced" and then drag the memory slider to 4.0 GB.
 
-The rest follows the Docker instructions (below), the I needed to use
+The rest follows the Docker instructions (below), though I needed to use
 `sudo` with the docker commands.
 
 Open a terminal and change to the miner package directory, which contains
