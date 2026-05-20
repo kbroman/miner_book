@@ -188,7 +188,13 @@ Start up the server again. This will take a while (because it's building the wor
 java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar nogui
 ```
 
-Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing `op <playername>` into the server prompt. When you are finished playing type `stop` in the server prompt to stop the server.
+Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode.
+(Choose "Direct Connection" and type the IP address of the computer
+that's running the Minecraft server, which you can determine by
+`ifconfig -a` or `ip a`; for the latter you may need to run `sudo apt install iproute2`.
+If you're playing Minecraft on the same computer where the server is
+running, you likely can just type "localhost" for the IP address.)
+You can make a player an operator by typing `op <playername>` into the server prompt. When you are finished playing type `stop` in the server prompt to stop the server.
 
 ### Connect with miner
 
@@ -199,12 +205,20 @@ wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.
 mv raspberryjuice-1.12.jar ~/minecraft/plugins
 ```
 
-Connect to your server from R using `mc_connect("<server-ip>")`. Test your connection by retrieving your player's location.
+Connect to your server from R using `mc_connect("<server-ip>")`.
+If you're running R on the same computer where the Minecraft server is
+running, you can use "`localhost`" for the server IP, or just leave it
+off as this is the default, so try `mc_connect()`.
 
 ```{r}
 library(miner)
 mc_connect("<server-ip>")
-getPlayerIds()
+```
+
+Now test the connection by posting something to chat.
+
+```{r}
+chatPost("Hello Minecraft!")
 ```
 
 ### Configuration
@@ -328,7 +342,16 @@ Once you have built a Docker image, you can run a container from it. To do that 
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
-The `docker run` call is the basic call to run a Docker container from a Docker image. The `minecraft` at the end tells Docker which image to run. The `--rm` option cleans up everything from this container after you're done running it. The `-ti` argument runs the call in the interactive terminal mode. The arguments `-p 4711:4711 -p 25565:25565` allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you'll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select 'Multiplayer', then 'Direct Connect', then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running `docker-machine IP`. After the Minecraft server has started, the Docker terminal will have a prompt like this `>` where you can enter commands to Minecraft. If you enter `op <player>` and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don't run `op <player>` in the Docker terminal, you will get messages that you don't have permission if you try to run commands in the desktop app.
+The `docker run` call is the basic call to run a Docker container from a Docker image. The `minecraft` at the end tells Docker which image to run. The `--rm` option cleans up everything from this container after you're done running it. The `-ti` argument runs the call in the interactive terminal mode. The arguments `-p 4711:4711 -p 25565:25565` allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you'll see messages about server starting up in your console.
+
+Now you can open your regular desktop Minecraft application, select
+'Multiplayer', then 'Direct Connection', then enter the IP address
+the computer that is running the Docker container, which you can determine by
+`ifconfig -a` or `ip a`; for the latter you may need to run `sudo apt install iproute2`.
+If you're playing Minecraft on the same computer where the server is
+running, you likely can just type "localhost" for the IP address.
+
+After the Minecraft server has started, the Docker terminal will have a prompt like this `>` where you can enter commands to Minecraft. If you enter `op <player_name>` and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don't run `op <player_name>` in the Docker terminal, you will get messages that you don't have permission if you try to run commands in the desktop app.
 
 
 ### Docker on Mac OS X
@@ -379,12 +402,11 @@ sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 
 To connect to the minecraft server from your minecraft game client, or
 with `miner::mc_connect()` within R, you need to have an IP address
-for the docker instance. [But I wasn't able to get `docker-machine` to
-work. And I tried `docker ps` to get a list of containers, and `docker
-inspect <containerID> | grep IPAddress` but the IP address I found
-didn't work either.] What ultimately worked for me was just to use
+for the computer running the docker instance.
+If you're connecting to the minecraft server from the same computer,
+you can use
 `"localhost"` in place of an IP address. Within R, you can just leave
-off the IP, typing `miner::mc_connect()`, and `"localhost"` will be
+off the IP, typing `miner::mc_connect()`, as `"localhost"` will be
 the default.
 
 
@@ -438,13 +460,17 @@ docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 
 To connect to the minecraft server from your minecraft game client, or
 with `miner::mc_connect()` within R, you need to have an IP address
-for the docker instance. Locally, you may be able to use
+for the computer running the docker instance. Locally, you can use
 `"localhost"` in place of an IP address. Within R, you can then just leave
 off the IP, typing `miner::mc_connect()`, as `"localhost"` will be
 the default.
 
 To connect to the server from Minecraft, select "Multiplayer" and
 "Direct Connection" and type "localhost" for "Server Address".
+
+To connect to the Minecraft server from a separate computer on the
+same local network, type `ipconfig` within Git Bash to determine the
+computer's IP address.
 
 
 ## Raspberry Pi
