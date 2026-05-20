@@ -43,7 +43,7 @@ installation screens.
 Second, open a terminal (in Applications/Utilities). Verify that java
 was installed correctly by typing
 
-```shell
+```bash
 java -version
 javac -version
 ```
@@ -84,7 +84,7 @@ files, you might want to install
 
 Open Git Bash, and let's first check that we have access to Java:
 
-```shell
+```bash
 java -version
 javac -version
 ```
@@ -94,21 +94,21 @@ The both should show the same version. For us, we got java 26.0.1.
 Now type the following, to make and enter a directory
 that will contain your minecraft server:
 
-```shell
+```bash
 mkdir ~/minecraft
 cd ~/minecraft
 ```
 
 Use `curl` to download the code:
 
-```shell
+```bash
 curl -OL https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 ```
 
 Now let's compile the minecraft code and do an initial start of the
 server.
 
-```shell
+```bash
 java -jar BuildTools.jar --rev 26.1.2
 java -jar -Xms1024M -Xmx4G spigot-26.1.2.jar nogui
 ```
@@ -118,7 +118,7 @@ It will stop and ask you to accept the
 which you can do by editing the file `eula.txt` to have the line
 `eula=true`, or you can do it at the command line:
 
-```shell
+```bash
 echo "eula=true" > eula.txt
 ```
 
@@ -130,7 +130,7 @@ the game are forced to be in the default creative gamemode.
 Now we create a `plugins` directory, download the Raspberry Juice
 plugin, and move it into `plugins`.
 
-```
+```bash
 mkdir plugins
 curl -OL https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.1.jar
 cp raspberryjuice-1.12.1.jar plugins/
@@ -138,8 +138,7 @@ cp raspberryjuice-1.12.1.jar plugins/
 
 To start the server, run that last line of java again, or you can create a simple `start.sh` script:
 
-
-``` bash
+```bash
 #!/bin/sh
 java -jar -Xms1024M -Xmx4G spigot-26.1.2.jar nogui
 ```
@@ -149,8 +148,7 @@ maximum available memory.
 
 Then make it an executable, and run it:
 
-
-``` bash
+```bash
 chmod +x start.sh
 ./start.sh
 ```
@@ -165,16 +163,14 @@ These instructions describe how to set up a Minecraft Server on Linux with the R
 
 First, make sure you have installed [Java](https://www.java.com/en/download/help/linux_x64_install.xml). Then make a directory for Minecraft and change into it.
 
-
-``` bash
+```bash
 mkdir ~/minecraft
 cd ~/minecraft
 ```
 
 Download `Buildtools.jar` from [Spigot](https://www.spigotmc.org/wiki/spigot-installation/), a popular site for Minecraft server downloads. You will use the Buildtools program to complete the install. Run the `jar` file. This step will fail to start the server but will successfully create the plugin directory and the EULA.
 
-
-``` bash
+```bash
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 java -jar BuildTools.jar --rev 26.1.2
 java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar nogui
@@ -186,8 +182,7 @@ maximum available memory.
 
 Start up the server again. This will take a while (because it's building the world), but not as long as the initial compiling.
 
-
-``` bash
+```bash
 java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar nogui
 ```
 
@@ -203,8 +198,7 @@ You can make a player an operator by typing `op <playername>` into the server pr
 
 You can use the [RaspberryJuice plugin](https://www.spigotmc.org/resources/raspberryjuice.22724/) to connect to your Minecraft Server via the [miner](https://github.com/kbroman/miner) package. Download the plugin by visiting [its page](https://www.spigotmc.org/resources/raspberryjuice.22724/) and clicking the "Download Now" button in the upper-right. Move this `.jar` file to the `plugins` directory.
 
-
-``` bash
+```bash
 wget https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar
 mv raspberryjuice-1.12.jar ~/minecraft/plugins
 ```
@@ -214,16 +208,14 @@ If you're running R on the same computer where the Minecraft server is
 running, you can use "`localhost`" for the server IP, or just leave it
 off as this is the default, so try `mc_connect()`.
 
-
-``` r
+```r
 library(miner)
 mc_connect("<server-ip>")
 ```
 
 Now test the connection by posting something to chat.
 
-
-``` r
+```r
 chatPost("Hello Minecraft!")
 ```
 
@@ -231,7 +223,7 @@ chatPost("Hello Minecraft!")
 
 The `~/minecraft/server.properties` file contains a list of configuration parameters for your Minecraft server. You will probably want to set `gamemode=1` and `force-gamemode=true`. If you want to create a superflat world also set `level-type=FLAT`.
 
-```
+```shell
 gamemode=1
 force-gamemode=true
 level-type=FLAT
@@ -239,8 +231,7 @@ level-type=FLAT
 
 If you want to run Minecraft in the background, then you can create a simple `start.sh` script:
 
-
-``` bash
+```bash
 #!/bin/sh
 java -Xms512M -Xmx1G -XX:+UseConcMarkSweepGC -jar spigot-26.1.2.jar
 ```
@@ -250,23 +241,20 @@ maximum available memory.
 
 Then make it an executable, and run it with `nohup`:
 
-
-``` bash
+```bash
 chmod +x start.sh
 nohup ./start.sh
 ```
 
 If you need to use a different port, use the `-p` option. ([See other options](https://www.spigotmc.org/wiki/start-up-parameters/).)
 
-
-``` bash
+```bash
 java -jar -Xms1024M -Xmx2048M spigot-26.1.2.jar -p25566 nogui
 ```
 
 If you're having a hard time connecting, verify that your ports are open. The standard port for Minecraft is `25565`. The standard port for the [miner](https://github.com/kbroman/miner) package is `4711`.
 
-
-``` bash
+```bash
 telnet <server-ip> 25565
 telnet <server-ip> 4711
 ```
@@ -300,8 +288,7 @@ This file specifies the following steps that are needed to set up the required e
 
 This Dockerfile is included in the `miner` package. To find it on your computer once you've installed the `miner` package, you can run:
 
-
-``` r
+```r
 system.file("Dockerfile", package = "miner")
 ```
 
@@ -320,8 +307,7 @@ This will open the "Dockerfile" file in the `miner` package in a text editor.
 
 The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from [the Docker website](https://www.docker.com)), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using `cd` to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:
 
-
-``` bash
+```bash
 docker build -t minecraft .
 ```
 
@@ -329,14 +315,13 @@ The `docker build` call is the basic call to build a Docker image from a Dockerf
 
 Once you've built the image, you can check to see that it's in the Docker images on your system by running the following call from a command line:
 
-
-``` bash
+```bash
 docker images
 ```
 
 You should see something like this:
 
-```
+```shell
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
 java                latest              d23bdf5b1b1b        4 months ago        643 MB
@@ -344,8 +329,7 @@ java                latest              d23bdf5b1b1b        4 months ago        
 
 This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you'd ever like to remove a Docker image from your system, you can do that with the command line call `docker rmi` and the image ID. For example, if you ever wanted to remove the "minecraft" image listed above that you built with the call to `docker build`, you could run:
 
-
-``` bash
+```bash
 docker rmi 2c9e2f2c16d3
 ```
 
@@ -353,8 +337,7 @@ docker rmi 2c9e2f2c16d3
 
 Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:
 
-
-``` bash
+```bash
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
@@ -399,20 +382,20 @@ The rest follows the Docker instructions (below), though I needed to use
 Open a terminal and change to the miner package directory, which contains
 the `Dockerfile`. For me, this is in `~/Rlibs`.
 
-```shell
+```bash
 R -e "system.file('Dockerfile', package = 'miner')"
 cd ~/Rlibs/miner
 ```
 
 Then build the docker container:
 
-```shell
+```bash
 sudo docker build -t minecraft .
 ```
 
 Run the docker container:
 
-```
+```bash
 sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
@@ -457,20 +440,20 @@ Now open Git Bash and change into the directory that contains the
 Dockerfile. For us that was `~/OneDrive/Documents` where `~` stands
 for our base user directory.
 
-```shell
+```bash
 cd ~/OneDrive/Documents
 ```
 
 Build the docker container. (You'll need to have Docker Desktop running.)
 This will take 5-10 minutes.
 
-```shell
+```bash
 docker build -t minecraft .
 ```
 
 Run the docker container:
 
-```
+```bash
 docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
@@ -543,14 +526,14 @@ chatPost("Hello, Minecraft!")
 
 Install some libraries
 
-```
+```bash
 sudo apt update
 sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev
 ```
 
 Install R
 
-```
+```bash
 sudo apt install r-base r-base-core r-base-dev
 ```
 
@@ -558,7 +541,7 @@ Run R; I got version 3.3.3 which is old but good enough.
 
 Create an `~/.Rprofile` file (use the editor `nano`), with one line:
 
-```
+```r
 options(repos=“https://cran.rstudio.com”)
 ```
 
@@ -585,7 +568,7 @@ packages, including [Rmaze](https://github.com/Vessy/Rmaze),
 [imager](https://asgr.github.io/imager/). To install imager you may
 need to install `libx11-dev`. From the command line:
 
-```shell
+```bash
 sudo apt update
 sudo apt install libx11-dev
 ```
@@ -606,7 +589,7 @@ chatPost(“Hello, Minecraft!”)
 Follow the instructions above, which come from
 <http://lemire.me/blog/2016/04/02/setting-up-a-robust-minecraft-server-on-a-raspberry-pi/>.
 
-```
+```bash
 mkdir ~/minecraft
 cd ~/minecraft
 wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
