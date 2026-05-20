@@ -261,111 +261,111 @@ div.csl-indent {
 <div id="random-walks-in-the-minecraft-world" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">11</span> Random Walks in the Minecraft World<a href="random-walks-in-the-minecraft-world.html#random-walks-in-the-minecraft-world" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Let’s first find out which player you are. We will connect to our minecraft server, retrieve the IDs of all currently playing players, as well as their current positions. We’ll then go into a quick <code>Sys.sleep</code> at which time you should try and move your player around in the minecraft world. Assuming no one else has been moving or dying you should catch your player ID’s in a variable called <code>me</code>.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="random-walks-in-the-minecraft-world.html#cb120-1" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&#39;52.168.137.73&#39;</span>)</span>
-<span id="cb120-2"><a href="random-walks-in-the-minecraft-world.html#cb120-2" tabindex="-1"></a>whoami <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb120-3"><a href="random-walks-in-the-minecraft-world.html#cb120-3" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="random-walks-in-the-minecraft-world.html#cb120-4" tabindex="-1"></a>  ids <span class="ot">&lt;-</span> <span class="fu">getPlayerIds</span>()</span>
-<span id="cb120-5"><a href="random-walks-in-the-minecraft-world.html#cb120-5" tabindex="-1"></a>  prev_pos <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ids, getPlayerPos)</span>
-<span id="cb120-6"><a href="random-walks-in-the-minecraft-world.html#cb120-6" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">10</span>)</span>
-<span id="cb120-7"><a href="random-walks-in-the-minecraft-world.html#cb120-7" tabindex="-1"></a>  <span class="co"># move around in game</span></span>
-<span id="cb120-8"><a href="random-walks-in-the-minecraft-world.html#cb120-8" tabindex="-1"></a>  new_pos <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ids, getPlayerPos)</span>
-<span id="cb120-9"><a href="random-walks-in-the-minecraft-world.html#cb120-9" tabindex="-1"></a>  ids[(<span class="fu">which.max</span>(<span class="fu">colSums</span>(<span class="fu">abs</span>(new_pos <span class="sc">-</span> prev_pos))))]</span>
-<span id="cb120-10"><a href="random-walks-in-the-minecraft-world.html#cb120-10" tabindex="-1"></a></span>
-<span id="cb120-11"><a href="random-walks-in-the-minecraft-world.html#cb120-11" tabindex="-1"></a>}</span>
-<span id="cb120-12"><a href="random-walks-in-the-minecraft-world.html#cb120-12" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">whoami</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="random-walks-in-the-minecraft-world.html#cb121-1" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&#39;52.168.137.73&#39;</span>)</span>
+<span id="cb121-2"><a href="random-walks-in-the-minecraft-world.html#cb121-2" tabindex="-1"></a>whoami <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb121-3"><a href="random-walks-in-the-minecraft-world.html#cb121-3" tabindex="-1"></a></span>
+<span id="cb121-4"><a href="random-walks-in-the-minecraft-world.html#cb121-4" tabindex="-1"></a>  ids <span class="ot">&lt;-</span> <span class="fu">getPlayerIds</span>()</span>
+<span id="cb121-5"><a href="random-walks-in-the-minecraft-world.html#cb121-5" tabindex="-1"></a>  prev_pos <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ids, getPlayerPos)</span>
+<span id="cb121-6"><a href="random-walks-in-the-minecraft-world.html#cb121-6" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">10</span>)</span>
+<span id="cb121-7"><a href="random-walks-in-the-minecraft-world.html#cb121-7" tabindex="-1"></a>  <span class="co"># move around in game</span></span>
+<span id="cb121-8"><a href="random-walks-in-the-minecraft-world.html#cb121-8" tabindex="-1"></a>  new_pos <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ids, getPlayerPos)</span>
+<span id="cb121-9"><a href="random-walks-in-the-minecraft-world.html#cb121-9" tabindex="-1"></a>  ids[(<span class="fu">which.max</span>(<span class="fu">colSums</span>(<span class="fu">abs</span>(new_pos <span class="sc">-</span> prev_pos))))]</span>
+<span id="cb121-10"><a href="random-walks-in-the-minecraft-world.html#cb121-10" tabindex="-1"></a></span>
+<span id="cb121-11"><a href="random-walks-in-the-minecraft-world.html#cb121-11" tabindex="-1"></a>}</span>
+<span id="cb121-12"><a href="random-walks-in-the-minecraft-world.html#cb121-12" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">whoami</span>()</span></code></pre></div>
 <div id="recurrent-random-walks" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Recurrent Random Walks<a href="random-walks-in-the-minecraft-world.html#recurrent-random-walks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s try a random walk in one and two dimensions. These should be recurrent, so you shouldn’t find your character drifting too far out of the Minecraft world.</p>
 <p>We will first retrieve our position again in the Minecraft world. We will then randomly step in the minecraft lattice, provided by the awesome Maze in <a href="https://github.com/kbroman/miner/blob/master/extra_vignettes/maze.md">the Maze vignette</a></p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="random-walks-in-the-minecraft-world.html#cb121-1" tabindex="-1"></a>my_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(me)</span>
-<span id="cb121-2"><a href="random-walks-in-the-minecraft-world.html#cb121-2" tabindex="-1"></a>n_moves <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb121-3"><a href="random-walks-in-the-minecraft-world.html#cb121-3" tabindex="-1"></a>moves <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_moves, <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb121-4"><a href="random-walks-in-the-minecraft-world.html#cb121-4" tabindex="-1"></a></span>
-<span id="cb121-5"><a href="random-walks-in-the-minecraft-world.html#cb121-5" tabindex="-1"></a>move_right <span class="ot">&lt;-</span> <span class="cf">function</span>(me) {</span>
-<span id="cb121-6"><a href="random-walks-in-the-minecraft-world.html#cb121-6" tabindex="-1"></a></span>
-<span id="cb121-7"><a href="random-walks-in-the-minecraft-world.html#cb121-7" tabindex="-1"></a>  <span class="co"># move right</span></span>
-<span id="cb121-8"><a href="random-walks-in-the-minecraft-world.html#cb121-8" tabindex="-1"></a>  <span class="fu">turnLeft</span>(me, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>)</span>
-<span id="cb121-9"><a href="random-walks-in-the-minecraft-world.html#cb121-9" tabindex="-1"></a>  <span class="co"># look for wall</span></span>
-<span id="cb121-10"><a href="random-walks-in-the-minecraft-world.html#cb121-10" tabindex="-1"></a>  wall <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)[<span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span></span>
-<span id="cb121-11"><a href="random-walks-in-the-minecraft-world.html#cb121-11" tabindex="-1"></a></span>
-<span id="cb121-12"><a href="random-walks-in-the-minecraft-world.html#cb121-12" tabindex="-1"></a>  <span class="cf">if</span> (wall <span class="sc">==</span> <span class="cn">FALSE</span>) {</span>
-<span id="cb121-13"><a href="random-walks-in-the-minecraft-world.html#cb121-13" tabindex="-1"></a></span>
-<span id="cb121-14"><a href="random-walks-in-the-minecraft-world.html#cb121-14" tabindex="-1"></a>    <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-15"><a href="random-walks-in-the-minecraft-world.html#cb121-15" tabindex="-1"></a>    <span class="fu">make_move</span>(me, <span class="at">phase =</span> <span class="dv">1</span>)</span>
-<span id="cb121-16"><a href="random-walks-in-the-minecraft-world.html#cb121-16" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb121-17"><a href="random-walks-in-the-minecraft-world.html#cb121-17" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb121-18"><a href="random-walks-in-the-minecraft-world.html#cb121-18" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>)</span>
-<span id="cb121-19"><a href="random-walks-in-the-minecraft-world.html#cb121-19" tabindex="-1"></a>    <span class="co"># turnLeft(me, angle = -90)</span></span>
-<span id="cb121-20"><a href="random-walks-in-the-minecraft-world.html#cb121-20" tabindex="-1"></a>    <span class="fu">move_right</span>(me)</span>
-<span id="cb121-21"><a href="random-walks-in-the-minecraft-world.html#cb121-21" tabindex="-1"></a>  }</span>
-<span id="cb121-22"><a href="random-walks-in-the-minecraft-world.html#cb121-22" tabindex="-1"></a></span>
-<span id="cb121-23"><a href="random-walks-in-the-minecraft-world.html#cb121-23" tabindex="-1"></a>}</span>
-<span id="cb121-24"><a href="random-walks-in-the-minecraft-world.html#cb121-24" tabindex="-1"></a></span>
-<span id="cb121-25"><a href="random-walks-in-the-minecraft-world.html#cb121-25" tabindex="-1"></a></span>
-<span id="cb121-26"><a href="random-walks-in-the-minecraft-world.html#cb121-26" tabindex="-1"></a>make_move <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> me, <span class="at">phase =</span> <span class="dv">1</span>) {</span>
-<span id="cb121-27"><a href="random-walks-in-the-minecraft-world.html#cb121-27" tabindex="-1"></a></span>
-<span id="cb121-28"><a href="random-walks-in-the-minecraft-world.html#cb121-28" tabindex="-1"></a>  <span class="cf">if</span> (phase <span class="sc">==</span> <span class="dv">2</span>) {</span>
-<span id="cb121-29"><a href="random-walks-in-the-minecraft-world.html#cb121-29" tabindex="-1"></a></span>
-<span id="cb121-30"><a href="random-walks-in-the-minecraft-world.html#cb121-30" tabindex="-1"></a>    <span class="co"># look for wall to the right</span></span>
-<span id="cb121-31"><a href="random-walks-in-the-minecraft-world.html#cb121-31" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
-<span id="cb121-32"><a href="random-walks-in-the-minecraft-world.html#cb121-32" tabindex="-1"></a>    check_pos <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-33"><a href="random-walks-in-the-minecraft-world.html#cb121-33" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
-<span id="cb121-34"><a href="random-walks-in-the-minecraft-world.html#cb121-34" tabindex="-1"></a></span>
-<span id="cb121-35"><a href="random-walks-in-the-minecraft-world.html#cb121-35" tabindex="-1"></a>    <span class="cf">if</span> (check_pos[<span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>) {</span>
-<span id="cb121-36"><a href="random-walks-in-the-minecraft-world.html#cb121-36" tabindex="-1"></a>      <span class="co"># situation 3</span></span>
-<span id="cb121-37"><a href="random-walks-in-the-minecraft-world.html#cb121-37" tabindex="-1"></a>      <span class="co"># wall to the right</span></span>
-<span id="cb121-38"><a href="random-walks-in-the-minecraft-world.html#cb121-38" tabindex="-1"></a>      <span class="co"># follow wall to the right</span></span>
-<span id="cb121-39"><a href="random-walks-in-the-minecraft-world.html#cb121-39" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">180</span>)</span>
-<span id="cb121-40"><a href="random-walks-in-the-minecraft-world.html#cb121-40" tabindex="-1"></a>      <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-41"><a href="random-walks-in-the-minecraft-world.html#cb121-41" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
-<span id="cb121-42"><a href="random-walks-in-the-minecraft-world.html#cb121-42" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># situation 1 or 2</span></span>
-<span id="cb121-43"><a href="random-walks-in-the-minecraft-world.html#cb121-43" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
-<span id="cb121-44"><a href="random-walks-in-the-minecraft-world.html#cb121-44" tabindex="-1"></a>      <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-45"><a href="random-walks-in-the-minecraft-world.html#cb121-45" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
-<span id="cb121-46"><a href="random-walks-in-the-minecraft-world.html#cb121-46" tabindex="-1"></a>      wall_in_front <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-47"><a href="random-walks-in-the-minecraft-world.html#cb121-47" tabindex="-1"></a>      <span class="cf">if</span> (wall_in_front[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb121-48"><a href="random-walks-in-the-minecraft-world.html#cb121-48" tabindex="-1"></a>        <span class="co"># situation 1</span></span>
-<span id="cb121-49"><a href="random-walks-in-the-minecraft-world.html#cb121-49" tabindex="-1"></a>        <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-50"><a href="random-walks-in-the-minecraft-world.html#cb121-50" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
-<span id="cb121-51"><a href="random-walks-in-the-minecraft-world.html#cb121-51" tabindex="-1"></a></span>
-<span id="cb121-52"><a href="random-walks-in-the-minecraft-world.html#cb121-52" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb121-53"><a href="random-walks-in-the-minecraft-world.html#cb121-53" tabindex="-1"></a>      <span class="co"># situation 2</span></span>
-<span id="cb121-54"><a href="random-walks-in-the-minecraft-world.html#cb121-54" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
-<span id="cb121-55"><a href="random-walks-in-the-minecraft-world.html#cb121-55" tabindex="-1"></a>        <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
-<span id="cb121-56"><a href="random-walks-in-the-minecraft-world.html#cb121-56" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
-<span id="cb121-57"><a href="random-walks-in-the-minecraft-world.html#cb121-57" tabindex="-1"></a>      }</span>
-<span id="cb121-58"><a href="random-walks-in-the-minecraft-world.html#cb121-58" tabindex="-1"></a>    }</span>
-<span id="cb121-59"><a href="random-walks-in-the-minecraft-world.html#cb121-59" tabindex="-1"></a>  }</span>
-<span id="cb121-60"><a href="random-walks-in-the-minecraft-world.html#cb121-60" tabindex="-1"></a></span>
-<span id="cb121-61"><a href="random-walks-in-the-minecraft-world.html#cb121-61" tabindex="-1"></a>  <span class="cf">if</span> (phase <span class="sc">==</span> <span class="dv">1</span>) { <span class="co"># while no wall</span></span>
-<span id="cb121-62"><a href="random-walks-in-the-minecraft-world.html#cb121-62" tabindex="-1"></a></span>
-<span id="cb121-63"><a href="random-walks-in-the-minecraft-world.html#cb121-63" tabindex="-1"></a>    <span class="co"># is there any wall in front</span></span>
-<span id="cb121-64"><a href="random-walks-in-the-minecraft-world.html#cb121-64" tabindex="-1"></a>    next_pos <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb121-65"><a href="random-walks-in-the-minecraft-world.html#cb121-65" tabindex="-1"></a>    check_pos <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="at">distance =</span> next_pos)</span>
-<span id="cb121-66"><a href="random-walks-in-the-minecraft-world.html#cb121-66" tabindex="-1"></a></span>
-<span id="cb121-67"><a href="random-walks-in-the-minecraft-world.html#cb121-67" tabindex="-1"></a>    <span class="cf">if</span> (check_pos[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb121-68"><a href="random-walks-in-the-minecraft-world.html#cb121-68" tabindex="-1"></a>      <span class="do">## no wall move forward</span></span>
-<span id="cb121-69"><a href="random-walks-in-the-minecraft-world.html#cb121-69" tabindex="-1"></a>      <span class="fu">moveForward</span>(<span class="at">player_id =</span> id, next_pos)</span>
-<span id="cb121-70"><a href="random-walks-in-the-minecraft-world.html#cb121-70" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb121-71"><a href="random-walks-in-the-minecraft-world.html#cb121-71" tabindex="-1"></a>      <span class="co"># start phase 2, move against wall</span></span>
-<span id="cb121-72"><a href="random-walks-in-the-minecraft-world.html#cb121-72" tabindex="-1"></a>      phase <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb121-73"><a href="random-walks-in-the-minecraft-world.html#cb121-73" tabindex="-1"></a>    }</span>
-<span id="cb121-74"><a href="random-walks-in-the-minecraft-world.html#cb121-74" tabindex="-1"></a>  }</span>
-<span id="cb121-75"><a href="random-walks-in-the-minecraft-world.html#cb121-75" tabindex="-1"></a></span>
-<span id="cb121-76"><a href="random-walks-in-the-minecraft-world.html#cb121-76" tabindex="-1"></a>  new_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(id)</span>
-<span id="cb121-77"><a href="random-walks-in-the-minecraft-world.html#cb121-77" tabindex="-1"></a>  moves[, i] <span class="ot">&lt;&lt;-</span> new_pos</span>
-<span id="cb121-78"><a href="random-walks-in-the-minecraft-world.html#cb121-78" tabindex="-1"></a></span>
-<span id="cb121-79"><a href="random-walks-in-the-minecraft-world.html#cb121-79" tabindex="-1"></a></span>
-<span id="cb121-80"><a href="random-walks-in-the-minecraft-world.html#cb121-80" tabindex="-1"></a>  <span class="fu">return</span>(phase)</span>
-<span id="cb121-81"><a href="random-walks-in-the-minecraft-world.html#cb121-81" tabindex="-1"></a></span>
-<span id="cb121-82"><a href="random-walks-in-the-minecraft-world.html#cb121-82" tabindex="-1"></a>}</span>
-<span id="cb121-83"><a href="random-walks-in-the-minecraft-world.html#cb121-83" tabindex="-1"></a></span>
-<span id="cb121-84"><a href="random-walks-in-the-minecraft-world.html#cb121-84" tabindex="-1"></a><span class="fu">initHeading</span>(me)</span>
-<span id="cb121-85"><a href="random-walks-in-the-minecraft-world.html#cb121-85" tabindex="-1"></a></span>
-<span id="cb121-86"><a href="random-walks-in-the-minecraft-world.html#cb121-86" tabindex="-1"></a>phase <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb121-87"><a href="random-walks-in-the-minecraft-world.html#cb121-87" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_moves) {</span>
-<span id="cb121-88"><a href="random-walks-in-the-minecraft-world.html#cb121-88" tabindex="-1"></a>  phase <span class="ot">&lt;-</span> <span class="fu">make_move</span>(me, phase)</span>
-<span id="cb121-89"><a href="random-walks-in-the-minecraft-world.html#cb121-89" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="random-walks-in-the-minecraft-world.html#cb122-1" tabindex="-1"></a>my_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(me)</span>
+<span id="cb122-2"><a href="random-walks-in-the-minecraft-world.html#cb122-2" tabindex="-1"></a>n_moves <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb122-3"><a href="random-walks-in-the-minecraft-world.html#cb122-3" tabindex="-1"></a>moves <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_moves, <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb122-4"><a href="random-walks-in-the-minecraft-world.html#cb122-4" tabindex="-1"></a></span>
+<span id="cb122-5"><a href="random-walks-in-the-minecraft-world.html#cb122-5" tabindex="-1"></a>move_right <span class="ot">&lt;-</span> <span class="cf">function</span>(me) {</span>
+<span id="cb122-6"><a href="random-walks-in-the-minecraft-world.html#cb122-6" tabindex="-1"></a></span>
+<span id="cb122-7"><a href="random-walks-in-the-minecraft-world.html#cb122-7" tabindex="-1"></a>  <span class="co"># move right</span></span>
+<span id="cb122-8"><a href="random-walks-in-the-minecraft-world.html#cb122-8" tabindex="-1"></a>  <span class="fu">turnLeft</span>(me, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>)</span>
+<span id="cb122-9"><a href="random-walks-in-the-minecraft-world.html#cb122-9" tabindex="-1"></a>  <span class="co"># look for wall</span></span>
+<span id="cb122-10"><a href="random-walks-in-the-minecraft-world.html#cb122-10" tabindex="-1"></a>  wall <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)[<span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span></span>
+<span id="cb122-11"><a href="random-walks-in-the-minecraft-world.html#cb122-11" tabindex="-1"></a></span>
+<span id="cb122-12"><a href="random-walks-in-the-minecraft-world.html#cb122-12" tabindex="-1"></a>  <span class="cf">if</span> (wall <span class="sc">==</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb122-13"><a href="random-walks-in-the-minecraft-world.html#cb122-13" tabindex="-1"></a></span>
+<span id="cb122-14"><a href="random-walks-in-the-minecraft-world.html#cb122-14" tabindex="-1"></a>    <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-15"><a href="random-walks-in-the-minecraft-world.html#cb122-15" tabindex="-1"></a>    <span class="fu">make_move</span>(me, <span class="at">phase =</span> <span class="dv">1</span>)</span>
+<span id="cb122-16"><a href="random-walks-in-the-minecraft-world.html#cb122-16" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb122-17"><a href="random-walks-in-the-minecraft-world.html#cb122-17" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb122-18"><a href="random-walks-in-the-minecraft-world.html#cb122-18" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>)</span>
+<span id="cb122-19"><a href="random-walks-in-the-minecraft-world.html#cb122-19" tabindex="-1"></a>    <span class="co"># turnLeft(me, angle = -90)</span></span>
+<span id="cb122-20"><a href="random-walks-in-the-minecraft-world.html#cb122-20" tabindex="-1"></a>    <span class="fu">move_right</span>(me)</span>
+<span id="cb122-21"><a href="random-walks-in-the-minecraft-world.html#cb122-21" tabindex="-1"></a>  }</span>
+<span id="cb122-22"><a href="random-walks-in-the-minecraft-world.html#cb122-22" tabindex="-1"></a></span>
+<span id="cb122-23"><a href="random-walks-in-the-minecraft-world.html#cb122-23" tabindex="-1"></a>}</span>
+<span id="cb122-24"><a href="random-walks-in-the-minecraft-world.html#cb122-24" tabindex="-1"></a></span>
+<span id="cb122-25"><a href="random-walks-in-the-minecraft-world.html#cb122-25" tabindex="-1"></a></span>
+<span id="cb122-26"><a href="random-walks-in-the-minecraft-world.html#cb122-26" tabindex="-1"></a>make_move <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> me, <span class="at">phase =</span> <span class="dv">1</span>) {</span>
+<span id="cb122-27"><a href="random-walks-in-the-minecraft-world.html#cb122-27" tabindex="-1"></a></span>
+<span id="cb122-28"><a href="random-walks-in-the-minecraft-world.html#cb122-28" tabindex="-1"></a>  <span class="cf">if</span> (phase <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb122-29"><a href="random-walks-in-the-minecraft-world.html#cb122-29" tabindex="-1"></a></span>
+<span id="cb122-30"><a href="random-walks-in-the-minecraft-world.html#cb122-30" tabindex="-1"></a>    <span class="co"># look for wall to the right</span></span>
+<span id="cb122-31"><a href="random-walks-in-the-minecraft-world.html#cb122-31" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
+<span id="cb122-32"><a href="random-walks-in-the-minecraft-world.html#cb122-32" tabindex="-1"></a>    check_pos <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-33"><a href="random-walks-in-the-minecraft-world.html#cb122-33" tabindex="-1"></a>    <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
+<span id="cb122-34"><a href="random-walks-in-the-minecraft-world.html#cb122-34" tabindex="-1"></a></span>
+<span id="cb122-35"><a href="random-walks-in-the-minecraft-world.html#cb122-35" tabindex="-1"></a>    <span class="cf">if</span> (check_pos[<span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb122-36"><a href="random-walks-in-the-minecraft-world.html#cb122-36" tabindex="-1"></a>      <span class="co"># situation 3</span></span>
+<span id="cb122-37"><a href="random-walks-in-the-minecraft-world.html#cb122-37" tabindex="-1"></a>      <span class="co"># wall to the right</span></span>
+<span id="cb122-38"><a href="random-walks-in-the-minecraft-world.html#cb122-38" tabindex="-1"></a>      <span class="co"># follow wall to the right</span></span>
+<span id="cb122-39"><a href="random-walks-in-the-minecraft-world.html#cb122-39" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">180</span>)</span>
+<span id="cb122-40"><a href="random-walks-in-the-minecraft-world.html#cb122-40" tabindex="-1"></a>      <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-41"><a href="random-walks-in-the-minecraft-world.html#cb122-41" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
+<span id="cb122-42"><a href="random-walks-in-the-minecraft-world.html#cb122-42" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># situation 1 or 2</span></span>
+<span id="cb122-43"><a href="random-walks-in-the-minecraft-world.html#cb122-43" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
+<span id="cb122-44"><a href="random-walks-in-the-minecraft-world.html#cb122-44" tabindex="-1"></a>      <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-45"><a href="random-walks-in-the-minecraft-world.html#cb122-45" tabindex="-1"></a>      <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
+<span id="cb122-46"><a href="random-walks-in-the-minecraft-world.html#cb122-46" tabindex="-1"></a>      wall_in_front <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-47"><a href="random-walks-in-the-minecraft-world.html#cb122-47" tabindex="-1"></a>      <span class="cf">if</span> (wall_in_front[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb122-48"><a href="random-walks-in-the-minecraft-world.html#cb122-48" tabindex="-1"></a>        <span class="co"># situation 1</span></span>
+<span id="cb122-49"><a href="random-walks-in-the-minecraft-world.html#cb122-49" tabindex="-1"></a>        <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-50"><a href="random-walks-in-the-minecraft-world.html#cb122-50" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
+<span id="cb122-51"><a href="random-walks-in-the-minecraft-world.html#cb122-51" tabindex="-1"></a></span>
+<span id="cb122-52"><a href="random-walks-in-the-minecraft-world.html#cb122-52" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb122-53"><a href="random-walks-in-the-minecraft-world.html#cb122-53" tabindex="-1"></a>      <span class="co"># situation 2</span></span>
+<span id="cb122-54"><a href="random-walks-in-the-minecraft-world.html#cb122-54" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="sc">-</span><span class="dv">90</span>)</span>
+<span id="cb122-55"><a href="random-walks-in-the-minecraft-world.html#cb122-55" tabindex="-1"></a>        <span class="fu">moveForward</span>(me, <span class="fl">0.5</span>)</span>
+<span id="cb122-56"><a href="random-walks-in-the-minecraft-world.html#cb122-56" tabindex="-1"></a>        <span class="fu">turnLeft</span>(me, <span class="dv">90</span>)</span>
+<span id="cb122-57"><a href="random-walks-in-the-minecraft-world.html#cb122-57" tabindex="-1"></a>      }</span>
+<span id="cb122-58"><a href="random-walks-in-the-minecraft-world.html#cb122-58" tabindex="-1"></a>    }</span>
+<span id="cb122-59"><a href="random-walks-in-the-minecraft-world.html#cb122-59" tabindex="-1"></a>  }</span>
+<span id="cb122-60"><a href="random-walks-in-the-minecraft-world.html#cb122-60" tabindex="-1"></a></span>
+<span id="cb122-61"><a href="random-walks-in-the-minecraft-world.html#cb122-61" tabindex="-1"></a>  <span class="cf">if</span> (phase <span class="sc">==</span> <span class="dv">1</span>) { <span class="co"># while no wall</span></span>
+<span id="cb122-62"><a href="random-walks-in-the-minecraft-world.html#cb122-62" tabindex="-1"></a></span>
+<span id="cb122-63"><a href="random-walks-in-the-minecraft-world.html#cb122-63" tabindex="-1"></a>    <span class="co"># is there any wall in front</span></span>
+<span id="cb122-64"><a href="random-walks-in-the-minecraft-world.html#cb122-64" tabindex="-1"></a>    next_pos <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb122-65"><a href="random-walks-in-the-minecraft-world.html#cb122-65" tabindex="-1"></a>    check_pos <span class="ot">&lt;-</span> <span class="fu">lookForward</span>(me, <span class="at">distance =</span> next_pos)</span>
+<span id="cb122-66"><a href="random-walks-in-the-minecraft-world.html#cb122-66" tabindex="-1"></a></span>
+<span id="cb122-67"><a href="random-walks-in-the-minecraft-world.html#cb122-67" tabindex="-1"></a>    <span class="cf">if</span> (check_pos[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb122-68"><a href="random-walks-in-the-minecraft-world.html#cb122-68" tabindex="-1"></a>      <span class="do">## no wall move forward</span></span>
+<span id="cb122-69"><a href="random-walks-in-the-minecraft-world.html#cb122-69" tabindex="-1"></a>      <span class="fu">moveForward</span>(<span class="at">player_id =</span> id, next_pos)</span>
+<span id="cb122-70"><a href="random-walks-in-the-minecraft-world.html#cb122-70" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb122-71"><a href="random-walks-in-the-minecraft-world.html#cb122-71" tabindex="-1"></a>      <span class="co"># start phase 2, move against wall</span></span>
+<span id="cb122-72"><a href="random-walks-in-the-minecraft-world.html#cb122-72" tabindex="-1"></a>      phase <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb122-73"><a href="random-walks-in-the-minecraft-world.html#cb122-73" tabindex="-1"></a>    }</span>
+<span id="cb122-74"><a href="random-walks-in-the-minecraft-world.html#cb122-74" tabindex="-1"></a>  }</span>
+<span id="cb122-75"><a href="random-walks-in-the-minecraft-world.html#cb122-75" tabindex="-1"></a></span>
+<span id="cb122-76"><a href="random-walks-in-the-minecraft-world.html#cb122-76" tabindex="-1"></a>  new_pos <span class="ot">&lt;-</span> <span class="fu">getPlayerPos</span>(id)</span>
+<span id="cb122-77"><a href="random-walks-in-the-minecraft-world.html#cb122-77" tabindex="-1"></a>  moves[, i] <span class="ot">&lt;&lt;-</span> new_pos</span>
+<span id="cb122-78"><a href="random-walks-in-the-minecraft-world.html#cb122-78" tabindex="-1"></a></span>
+<span id="cb122-79"><a href="random-walks-in-the-minecraft-world.html#cb122-79" tabindex="-1"></a></span>
+<span id="cb122-80"><a href="random-walks-in-the-minecraft-world.html#cb122-80" tabindex="-1"></a>  <span class="fu">return</span>(phase)</span>
+<span id="cb122-81"><a href="random-walks-in-the-minecraft-world.html#cb122-81" tabindex="-1"></a></span>
+<span id="cb122-82"><a href="random-walks-in-the-minecraft-world.html#cb122-82" tabindex="-1"></a>}</span>
+<span id="cb122-83"><a href="random-walks-in-the-minecraft-world.html#cb122-83" tabindex="-1"></a></span>
+<span id="cb122-84"><a href="random-walks-in-the-minecraft-world.html#cb122-84" tabindex="-1"></a><span class="fu">initHeading</span>(me)</span>
+<span id="cb122-85"><a href="random-walks-in-the-minecraft-world.html#cb122-85" tabindex="-1"></a></span>
+<span id="cb122-86"><a href="random-walks-in-the-minecraft-world.html#cb122-86" tabindex="-1"></a>phase <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb122-87"><a href="random-walks-in-the-minecraft-world.html#cb122-87" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_moves) {</span>
+<span id="cb122-88"><a href="random-walks-in-the-minecraft-world.html#cb122-88" tabindex="-1"></a>  phase <span class="ot">&lt;-</span> <span class="fu">make_move</span>(me, phase)</span>
+<span id="cb122-89"><a href="random-walks-in-the-minecraft-world.html#cb122-89" tabindex="-1"></a>}</span></code></pre></div>
 
 </div>
 </div>

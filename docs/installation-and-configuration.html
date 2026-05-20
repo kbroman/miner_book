@@ -371,17 +371,27 @@ maximum available memory.</p>
 maximum available memory.</p>
 <p>Start up the server again. This will take a while (because it’s building the world), but not as long as the initial compiling.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="installation-and-configuration.html#cb14-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar nogui</span></code></pre></div>
-<p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode. You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
+<p>Your Minecraft server should now be running. Open your Minecraft game on your desktop and connect to your server IP in multiplayer mode.
+(Choose “Direct Connection” and type the IP address of the computer
+that’s running the Minecraft server, which you can determine by
+<code>ifconfig -a</code> or <code>ip a</code>; for the latter you may need to run <code>sudo apt install iproute2</code>.
+If you’re playing Minecraft on the same computer where the server is
+running, you likely can just type “localhost” for the IP address.)
+You can make a player an operator by typing <code>op &lt;playername&gt;</code> into the server prompt. When you are finished playing type <code>stop</code> in the server prompt to stop the server.</p>
 </div>
 <div id="connect-with-miner" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Connect with miner<a href="installation-and-configuration.html#connect-with-miner" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can use the <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">RaspberryJuice plugin</a> to connect to your Minecraft Server via the <a href="https://github.com/kbroman/miner">miner</a> package. Download the plugin by visiting <a href="https://www.spigotmc.org/resources/raspberryjuice.22724/">its page</a> and clicking the “Download Now” button in the upper-right. Move this <code>.jar</code> file to the <code>plugins</code> directory.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="installation-and-configuration.html#cb15-1" tabindex="-1"></a><span class="fu">wget</span> https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.jar</span>
 <span id="cb15-2"><a href="installation-and-configuration.html#cb15-2" tabindex="-1"></a><span class="fu">mv</span> raspberryjuice-1.12.jar ~/minecraft/plugins</span></code></pre></div>
-<p>Connect to your server from R using <code>mc_connect("&lt;server-ip&gt;")</code>. Test your connection by retrieving your player’s location.</p>
+<p>Connect to your server from R using <code>mc_connect("&lt;server-ip&gt;")</code>.
+If you’re running R on the same computer where the Minecraft server is
+running, you can use “<code>localhost</code>” for the server IP, or just leave it
+off as this is the default, so try <code>mc_connect()</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="installation-and-configuration.html#cb16-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
-<span id="cb16-2"><a href="installation-and-configuration.html#cb16-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)</span>
-<span id="cb16-3"><a href="installation-and-configuration.html#cb16-3" tabindex="-1"></a><span class="fu">getPlayerIds</span>()</span></code></pre></div>
+<span id="cb16-2"><a href="installation-and-configuration.html#cb16-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;&lt;server-ip&gt;&quot;</span>)</span></code></pre></div>
+<p>Now test the connection by posting something to chat.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="installation-and-configuration.html#cb17-1" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&quot;Hello Minecraft!&quot;</span>)</span></code></pre></div>
 </div>
 <div id="configuration" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Configuration<a href="installation-and-configuration.html#configuration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -390,18 +400,18 @@ maximum available memory.</p>
 force-gamemode=true
 level-type=FLAT</code></pre>
 <p>If you want to run Minecraft in the background, then you can create a simple <code>start.sh</code> script:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="installation-and-configuration.html#cb18-1" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
-<span id="cb18-2"><a href="installation-and-configuration.html#cb18-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-Xms512M</span> <span class="at">-Xmx1G</span> <span class="at">-XX:+UseConcMarkSweepGC</span> <span class="at">-jar</span> spigot-26.1.2.jar</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="installation-and-configuration.html#cb19-1" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb19-2"><a href="installation-and-configuration.html#cb19-2" tabindex="-1"></a><span class="ex">java</span> <span class="at">-Xms512M</span> <span class="at">-Xmx1G</span> <span class="at">-XX:+UseConcMarkSweepGC</span> <span class="at">-jar</span> spigot-26.1.2.jar</span></code></pre></div>
 <p>Note that <code>-Xms</code> sets the initial memory usage and <code>-Xmx</code> sets the
 maximum available memory.</p>
 <p>Then make it an executable, and run it with <code>nohup</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="installation-and-configuration.html#cb19-1" tabindex="-1"></a><span class="fu">chmod</span> +x start.sh</span>
-<span id="cb19-2"><a href="installation-and-configuration.html#cb19-2" tabindex="-1"></a><span class="fu">nohup</span> ./start.sh</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="installation-and-configuration.html#cb20-1" tabindex="-1"></a><span class="fu">chmod</span> +x start.sh</span>
+<span id="cb20-2"><a href="installation-and-configuration.html#cb20-2" tabindex="-1"></a><span class="fu">nohup</span> ./start.sh</span></code></pre></div>
 <p>If you need to use a different port, use the <code>-p</code> option. (<a href="https://www.spigotmc.org/wiki/start-up-parameters/">See other options</a>.)</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="installation-and-configuration.html#cb20-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar <span class="at">-p25566</span> nogui</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="installation-and-configuration.html#cb21-1" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Xms1024M</span> <span class="at">-Xmx2048M</span> spigot-26.1.2.jar <span class="at">-p25566</span> nogui</span></code></pre></div>
 <p>If you’re having a hard time connecting, verify that your ports are open. The standard port for Minecraft is <code>25565</code>. The standard port for the <a href="https://github.com/kbroman/miner">miner</a> package is <code>4711</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="installation-and-configuration.html#cb21-1" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565</span>
-<span id="cb21-2"><a href="installation-and-configuration.html#cb21-2" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="installation-and-configuration.html#cb22-1" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 25565</span>
+<span id="cb22-2"><a href="installation-and-configuration.html#cb22-2" tabindex="-1"></a><span class="ex">telnet</span> <span class="op">&lt;</span>server-ip<span class="op">&gt;</span> 4711</span></code></pre></div>
 </div>
 </div>
 <div id="docker" class="section level2 hasAnchor" number="2.4">
@@ -429,31 +439,38 @@ instance will be lost in the next.</p>
 <li>Start the Minecraft server, [explain options we’re using for that]</li>
 </ul>
 <p>This Dockerfile is included in the <code>miner</code> package. To find it on your computer once you’ve installed the <code>miner</code> package, you can run:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="installation-and-configuration.html#cb22-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="installation-and-configuration.html#cb23-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span></code></pre></div>
 <p>This call will return the file pathname on your computer for any the file named “Dockerfile” that come with the <code>miner</code> package.</p>
 <p>If you’d like to take a look at the Dockerfile, from R you can run:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="installation-and-configuration.html#cb23-1" tabindex="-1"></a><span class="fu">edit</span>(<span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="installation-and-configuration.html#cb24-1" tabindex="-1"></a><span class="fu">edit</span>(<span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>))</span></code></pre></div>
 <p>This will open the “Dockerfile” file in the <code>miner</code> package in a text editor.</p>
 </div>
 <div id="building-a-docker-image" class="section level3 hasAnchor" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> Building a Docker image<a href="installation-and-configuration.html#building-a-docker-image" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Dockerfile is a very small plain text file and only gives the recipe for setting up the needed environment and starting a server. To get all the required pieces and be ready to run a container, you need to build a Docker image from this Dockerfile. Once you have installed Docker on your computer (which you can do from <a href="https://www.docker.com">the Docker website</a>), you open a command line (e.g., the Terminal application on MacOS, on Windows use the Docker Quickstart Terminal), move into the directory with the Dockerfile (using <code>cd</code> to change directory), and then build a Docker image based on this Dockerfile by running the following call from a command line:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="installation-and-configuration.html#cb24-1" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> minecraft .</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="installation-and-configuration.html#cb25-1" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> minecraft .</span></code></pre></div>
 <p>The <code>docker build</code> call is the basic call to build a Docker image from a Dockerfile. The option <code>-t minecraft</code> tells Docker to give the image the tag “minecraft”. By doing this, you can later refer to this image as “minecraft”. The <code>.</code> at the end of the call tells Docker to build this image based on the file called “Dockerfile” in the current working direction (<code>.</code>).</p>
 <p>Once you’ve built the image, you can check to see that it’s in the Docker images on your system by running the following call from a command line:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="installation-and-configuration.html#cb25-1" tabindex="-1"></a><span class="ex">docker</span> images</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="installation-and-configuration.html#cb26-1" tabindex="-1"></a><span class="ex">docker</span> images</span></code></pre></div>
 <p>You should see something like this:</p>
 <pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 minecraft           latest              2c9e2f2c16d3        3 days ago          1.03 GB
 java                latest              d23bdf5b1b1b        4 months ago        643 MB</code></pre>
 <p>This tells you which Docker images you have on your system, when they were created, how large they are, and the Image ID. If you’d ever like to remove a Docker image from your system, you can do that with the command line call <code>docker rmi</code> and the image ID. For example, if you ever wanted to remove the “minecraft” image listed above that you built with the call to <code>docker build</code>, you could run:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="installation-and-configuration.html#cb27-1" tabindex="-1"></a><span class="ex">docker</span> rmi 2c9e2f2c16d3</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="installation-and-configuration.html#cb28-1" tabindex="-1"></a><span class="ex">docker</span> rmi 2c9e2f2c16d3</span></code></pre></div>
 </div>
 <div id="running-a-docker-container-from-the-image" class="section level3 hasAnchor" number="2.4.4">
 <h3><span class="header-section-number">2.4.4</span> Running a Docker container from the image<a href="installation-and-configuration.html#running-a-docker-container-from-the-image" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you have built a Docker image, you can run a container from it. To do that for our Minecraft server, at the command line you should run:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="installation-and-configuration.html#cb28-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-ti</span> <span class="at">--rm</span> <span class="at">-p</span> 4711:4711 <span class="at">-p</span> 25565:25565 minecraft</span></code></pre></div>
-<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you’ll see messages about server starting up in your console. Now you can open your regular desktop Minecraft application, select ‘Multiplayer’, then ‘Direct Connect’, then enter the IP number for your Docker container. You can find your Docker container IP number by opening another terminal and running <code>docker-machine IP</code>. After the Minecraft server has started, the Docker terminal will have a prompt like this <code>&gt;</code> where you can enter commands to Minecraft. If you enter <code>op &lt;player&gt;</code> and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don’t run <code>op &lt;player&gt;</code> in the Docker terminal, you will get messages that you don’t have permission if you try to run commands in the desktop app.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="installation-and-configuration.html#cb29-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-ti</span> <span class="at">--rm</span> <span class="at">-p</span> 4711:4711 <span class="at">-p</span> 25565:25565 minecraft</span></code></pre></div>
+<p>The <code>docker run</code> call is the basic call to run a Docker container from a Docker image. The <code>minecraft</code> at the end tells Docker which image to run. The <code>--rm</code> option cleans up everything from this container after you’re done running it. The <code>-ti</code> argument runs the call in the interactive terminal mode. The arguments <code>-p 4711:4711 -p 25565:25565</code> allow the needed access to the ports for the game itself (port 25565) and the API (4711). After you press Enter you’ll see messages about server starting up in your console.</p>
+<p>Now you can open your regular desktop Minecraft application, select
+‘Multiplayer’, then ‘Direct Connection’, then enter the IP address
+the computer that is running the Docker container, which you can determine by
+<code>ifconfig -a</code> or <code>ip a</code>; for the latter you may need to run <code>sudo apt install iproute2</code>.
+If you’re playing Minecraft on the same computer where the server is
+running, you likely can just type “localhost” for the IP address.</p>
+<p>After the Minecraft server has started, the Docker terminal will have a prompt like this <code>&gt;</code> where you can enter commands to Minecraft. If you enter <code>op &lt;player_name&gt;</code> and press Enter in the Docker terminal, then you can grant yourself operator status, and you can run game commands such as changing the gamemode (e.g. survival/creative), time, weather, etc. in the Minecraft dekstop app, as usual. If you don’t run <code>op &lt;player_name&gt;</code> in the Docker terminal, you will get messages that you don’t have permission if you try to run commands in the desktop app.</p>
 </div>
 <div id="docker-on-mac-os-x" class="section level3 hasAnchor" number="2.4.5">
 <h3><span class="header-section-number">2.4.5</span> Docker on Mac OS X<a href="installation-and-configuration.html#docker-on-mac-os-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -485,11 +502,11 @@ cd ~/Rlibs/miner</code></pre>
 <pre><code>sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
 <p>To connect to the minecraft server from your minecraft game client, or
 with <code>miner::mc_connect()</code> within R, you need to have an IP address
-for the docker instance. [But I wasn’t able to get <code>docker-machine</code> to
-work. And I tried <code>docker ps</code> to get a list of containers, and <code>docker inspect &lt;containerID&gt; | grep IPAddress</code> but the IP address I found
-didn’t work either.] What ultimately worked for me was just to use
+for the computer running the docker instance.
+If you’re connecting to the minecraft server from the same computer,
+you can use
 <code>"localhost"</code> in place of an IP address. Within R, you can just leave
-off the IP, typing <code>miner::mc_connect()</code>, and <code>"localhost"</code> will be
+off the IP, typing <code>miner::mc_connect()</code>, as <code>"localhost"</code> will be
 the default.</p>
 </div>
 <div id="docker-on-windows" class="section level3 hasAnchor" number="2.4.6">
@@ -507,9 +524,9 @@ Bash.</p>
 <code>system.file()</code> to find it’s location, and <code>file.copy()</code> to copy it
 somewhere else. You can use <code>getwd()</code> to see where your R working
 directory is, which will contain the copy of the file.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="installation-and-configuration.html#cb32-1" tabindex="-1"></a>dockerfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span>
-<span id="cb32-2"><a href="installation-and-configuration.html#cb32-2" tabindex="-1"></a><span class="fu">file.copy</span>(dockerfile, <span class="st">&quot;.&quot;</span>)</span>
-<span id="cb32-3"><a href="installation-and-configuration.html#cb32-3" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="installation-and-configuration.html#cb33-1" tabindex="-1"></a>dockerfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span>
+<span id="cb33-2"><a href="installation-and-configuration.html#cb33-2" tabindex="-1"></a><span class="fu">file.copy</span>(dockerfile, <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb33-3"><a href="installation-and-configuration.html#cb33-3" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
 <p>Now open Git Bash and change into the directory that contains the
 Dockerfile. For us that was <code>~/OneDrive/Documents</code> where <code>~</code> stands
 for our base user directory.</p>
@@ -521,12 +538,15 @@ This will take 5-10 minutes.</p>
 <pre><code>docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
 <p>To connect to the minecraft server from your minecraft game client, or
 with <code>miner::mc_connect()</code> within R, you need to have an IP address
-for the docker instance. Locally, you may be able to use
+for the computer running the docker instance. Locally, you can use
 <code>"localhost"</code> in place of an IP address. Within R, you can then just leave
 off the IP, typing <code>miner::mc_connect()</code>, as <code>"localhost"</code> will be
 the default.</p>
 <p>To connect to the server from Minecraft, select “Multiplayer” and
 “Direct Connection” and type “localhost” for “Server Address”.</p>
+<p>To connect to the Minecraft server from a separate computer on the
+same local network, type <code>ipconfig</code> within Git Bash to determine the
+computer’s IP address.</p>
 </div>
 </div>
 <div id="raspberry-pi" class="section level2 hasAnchor" number="2.5">
@@ -573,9 +593,9 @@ the IP address for your Pi, or you have set a hostname, you should be
 able to connect to Minecraft from another computer on the same network
 and on which you are
 running R:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="installation-and-configuration.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
-<span id="cb36-2"><a href="installation-and-configuration.html#cb36-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)</span>
-<span id="cb36-3"><a href="installation-and-configuration.html#cb36-3" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="installation-and-configuration.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb37-2"><a href="installation-and-configuration.html#cb37-2" tabindex="-1"></a><span class="fu">mc_connect</span>(<span class="st">&quot;raspi.local&quot;</span>)</span>
+<span id="cb37-3"><a href="installation-and-configuration.html#cb37-3" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&quot;Hello, Minecraft!&quot;</span>)</span></code></pre></div>
 </div>
 <div id="installing-r-on-a-raspberry-pi" class="section level3 hasAnchor" number="2.5.3">
 <h3><span class="header-section-number">2.5.3</span> Installing R on a Raspberry Pi<a href="installation-and-configuration.html#installing-r-on-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -590,12 +610,12 @@ sudo apt install libget2-dev libcurl4-gnutls-dev libssl-dev libboost-atomic-dev<
 <p>Now install <a href="https://github.com/kbroman/miner">miner</a> and
 <a href="https://github.com/kbroman/craft">craft</a> from <a href="https://r-universe.dev">R
 universe</a>:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="installation-and-configuration.html#cb40-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;miner&quot;</span>, <span class="st">&quot;craft&quot;</span>), <span class="at">repos=</span><span class="fu">c</span>(<span class="st">&quot;https://kbroman.r-universe.dev&quot;</span>, <span class="st">&quot;https://cloud.r-project.org&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="installation-and-configuration.html#cb41-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;miner&quot;</span>, <span class="st">&quot;craft&quot;</span>), <span class="at">repos=</span><span class="fu">c</span>(<span class="st">&quot;https://kbroman.r-universe.dev&quot;</span>, <span class="st">&quot;https://cloud.r-project.org&quot;</span>))</span></code></pre></div>
 <p>Alternatively, use the <a href="https://remotes.r-lib.org">remotes</a> package:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="installation-and-configuration.html#cb41-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb41-2"><a href="installation-and-configuration.html#cb41-2" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
-<span id="cb41-3"><a href="installation-and-configuration.html#cb41-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
-<span id="cb41-4"><a href="installation-and-configuration.html#cb41-4" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="installation-and-configuration.html#cb42-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb42-2"><a href="installation-and-configuration.html#cb42-2" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb42-3"><a href="installation-and-configuration.html#cb42-3" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/miner&quot;</span>)</span>
+<span id="cb42-4"><a href="installation-and-configuration.html#cb42-4" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;kbroman/craft&quot;</span>)</span></code></pre></div>
 <p>This should automatically install a number of dependent
 packages, including <a href="https://github.com/Vessy/Rmaze">Rmaze</a>,
 <a href="https://r.igraph.org">igraph</a>, and
@@ -605,9 +625,9 @@ need to install <code>libx11-dev</code>. From the command line:</p>
 sudo apt install libx11-dev</code></pre>
 <p>Now fire up Minecraft Pi, load the miner package within R, and connect
 to minecraft. Test that it’s working by posting to the minecraft chat.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="installation-and-configuration.html#cb43-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
-<span id="cb43-2"><a href="installation-and-configuration.html#cb43-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span>
-<span id="cb43-3"><a href="installation-and-configuration.html#cb43-3" tabindex="-1"></a><span class="fu">chatPost</span>(“Hello, Minecraft<span class="sc">!</span>”)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="installation-and-configuration.html#cb44-1" tabindex="-1"></a><span class="fu">library</span>(miner)</span>
+<span id="cb44-2"><a href="installation-and-configuration.html#cb44-2" tabindex="-1"></a><span class="fu">mc_connect</span>()</span>
+<span id="cb44-3"><a href="installation-and-configuration.html#cb44-3" tabindex="-1"></a><span class="fu">chatPost</span>(“Hello, Minecraft<span class="sc">!</span>”)</span></code></pre></div>
 <div id="minecraft-server-on-a-raspberry-pi" class="section level4 hasAnchor" number="2.5.3.1">
 <h4><span class="header-section-number">2.5.3.1</span> Minecraft Server on a Raspberry Pi<a href="installation-and-configuration.html#minecraft-server-on-a-raspberry-pi" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Follow the instructions above, which come from
