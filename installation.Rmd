@@ -72,42 +72,47 @@ version that corresponds to the version of R that you installed.
 
 Install the [Java SE Development
 Kit](https://www.oracle.com/java/technologies/downloads/#jdk26-windows).
+And of course install [Minecraft JAva
+edition](https://www.minecraft.net/en-us/download). (You'll need to
+pay for a copy of Minecraft.)
 
 Also install [Git for Windows](https://git-scm.com/install/windows),
-which we want primarily for "git bash", which we will use for the rest
+which we want primarily for "Git Bash", which we will use for the rest
 of the installation. You will need to choose an editor, which could be
-`nano`, or you could install
-[Notepad++](https://notepad-plus-plus.org/downloads/).
+notepad, but if you're goihng to be doing more editing of software
+files, you might want to install
+[Notepad++](https://notepad-plus-plus.org/downloads/) or
+[Atom](https://atom-editor.cc/).
 
-Open git bash, and type the following, to make and enter a directory
+Open Git Bash, and let's first check that we have access to Java:
+
+```shell
+java -version
+javac -version
+```
+
+The both should show the same version. For us, we got java 26.0.1.
+
+Now type the following, to make and enter a directory
 that will contain your minecraft server:
 
-```
+```shell
 mkdir ~/minecraft
 cd ~/minecraft
 ```
 
 Use `curl` to download the code:
 
-```
+```shell
 curl -OL https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 ```
-
-You might check that java is installed correctly.
-
-```
-java -version
-javac -version
-```
-
-For us, they both showed 26.1.
 
 Now let's compile the minecraft code and do an initial start of the
 server.
 
-```
+```shell
 java -jar BuildTools.jar --rev 26.1.2
-java -jar -Xms1024M -Xmx4000M spigot-26.1.2.jar nogui
+java -jar -Xms1024M -Xmx4G spigot-26.1.2.jar nogui
 ```
 
 It will stop and ask you to accept the
@@ -115,7 +120,7 @@ It will stop and ask you to accept the
 which you can do by editing the file `eula.txt` to have the line
 `eula=true`, or you can do it at the command line:
 
-```
+```shell
 echo "eula=true" > eula.txt
 ```
 
@@ -124,18 +129,20 @@ In particular, you might change `gamemode` from survival to creative
 and change `force-gamemode` from false to true, so players entering
 the game are forced to be in the default creative gamemode.
 
-Now we download the raspberry juice plugin.
+Now we create a `plugins` directory, download the Raspberry Juice
+plugin, and move it into `plugins`.
 
 ```
-cd plugins
+mkdir plugins
 curl -OL https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.12.1.jar
+cp raspberryjuice-1.12.1.jar plugins/
 ```
 
 To start the server, run that last line of java again, or you can create a simple `start.sh` script:
 
 ```{bash}
 #!/bin/sh
-java -jar -Xms1024M -Xmx4000M spigot-26.1.2.jar nogui
+java -jar -Xms1024M -Xmx4G spigot-26.1.2.jar nogui
 ```
 
 Note that `-Xms` sets the initial memory usage and `-Xmx` sets the
@@ -393,9 +400,8 @@ Windows](https://docs.docker.com/desktop/setup/install/windows-install/).
 You will need to sign up for a free account in order to download
 Docker.
 
-The rest follows the Docker instructions, run using git bash. As with
-the Mac, you may need `sudo` with the docker commands, and you may
-need to enable `sudo` in the developer settings.
+The rest follows the Docker instructions, run at the prompt within Git
+Bash.
 
 First we need to find the `Dockerfile` that is distributed with the
 [miner](https://github.com/kbroman/miner) package. We can use
@@ -403,16 +409,23 @@ First we need to find the `Dockerfile` that is distributed with the
 somewhere else. You can use `getwd()` to see where your R working
 directory is, which will contain the copy of the file.
 
-```
+```r
 dockerfile <- system.file("Dockerfile", package = "miner")
 file.copy(dockerfile, ".")
 getwd()
 ```
 
-Now open git bash and build the docker container:
+Now open git bash and change into the directory that contains the
+Dockerfile.
 
 ```shell
-sudo docker build -t minecraft .
+cd ~/OneDrive/Documents
+```
+
+Build the docker container. (You'll need to have Docker Desktop running.)
+
+```shell
+docker build -t minecraft .
 ```
 
 Run the docker container:
@@ -423,17 +436,13 @@ sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 
 To connect to the minecraft server from your minecraft game client, or
 with `miner::mc_connect()` within R, you need to have an IP address
-for the docker instance. [But I wasn't able to get `docker-machine` to
-work. And I tried `docker ps` to get a list of containers, and `docker
-inspect <containerID> | grep IPAddress` but the IP address I found
-didn't work either.] What ultimately worked for me was just to use
-`"localhost"` in place of an IP address. Within R, you can just leave
-off the IP, typing `miner::mc_connect()`, and `"localhost"` will be
+for the docker instance. Locally, you may be able to use
+`"localhost"` in place of an IP address. Within R, you can then just leave
+off the IP, typing `miner::mc_connect()`, as `"localhost"` will be
 the default.
 
-
-
-
+To connect to the server from Minecraft, select "Multiplayer" and
+"Direct Connection" and type "localhost" for "Server Address".
 
 
 ## Raspberry Pi
