@@ -439,6 +439,7 @@ cd ~/OneDrive/Documents
 ```
 
 Build the docker container. (You'll need to have Docker Desktop running.)
+This will take 5-10 minutes.
 
 ```shell
 docker build -t minecraft .
@@ -447,7 +448,7 @@ docker build -t minecraft .
 Run the docker container:
 
 ```
-sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
+docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft
 ```
 
 To connect to the minecraft server from your minecraft game client, or

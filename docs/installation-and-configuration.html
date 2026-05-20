@@ -514,10 +514,11 @@ directory is, which will contain the copy of the file.</p>
 Dockerfile. For us that was <code>~/OneDrive/Documents</code> where <code>~</code> stands
 for our base user directory.</p>
 <pre class="shell"><code>cd ~/OneDrive/Documents</code></pre>
-<p>Build the docker container. (You’ll need to have Docker Desktop running.)</p>
+<p>Build the docker container. (You’ll need to have Docker Desktop running.)
+This will take 5-10 minutes.</p>
 <pre class="shell"><code>docker build -t minecraft .</code></pre>
 <p>Run the docker container:</p>
-<pre><code>sudo docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
+<pre><code>docker run -ti --rm -p 4711:4711 -p 25565:25565 minecraft</code></pre>
 <p>To connect to the minecraft server from your minecraft game client, or
 with <code>miner::mc_connect()</code> within R, you need to have an IP address
 for the docker instance. Locally, you may be able to use
