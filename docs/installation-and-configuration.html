@@ -510,8 +510,9 @@ directory is, which will contain the copy of the file.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="installation-and-configuration.html#cb32-1" tabindex="-1"></a>dockerfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;Dockerfile&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miner&quot;</span>)</span>
 <span id="cb32-2"><a href="installation-and-configuration.html#cb32-2" tabindex="-1"></a><span class="fu">file.copy</span>(dockerfile, <span class="st">&quot;.&quot;</span>)</span>
 <span id="cb32-3"><a href="installation-and-configuration.html#cb32-3" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
-<p>Now open git bash and change into the directory that contains the
-Dockerfile.</p>
+<p>Now open Git Bash and change into the directory that contains the
+Dockerfile. For us that was <code>~/OneDrive/Documents</code> where <code>~</code> stands
+for our base user directory.</p>
 <pre class="shell"><code>cd ~/OneDrive/Documents</code></pre>
 <p>Build the docker container. (You’ll need to have Docker Desktop running.)</p>
 <pre class="shell"><code>docker build -t minecraft .</code></pre>

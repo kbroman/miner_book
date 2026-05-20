@@ -415,8 +415,9 @@ file.copy(dockerfile, ".")
 getwd()
 ```
 
-Now open git bash and change into the directory that contains the
-Dockerfile.
+Now open Git Bash and change into the directory that contains the
+Dockerfile. For us that was `~/OneDrive/Documents` where `~` stands
+for our base user directory.
 
 ```shell
 cd ~/OneDrive/Documents
