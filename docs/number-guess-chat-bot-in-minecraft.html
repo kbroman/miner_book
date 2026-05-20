@@ -23,7 +23,7 @@
 <meta name="author" content="Brooke Anderson, Karl Broman, Gergely Daróczi, Mario Inchiosa, David Smith, and Ali Zaidi" />
 
 
-<meta name="date" content="2026-05-19" />
+<meta name="date" content="2026-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="planting-a-garden.html"/>
 <link rel="next" href="rendering-an-image-in-minecraft.html"/>
-<script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -277,42 +277,42 @@ div.csl-indent {
 <div id="init" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Init<a href="number-guess-chat-bot-in-minecraft.html#init" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s pick a random number between 1 and 100:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="number-guess-chat-bot-in-minecraft.html#cb73-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="number-guess-chat-bot-in-minecraft.html#cb74-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p>Then we connect to the Minecraft server and write a message in the chat window so that players get notified:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="number-guess-chat-bot-in-minecraft.html#cb74-1" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="number-guess-chat-bot-in-minecraft.html#cb75-1" tabindex="-1"></a><span class="fu">chatPost</span>(<span class="st">&#39;Hi, I thought a number between 1 and 100. Can you guess it? Type numbers in the chat window!&#39;</span>)</span></code></pre></div>
 </div>
 <div id="loop" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Loop<a href="number-guess-chat-bot-in-minecraft.html#loop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Then we can run an infinite loop to provide feedback to the user:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="number-guess-chat-bot-in-minecraft.html#cb75-1" tabindex="-1"></a><span class="cf">while</span> (<span class="cn">TRUE</span>) {</span>
-<span id="cb75-2"><a href="number-guess-chat-bot-in-minecraft.html#cb75-2" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="number-guess-chat-bot-in-minecraft.html#cb75-3" tabindex="-1"></a>    <span class="do">## poll for most recent chat messages</span></span>
-<span id="cb75-4"><a href="number-guess-chat-bot-in-minecraft.html#cb75-4" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">getChatPosts</span>()</span>
-<span id="cb75-5"><a href="number-guess-chat-bot-in-minecraft.html#cb75-5" tabindex="-1"></a></span>
-<span id="cb75-6"><a href="number-guess-chat-bot-in-minecraft.html#cb75-6" tabindex="-1"></a>    <span class="do">## do nothing if there are no messages since last poll</span></span>
-<span id="cb75-7"><a href="number-guess-chat-bot-in-minecraft.html#cb75-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(msg) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb75-8"><a href="number-guess-chat-bot-in-minecraft.html#cb75-8" tabindex="-1"></a></span>
-<span id="cb75-9"><a href="number-guess-chat-bot-in-minecraft.html#cb75-9" tabindex="-1"></a>        <span class="do">## iterate through all messages</span></span>
-<span id="cb75-10"><a href="number-guess-chat-bot-in-minecraft.html#cb75-10" tabindex="-1"></a>        <span class="cf">for</span> (msgi <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(msg))) {</span>
-<span id="cb75-11"><a href="number-guess-chat-bot-in-minecraft.html#cb75-11" tabindex="-1"></a></span>
-<span id="cb75-12"><a href="number-guess-chat-bot-in-minecraft.html#cb75-12" tabindex="-1"></a>            <span class="do">## check if the message is a number</span></span>
-<span id="cb75-13"><a href="number-guess-chat-bot-in-minecraft.html#cb75-13" tabindex="-1"></a>            numi <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">as.numeric</span>(<span class="fu">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))</span>
-<span id="cb75-14"><a href="number-guess-chat-bot-in-minecraft.html#cb75-14" tabindex="-1"></a>            <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(numi)) {</span>
-<span id="cb75-15"><a href="number-guess-chat-bot-in-minecraft.html#cb75-15" tabindex="-1"></a></span>
-<span id="cb75-16"><a href="number-guess-chat-bot-in-minecraft.html#cb75-16" tabindex="-1"></a>                <span class="do">## compare numbers</span></span>
-<span id="cb75-17"><a href="number-guess-chat-bot-in-minecraft.html#cb75-17" tabindex="-1"></a>                <span class="cf">if</span> (num <span class="sc">==</span> numi) {</span>
-<span id="cb75-18"><a href="number-guess-chat-bot-in-minecraft.html#cb75-18" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)</span>
-<span id="cb75-19"><a href="number-guess-chat-bot-in-minecraft.html#cb75-19" tabindex="-1"></a>                } <span class="cf">else</span> {</span>
-<span id="cb75-20"><a href="number-guess-chat-bot-in-minecraft.html#cb75-20" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,</span>
-<span id="cb75-21"><a href="number-guess-chat-bot-in-minecraft.html#cb75-21" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(numi <span class="sc">&gt;</span> num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),</span>
-<span id="cb75-22"><a href="number-guess-chat-bot-in-minecraft.html#cb75-22" tabindex="-1"></a>                                     numi))</span>
-<span id="cb75-23"><a href="number-guess-chat-bot-in-minecraft.html#cb75-23" tabindex="-1"></a>                }</span>
-<span id="cb75-24"><a href="number-guess-chat-bot-in-minecraft.html#cb75-24" tabindex="-1"></a></span>
-<span id="cb75-25"><a href="number-guess-chat-bot-in-minecraft.html#cb75-25" tabindex="-1"></a>            }</span>
-<span id="cb75-26"><a href="number-guess-chat-bot-in-minecraft.html#cb75-26" tabindex="-1"></a>        }</span>
-<span id="cb75-27"><a href="number-guess-chat-bot-in-minecraft.html#cb75-27" tabindex="-1"></a>    }</span>
-<span id="cb75-28"><a href="number-guess-chat-bot-in-minecraft.html#cb75-28" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="fl">0.2</span>)  <span class="co"># 0.2 sec delay to avoid locking</span></span>
-<span id="cb75-29"><a href="number-guess-chat-bot-in-minecraft.html#cb75-29" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="number-guess-chat-bot-in-minecraft.html#cb76-1" tabindex="-1"></a><span class="cf">while</span> (<span class="cn">TRUE</span>) {</span>
+<span id="cb76-2"><a href="number-guess-chat-bot-in-minecraft.html#cb76-2" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="number-guess-chat-bot-in-minecraft.html#cb76-3" tabindex="-1"></a>    <span class="do">## poll for most recent chat messages</span></span>
+<span id="cb76-4"><a href="number-guess-chat-bot-in-minecraft.html#cb76-4" tabindex="-1"></a>    msg <span class="ot">&lt;-</span> <span class="fu">getChatPosts</span>()</span>
+<span id="cb76-5"><a href="number-guess-chat-bot-in-minecraft.html#cb76-5" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="number-guess-chat-bot-in-minecraft.html#cb76-6" tabindex="-1"></a>    <span class="do">## do nothing if there are no messages since last poll</span></span>
+<span id="cb76-7"><a href="number-guess-chat-bot-in-minecraft.html#cb76-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(msg) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb76-8"><a href="number-guess-chat-bot-in-minecraft.html#cb76-8" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="number-guess-chat-bot-in-minecraft.html#cb76-9" tabindex="-1"></a>        <span class="do">## iterate through all messages</span></span>
+<span id="cb76-10"><a href="number-guess-chat-bot-in-minecraft.html#cb76-10" tabindex="-1"></a>        <span class="cf">for</span> (msgi <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(msg))) {</span>
+<span id="cb76-11"><a href="number-guess-chat-bot-in-minecraft.html#cb76-11" tabindex="-1"></a></span>
+<span id="cb76-12"><a href="number-guess-chat-bot-in-minecraft.html#cb76-12" tabindex="-1"></a>            <span class="do">## check if the message is a number</span></span>
+<span id="cb76-13"><a href="number-guess-chat-bot-in-minecraft.html#cb76-13" tabindex="-1"></a>            numi <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">as.numeric</span>(<span class="fu">as.character</span>(msg[msgi, <span class="st">&#39;message&#39;</span>])))</span>
+<span id="cb76-14"><a href="number-guess-chat-bot-in-minecraft.html#cb76-14" tabindex="-1"></a>            <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(numi)) {</span>
+<span id="cb76-15"><a href="number-guess-chat-bot-in-minecraft.html#cb76-15" tabindex="-1"></a></span>
+<span id="cb76-16"><a href="number-guess-chat-bot-in-minecraft.html#cb76-16" tabindex="-1"></a>                <span class="do">## compare numbers</span></span>
+<span id="cb76-17"><a href="number-guess-chat-bot-in-minecraft.html#cb76-17" tabindex="-1"></a>                <span class="cf">if</span> (num <span class="sc">==</span> numi) {</span>
+<span id="cb76-18"><a href="number-guess-chat-bot-in-minecraft.html#cb76-18" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="st">&#39;Wow, you won!!!&#39;</span>)</span>
+<span id="cb76-19"><a href="number-guess-chat-bot-in-minecraft.html#cb76-19" tabindex="-1"></a>                } <span class="cf">else</span> {</span>
+<span id="cb76-20"><a href="number-guess-chat-bot-in-minecraft.html#cb76-20" tabindex="-1"></a>                    <span class="fu">chatPost</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Nope, it&#39;s %s than %s&quot;</span>,</span>
+<span id="cb76-21"><a href="number-guess-chat-bot-in-minecraft.html#cb76-21" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(numi <span class="sc">&gt;</span> num, <span class="st">&#39;smaller&#39;</span>, <span class="st">&#39;greater&#39;</span>),</span>
+<span id="cb76-22"><a href="number-guess-chat-bot-in-minecraft.html#cb76-22" tabindex="-1"></a>                                     numi))</span>
+<span id="cb76-23"><a href="number-guess-chat-bot-in-minecraft.html#cb76-23" tabindex="-1"></a>                }</span>
+<span id="cb76-24"><a href="number-guess-chat-bot-in-minecraft.html#cb76-24" tabindex="-1"></a></span>
+<span id="cb76-25"><a href="number-guess-chat-bot-in-minecraft.html#cb76-25" tabindex="-1"></a>            }</span>
+<span id="cb76-26"><a href="number-guess-chat-bot-in-minecraft.html#cb76-26" tabindex="-1"></a>        }</span>
+<span id="cb76-27"><a href="number-guess-chat-bot-in-minecraft.html#cb76-27" tabindex="-1"></a>    }</span>
+<span id="cb76-28"><a href="number-guess-chat-bot-in-minecraft.html#cb76-28" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="fl">0.2</span>)  <span class="co"># 0.2 sec delay to avoid locking</span></span>
+<span id="cb76-29"><a href="number-guess-chat-bot-in-minecraft.html#cb76-29" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="lets-play" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> Let’s Play!<a href="number-guess-chat-bot-in-minecraft.html#lets-play" class="anchor-section" aria-label="Anchor link to header"></a></h2>
